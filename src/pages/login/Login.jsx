@@ -17,7 +17,7 @@ export default class Login extends Component {
     }
 
     componentDidMount = () =>{
-        axios.get("http://localhost:80/social_media/back_end/user.php/users/")
+        axios.get("http://localhost:80/frontend/back_end/user.php/users/")
         .then((respone)=>{
             this.setState({
                 users:respone.data
@@ -61,6 +61,7 @@ if(name==="email"){
                   console.log(true);
                   window.localStorage.setItem('email',this.state.email)
                   window.localStorage.setItem('id',ele.id)
+                  window.localStorage.setItem('image',ele.image)
 
                   window.location.assign('/')
                   // window.location.href="http://localhost:3000/home";
@@ -76,8 +77,8 @@ if(name==="email"){
         
     }
   render() {
+    // {localStorage.getItem('email') ? "" :  window.location.assign('/login')}
   return (
-
     <div className="login">
       <div className="loginWrapper">
         <div className="loginLeft">
