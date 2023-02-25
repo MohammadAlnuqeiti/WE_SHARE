@@ -2,6 +2,7 @@ import "./sidebar.css";
 import { MdRssFeed,MdHelpOutline } from 'react-icons/md';
 import {BsFillChatFill,BsPlayCircle,BsFillBookmarkFill,BsFillPersonFill} from 'react-icons/bs';
 import { BiGroup,BiCalendarEvent } from 'react-icons/bi';
+import { Link,NavLink } from "react-router-dom";
 import { IoMdSchool } from 'react-icons/io';
 import { Users } from "../../dummyData/dummyData";
 import CloseFriend from "../closeFriend/CloseFriend";
@@ -13,11 +14,15 @@ export default function Sidebar() {
         <ul className="sidebarList">
           <li className="sidebarListItem">
             <MdRssFeed className="sidebarIcon" />
-            <a href="/" className="sidebarListItemText">Feed</a>
+            <NavLink to="/" className="sidebarListItemText">Home</NavLink>
+          </li>
+          <li className="sidebarListItem">
+            <MdRssFeed className="sidebarIcon" />
+            <NavLink to="/profile" className="sidebarListItemText">Profile</NavLink>
           </li>
           <li className="sidebarListItem">
             <BiGroup className="sidebarIcon" />
-            <a href="/Group" className="sidebarListItemText">Groups</a>
+            <NavLink to="/Group" className="sidebarListItemText">Groups</NavLink>
           </li>
 
           <li className="sidebarListItem">
