@@ -2,6 +2,7 @@ import "./share.css";
 import { MdPermMedia,MdLabelImportantOutline,MdOutlineMeetingRoom,MdEmojiEmotions } from 'react-icons/md';
 export default function Share() {
   return (
+    <form>
     <div className="share">
       <div className="shareWrapper">
         <div className="shareTop">
@@ -15,10 +16,12 @@ export default function Share() {
         <div className="shareBottom">
             <div className="shareOptions">
                 <div className="shareOption">
-                    <MdPermMedia htmlColor="tomato" className="shareIcon"/>
-                    <span className="shareOptionText">Photo or Video</span>
-                </div>
-                <div className="shareOption">
+                    {/* <MdPermMedia htmlColor="tomato" className="shareIcon"/> */}
+                    <input
+            type="file"
+            className="shareInput"/>                
+            </div>
+                {/* <div className="shareOption">
                     <MdLabelImportantOutline htmlColor="blue" className="shareIcon"/>
                     <span className="shareOptionText">Tag</span>
                 </div>
@@ -29,11 +32,12 @@ export default function Share() {
                 <div className="shareOption">
                     <MdEmojiEmotions htmlColor="goldenrod" className="shareIcon"/>
                     <span className="shareOptionText">Feelings</span>
-                </div>
+                </div> */}
             </div>
-            <button className="shareButton">Share</button>
+            <button className="shareButton">Post</button>
         </div>
       </div>
     </div>
+    </form>
   );
 }

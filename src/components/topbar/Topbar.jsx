@@ -1,6 +1,8 @@
 import "./topbar.css";
 import { BsSearch,BsFillPersonFill,BsFillChatFill } from 'react-icons/bs';
 import { MdNotifications } from 'react-icons/md';
+import Dropdown from 'react-bootstrap/Dropdown';
+
 
 export default function Topbar() {
   return (
@@ -18,25 +20,40 @@ export default function Topbar() {
         </div>
       </div>
       <div className="topbarRight">
-        <div className="topbarLinks">
-          <span className="topbarLink">Homepage</span>
-          <span className="topbarLink">Timeline</span>
-        </div>
         <div className="topbarIcons">
           <div className="topbarIconItem">
-            <BsFillPersonFill />
-            <span className="topbarIconBadge">1</span>
+          <Dropdown>
+      <Dropdown.Toggle  id="dropdown-basic">
+      <BsFillPersonFill />
+            <span className="topbarIconBadge">2</span>
+      </Dropdown.Toggle>
+      <Dropdown.Menu>
+        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
           </div>
-          <div className="topbarIconItem">
+          {/* <div className="topbarIconItem">
             <BsFillChatFill />
             <span className="topbarIconBadge">2</span>
-          </div>
+          </div> */}
           <div className="topbarIconItem">
-            <MdNotifications />
-            <span className="topbarIconBadge">1</span>
+       
+            <Dropdown>
+      <Dropdown.Toggle  id="dropdown-basic">
+      <span className="topbarIconBadge1">1</span>
+      <MdNotifications />
+      </Dropdown.Toggle>
+      <Dropdown.Menu>
+        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
           </div>
         </div>
-        <img src="/assets/person/1.jpeg" alt="" className="topbarImg"/>
+        <img src="/assets/wateen.png" alt="" className="topbarImg"/>
       </div>
     </div>
   );

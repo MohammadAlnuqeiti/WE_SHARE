@@ -79,8 +79,22 @@
     border-radius: 50%;
     color: white;
     position: absolute;
-    top: -5px;
-    right: -5px;
+    top: 8px;
+    right: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+  }
+  .topbarIconBadge1 {
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    border-radius: 50%;
+    color: white;
+    position: absolute;
+    top: 8px;
+    right: 11px;
     display: flex;
     align-items: center;
     justify-content: center;
