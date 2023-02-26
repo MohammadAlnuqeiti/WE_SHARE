@@ -3,9 +3,12 @@ import { MdRssFeed,MdHelpOutline } from 'react-icons/md';
 import {BsFillChatFill,BsPlayCircle,BsFillBookmarkFill,BsFillPersonFill} from 'react-icons/bs';
 import { BiGroup,BiCalendarEvent } from 'react-icons/bi';
 import { Link,NavLink } from "react-router-dom";
+// import { BiGroup,BiCalendarEvent, BiFontSize } from 'react-icons/bi';
 import { IoMdSchool } from 'react-icons/io';
 import { Users } from "../../dummyData/dummyData";
 import CloseFriend from "../closeFriend/CloseFriend";
+// import { BsFillPlusCircleFill } from "react-icons/bs";
+// import Button from 'react-bootstrap/Button';
 
 export default function Sidebar() {
   return (
@@ -33,8 +36,11 @@ export default function Sidebar() {
         </ul>
        
         <hr className="sidebarHr" />
-        <ul className="sidebarFriendList">
-          <h5>My Groups</h5>
+        <ul className="sidebarFriendList" >
+          {/* <div style={{display:"flex"}}> */}
+          <h5 >Groups</h5>
+          {/* <Button  href="/Group" variant="success"> <BsFillPlusCircleFill size="1.2em" style={{marginLeft:"60%"}}/>Great Group</Button>
+          </div> */}
           {Users.map((u) => (
             <CloseFriend key={u.id} user={u} />
           ))}
