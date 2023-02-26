@@ -25,11 +25,18 @@
     margin: 0;
     list-style: none;
   }
+
+  .sidebarListItemText{
+    text-decoration: none;
+    color: black;
+    
+  }
   
   .sidebarListItem {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+    
   }
   
   .sidebarIcon {
@@ -53,4 +60,6 @@
     margin: 0;
     list-style: none;
   }
+
+
   

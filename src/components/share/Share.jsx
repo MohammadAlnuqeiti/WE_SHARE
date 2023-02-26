@@ -7,7 +7,7 @@ import axios from "axios";
 export default function Share() {
 
   const current_ID = JSON.parse(localStorage.getItem('id'));
-  const ImageUser = JSON.parse(localStorage.getItem('image'));
+  const ImageUser = localStorage.getItem('image');
 
   const [users,setUsers] = useState([]);
   const [inputs , setInputs] = useState("")
