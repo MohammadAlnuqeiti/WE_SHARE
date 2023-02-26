@@ -152,6 +152,7 @@ const checkPass=RegExp(/^^[A-Za-z]\w{8,31}$/);
         .then((respone)=>{
             console.log(respone.data);
             console.log(true);
+            window.location.assign('/login')
         })
 
 
