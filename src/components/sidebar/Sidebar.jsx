@@ -55,7 +55,7 @@ const getMyAcceptrdGroups = () => {
             <NavLink to="/" className="sidebarListItemText">Home</NavLink>
           </li>
           <li className="sidebarListItem">
-            <MdRssFeed className="sidebarIcon" />
+          <BsFillPersonFill className="sidebarIcon" />
             <NavLink to="/profile" className="sidebarListItemText">Profile</NavLink>
           </li>
           <li className="sidebarListItem">
@@ -67,10 +67,10 @@ const getMyAcceptrdGroups = () => {
             <NavLink to="/Allusers" className="sidebarListItemText">All Users</NavLink>
           </li>
 
-          <li className="sidebarListItem">
+          {/* <li className="sidebarListItem">
             <BsFillPersonFill className="sidebarIcon" />
             <span className="sidebarListItemText">Freinds</span>
-          </li>
+          </li> */}
 
         </ul>
        
