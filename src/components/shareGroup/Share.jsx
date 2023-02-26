@@ -4,7 +4,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 
-export default function Share() {
+export default function Share(props) {
+
+
+const group_id = props.group_id;
 
   const current_ID = JSON.parse(localStorage.getItem('id'));
   const ImageUser = localStorage.getItem('image');
@@ -40,13 +43,14 @@ const handleImagePost = async (e) => {
   formData.append("post", inputs);
   formData.append("user_id", current_ID);
   formData.append("file", file);
+  formData.append("group_id", group_id);
 
   try {
     const response = await axios.post(
-      "http://localhost:80/frontend/back_end/posts.php", formData
+      "http://localhost:80/frontend/back_end/postsGroup.php", formData
     );
     console.log(response.data);
-    window.location.assign('/');
+    // window.location.assign(`/groups/${group_id}/show`);
   } catch (error) {
     console.error(error);
   }
