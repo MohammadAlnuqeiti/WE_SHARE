@@ -1,6 +1,5 @@
 import "./post.css";
 import { MdOutlineMoreVert } from 'react-icons/md';
-import { Users } from "../../dummyData/dummyData";
 import axios from 'axios';
 import { useState , useEffect , useParams } from 'react'
 import { useNavigate } from "react-router-dom";
@@ -8,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { FaEdit } from "react-icons/fa";
 
 
-export default function Post({ post }) {
+export default function Post( props ) {
   // const [like,setLike] = useState(post.like)
   // const [isLiked,setIsLiked] = useState(false)
 
@@ -19,6 +18,8 @@ export default function Post({ post }) {
 
 
   const current_ID = JSON.parse(localStorage.getItem('id'));
+  const group_id = props.group_id;
+  const admin_group = props.admin_group;
   const current_Email = localStorage.getItem('email');
 
   const [inputs , setInputs] = useState("")
@@ -27,18 +28,22 @@ export default function Post({ post }) {
 
   const [file, setFile] = useState(null);
 
-
+ 
   useEffect(()=>{
     getPosts();
     getComments();
+    console.log(props.group_id);
+    console.log(props.admin_group);
+
   } , [])
  // Posts
 
 
 
  function getPosts(){
-  axios.get(`http://localhost:80/frontend/back_end/posts.php/`)
+  axios.get(`http://localhost:80/frontend/back_end/postsGroup.php/${group_id}`)
   .then(response => {
+    console.log(response.data);
       setPosts(response.data);
   })
 }
@@ -51,14 +56,15 @@ const formData = new FormData();
 formData.append("post", inputs);
 formData.append("user_id", current_ID);
 formData.append("file", file);
+formData.append("group_id", group_id);
 
 try {
   const response = await axios.post(
-    "http://localhost:80/frontend/back_end/posts.php", formData
+    "http://localhost:80/frontend/back_end/postsGroup.php", formData
   );
   console.log(response.data);
   getPosts();
-  // window.location.assign('/');
+
 } catch (error) {
   console.error(error);
 }
@@ -108,9 +114,10 @@ console.log(formEditData);
 
 try {
   const response = await axios.post(
-    "http://localhost:80/frontend/back_end/postEdit.php", formEditData
+    "http://localhost:80/frontend/back_end/postEditGroup.php", formEditData
   );
   console.log(response.data);
+  getPosts();
   // window.location.assign('/');
 } catch (error) {
   console.error(error);
@@ -126,8 +133,9 @@ try {
 
 
 const deletePost = (id) => {
-axios.delete(`http://localhost:80/frontend/back_end/posts.php/${id}`).then(function(response){
-  window.location.assign('/');
+axios.delete(`http://localhost:80/frontend/back_end/postsGroup.php/${id}`).then(function(response){
+  getPosts();
+  // window.location.assign('/');
 })
 }
 
@@ -145,7 +153,7 @@ const canclePostEdit = (id) => {
 
 
    function getComments(){
-    axios.get(`http://localhost:80/frontend/back_end/comments.php/`)
+    axios.get(`http://localhost:80/frontend/back_end/commentsGroup.php/`)
     .then(response => {
       console.log(response.data);
         setComments(response.data);
@@ -154,16 +162,17 @@ const canclePostEdit = (id) => {
 
   const handleCreateComment = (e) => {
       e.preventDefault();
-      axios.post('http://localhost:80/frontend/back_end/comments.php/' , inputs).then((res)=> {
+      axios.post('http://localhost:80/frontend/back_end/commentsGroup.php/' , inputs).then((res)=> {
         console.log(res);
-        window.location.assign('/')
+        getComments();
+
       }
       )
   }
 
   const deleteComment = (id) => {
     // console.log(id);
-    axios.delete(`http://localhost:80/frontend/back_end/comments.php/${id}`).then(function(response){
+    axios.delete(`http://localhost:80/frontend/back_end/commentsGroup.php/${id}`).then(function(response){
       console.log(response);
       getComments();
     })
@@ -183,8 +192,12 @@ const canclePostEdit = (id) => {
 
   const handleEditCommentSubmit = (e) => {
     e.preventDefault();
-    axios.put('http://localhost:80/frontend/back_end/comments.php/' , inputs).then(
-      window.location.assign('/')
+    axios.put('http://localhost:80/frontend/back_end/commentsGroup.php/' , inputs).then(()=>{
+
+      getComments();
+    }
+
+      // window.location.assign('/')
     )
   }
 
@@ -221,7 +234,7 @@ const canclePostEdit = (id) => {
             <span className="postDate">{post.created_at}</span>
           </div>
           <div className="postTopRight">
-          {(post.user_id === current_ID) ?
+          {(post.user_id === current_ID) || (admin_group===current_ID) ?
             <div>
               <button onClick={() => {deletePost(post.post_id)}}>Delete Your Post</button>
               <button id={`editPostBTN${post.post_id}`} onClick={() => {editPost(post.post_id)}}><FaEdit /></button>
@@ -302,7 +315,7 @@ const canclePostEdit = (id) => {
                             <img className="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width={40} height={40} />
                             <span>{comment.name}</span>
                           </div>
-                          {(comment.user_id === current_ID) ? 
+                          {(comment.user_id === current_ID) ||(admin_group===current_ID)? 
                           <div>
                               <button onClick={() => {deleteComment(comment.comment_id)}}>Remove comment</button>
                               <button id={`editCommentBTN${comment.comment_id}`} onClick={() => {editComment(comment.comment_id)}}><FaEdit /></button>
