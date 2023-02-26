@@ -57,16 +57,17 @@ export default function Post({ post }) {
     formData.append("user_id", current_ID);
     formData.append("file", file);
 
-    try {
-      const response = await axios.post(
-        "http://localhost:80/frontend/back_end/posts.php", formData
-      );
-      console.log(response.data);
-      window.location.assign('/');
-    } catch (error) {
-      console.error(error);
-    }
-  };
+try {
+  const response = await axios.post(
+    "http://localhost:80/frontend/back_end/posts.php", formData
+  );
+  console.log(response.data);
+  getPosts();
+  // window.location.assign('/');
+} catch (error) {
+  console.error(error);
+}
+};
 
   const handlePost = (e) => {
     const value = e.target.value;

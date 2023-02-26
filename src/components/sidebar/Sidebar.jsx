@@ -60,7 +60,11 @@ const getMyAcceptrdGroups = () => {
           </li>
           <li className="sidebarListItem">
             <BiGroup className="sidebarIcon" />
-            <NavLink to="/Group" className="sidebarListItemText">Groups</NavLink>
+            <NavLink to="/Allgroups" className="sidebarListItemText">All Groups</NavLink>
+          </li>
+          <li className="sidebarListItem">
+            <BiGroup className="sidebarIcon" />
+            <NavLink to="/Allusers" className="sidebarListItemText">All Users</NavLink>
           </li>
 
           {/* <li className="sidebarListItem">
@@ -74,7 +78,6 @@ const getMyAcceptrdGroups = () => {
         <ul className="sidebarFriendList" >
           <h5 >My Groups</h5>
           { groups.filter(function(ele) {
-                    // لحتى ما اطبع المستخد اللي عامل تسجيل دخول
                     if (ele.user_id === current_ID) {
                         return true; // skip
                     }
@@ -83,16 +86,15 @@ const getMyAcceptrdGroups = () => {
                     return (
                     <li className="sidebarFriend" key={index}>
                       <img className="sidebarFriendImg" src={require(`../image/${element.group_image}`)} alt="" />
-                      <Link to={`/groups/${element.group_id}/show`}>
+                      <a href={`/groups/${element.group_id}/show`}>
                           <span className="sidebarFriendName">{element.group_name}</span>
-                      </Link>
+                      </a>
                     </li>
            )})}
 
         <h5 >Groups</h5>
 
           { myAcceptrdGroups.filter(function(ele) {
-                    // لحتى ما اطبع المستخد اللي عامل تسجيل دخول
                     if (ele.user_id === current_ID) {
                         return true; // skip
                     }
@@ -101,9 +103,9 @@ const getMyAcceptrdGroups = () => {
                     return (
                     <li className="sidebarFriend" key={index}>
                       <img className="sidebarFriendImg" src={require(`../image/${element.group_image}`)} alt="" />
-                      <Link to={`/groups/${element.group_id}/show`}>
+                      <a href={`/groups/${element.group_id}/show`}>
                           <span className="sidebarFriendName">{element.group_name}</span>
-                      </Link>
+                      </a>
                     </li>
            )})}
         </ul>

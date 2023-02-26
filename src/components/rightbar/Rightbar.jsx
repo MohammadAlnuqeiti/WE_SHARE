@@ -1,9 +1,40 @@
 import "./rightbar.css";
 import { Users } from "../../dummyData/dummyData";
 import Online from "../online/Online";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
 
 export default function Rightbar({ profile }) {
+
+  const id = JSON.parse(localStorage.getItem('id'));
+    const [acceptrdFriends,setAcceptedFriends] = useState([]);
+    const [friends,setfriends] = useState([]);
+
+
+    useEffect(()=>{
+      getFriendsAccepted();
+  },[]);
+    //   عرض جميع طلبات الصداقة الذين تمت الموافقة عليهم
+
+    
+    const getFriendsAccepted = () => {
+
+      axios.get(`http://localhost:80/react_project/back_end/friends.php/${id}`)
+      .then((respone)=>{
+          console.log(respone.data);
+          let friends = respone.data.map((ele)=>{
+              return ele.friend_id
+          })
+          console.log(friends);
+          setfriends(friends);
+          setAcceptedFriends(respone.data)
+      })
+  }
+
   const HomeRightbar = () => {
+
     return (
       <>
         <div className="birthdayContainer">
@@ -13,11 +44,18 @@ export default function Rightbar({ profile }) {
           </span>
         </div>
         <img className="rightbarAd" src="assets/ad.png" alt="" />
-        <h4 className="rightbarTitle">Online Friends</h4>
+        <h4 className="rightbarTitle">Friends</h4>
         <ul className="rightbarFriendList">
-          {Users.map((u) => (
-            <Online key={u.id} user={u} />
-          ))}
+        {acceptrdFriends.map((ele,index)=>{
+            return(
+            <li className="rightbarFriend" key={index}>
+              <div className="rightbarProfileImgContainer">
+                <img className="rightbarProfileImg" src={require(`../image/${ele.image}`)} alt="" />
+                <span className="rightbarOnline"></span>
+              </div>
+              <span className="rightbarUsername">{ele.name}</span>
+            </li>
+            )})}
         </ul>
       </>
     );
