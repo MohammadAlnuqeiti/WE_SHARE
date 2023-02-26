@@ -3,7 +3,7 @@ import { MdRssFeed,MdHelpOutline } from 'react-icons/md';
 import {BsFillChatFill,BsPlayCircle,BsFillBookmarkFill,BsFillPersonFill} from 'react-icons/bs';
 import { BiGroup,BiCalendarEvent } from 'react-icons/bi';
 import { Link,NavLink } from "react-router-dom";
-import { BiGroup,BiCalendarEvent, BiFontSize } from 'react-icons/bi';
+// import { BiGroup,BiCalendarEvent, BiFontSize } from 'react-icons/bi';
 import { IoMdSchool } from 'react-icons/io';
 import { Users } from "../../dummyData/dummyData";
 import CloseFriend from "../closeFriend/CloseFriend";

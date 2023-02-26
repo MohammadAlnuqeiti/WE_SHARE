@@ -16,7 +16,7 @@ getgroups();
     },[])
     const getgroups =()=>{
         
-        axios.get("http://localhost:80/frontend/backend/group.php")
+        axios.get("http://localhost/frontend/back_end/groups.php")
       
         .then((res)=>{
             console.log(res.data)
@@ -39,7 +39,7 @@ getgroups();
           Some quick example text to build on the card title and make up the
           bulk of the card's content.
         </Card.Text>
-        <Button variant="primary">ADD Group</Button>
+        <Button variant="success">ADD Group</Button>
       </Card.Body>
     </Card>
       ))}
