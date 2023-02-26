@@ -46,7 +46,7 @@ const checkPass=RegExp(/^^[A-Za-z]\w{8,31}$/);
     
     }
     componentDidMount = () =>{
-      axios.get("http://localhost:80/social_media/back_end/user.php/users/")
+      axios.get("http://localhost:80/frontend/back_end/user.php/users/")
       .then((respone)=>{
         let email = respone.data.map((ele) => {
               return ele.email
@@ -148,7 +148,7 @@ const checkPass=RegExp(/^^[A-Za-z]\w{8,31}$/);
         // this.users.push(newUser);
         let inputs = {name:this.state.name,email:this.state.email,phone:this.state.phone,password:this.state.password}
         console.log(inputs);
-        axios.post("http://localhost:80/social_media/back_end/user.php/save",inputs)
+        axios.post("http://localhost:80/frontend/back_end/user.php/save",inputs)
         .then((respone)=>{
             console.log(respone.data);
             console.log(true);
