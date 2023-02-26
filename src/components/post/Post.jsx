@@ -30,8 +30,8 @@ export default function Post({ post }) {
 
   useEffect(()=>{
     getPosts();
-    // getComments();
-} , [])
+    getComments();
+  } , [])
  // Posts
 
 
@@ -138,14 +138,74 @@ const canclePostEdit = (id) => {
   document.getElementById(`imgPost${id}`).style.display = 'block';
 }
 
+   // Comments
 
+
+
+
+   function getComments(){
+    axios.get(`http://localhost:80/frontend/back_end/comments.php/`)
+    .then(response => {
+      console.log(response.data);
+        setComments(response.data);
+    })
+}
+
+  const handleCreateComment = (e) => {
+      e.preventDefault();
+      axios.post('http://localhost:80/frontend/back_end/comments.php/' , inputs).then((res)=> {
+        console.log(res);
+        window.location.assign('/')
+      }
+      )
+  }
+
+  const deleteComment = (id) => {
+    // console.log(id);
+    axios.delete(`http://localhost:80/frontend/back_end/comments.php/${id}`).then(function(response){
+      console.log(response);
+      getComments();
+    })
+  }
+
+  const editComment = (id) => {
+    document.getElementById(`comment${id}`).style.display = 'none';
+    document.getElementById(`editCommentForm${id}`).style.display = 'block';
+    document.getElementById(`editCommentBTN${id}`).style.display = 'none';
+  }
+
+  const handleEditComment = (id) => {
+    const comment_id = id;
+    const value = document.getElementById(`editCommentInput${id}`).value;
+    setInputs({'comment_content': value , 'comment_id' : comment_id})
+  }
+
+  const handleEditCommentSubmit = (e) => {
+    e.preventDefault();
+    axios.put('http://localhost:80/frontend/back_end/comments.php/' , inputs).then(
+      window.location.assign('/')
+    )
+  }
+
+  const foucsOnComment = (id) => {
+    document.getElementById(id).focus();
+  }
+
+  
+  const cancleCommentEdit = (id) => {
+    document.getElementById(`comment${id}`).style.display = 'block';
+    document.getElementById(`editCommentForm${id}`).style.display = 'none';
+    document.getElementById(`editCommentBTN${id}`).style.display = 'inline-block';
+    
+  }
 
   return (
 
     <>
     { posts.map((post,index) => {
       return (
-    <div className="post" key={index}>
+        <div key={index}>
+    <div className="post" >
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
@@ -166,7 +226,7 @@ const canclePostEdit = (id) => {
               <button id={`editPostBTN${post.post_id}`} onClick={() => {editPost(post.post_id)}}><FaEdit /></button>
             </div>
             : null }
-+          </div>
+          </div>
         </div>
         {(post.post_image !== 'a') ? 
         <div className="postCenter">
@@ -229,7 +289,66 @@ const canclePostEdit = (id) => {
         </div>
       </div>
     </div>
-    )})}
+ 
+      <div className="card-footer py-3 border-0" style={{backgroundColor: '#f8f9fa'}}>
+                  <div className="w-100">
+                  { comments.map((comment,index) => {
+                    if (comment.post_id === post.post_id){
+                    return (
+                    <div key={index}>
+                        <div style={{display : 'flex' , justifyContent : 'space-between'}}>
+                          <div>
+                            <img className="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width={40} height={40} />
+                            <span>{comment.name}</span>
+                          </div>
+                          {(comment.user_id === current_ID) ? 
+                          <div>
+                              <button onClick={() => {deleteComment(comment.comment_id)}}>Remove comment</button>
+                              <button id={`editCommentBTN${comment.comment_id}`} onClick={() => {editComment(comment.comment_id)}}><FaEdit /></button>
+                          </div> : (post.user_id === current_ID) ?
+                          <div>
+                              <button onClick={() => {deleteComment(comment.comment_id)}}>Remove comment</button>
+                          </div>
+                          : null }
+                        </div>
+                        <br />
+                        <div className="form-outline w-100">
+
+
+
+
+
+                            <p id={`comment${comment.comment_id}`}>{comment.comment_content}</p>
+                            <form id={`editCommentForm${comment.comment_id}`} action="" style={{display : 'none'}} onSubmit={handleEditCommentSubmit}>
+                              <input type="text" defaultValue={comment.comment_content} id={`editCommentInput${comment.comment_id}`} onChange={() => handleEditComment(comment.comment_id)}/>
+                              <button type='submit'>Update</button>
+                              <button style={{background : 'red' , color : 'white'}} onClick={()=>{cancleCommentEdit(comment.comment_id)}}  type='button'>Cancle</button>
+                            </form>
+
+
+
+
+
+
+                            <p>{comment.comment_created_at}</p>
+                        </div>
+                        <hr />
+                    </div>
+                    )}})}
+                  </div>
+                  <div className="card-footer py-3 border-0" style={{backgroundColor: '#f8f9fa'}}>
+                      <div className="d-flex flex-start w-100">
+                        <img className="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width={40} height={40} />
+                        <form className="form-outline w-100" onSubmit={handleCreateComment}>
+                          <textarea className="form-control" id={post.post_id} name={current_ID} rows={4} style={{background: '#fff'}} onChange={handleChange}/>
+                          <button type="submit" className="btn btn-primary btn-sm">Post comment</button>
+                        </form>
+                      </div>
+                  </div>
+                  
+                </div>
+                  </div>
+                  )})}
     </>
   )
 }
