@@ -23,6 +23,7 @@ function App() {
           <Route path='/groups/:id/show' element={<Group/>}></Route>
           <Route path='/Allgroups' element={<Allgroups/>}></Route>
       </Routes>
+     
     </>
   ) 
 }
