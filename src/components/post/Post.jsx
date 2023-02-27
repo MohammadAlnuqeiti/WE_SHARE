@@ -259,21 +259,21 @@ export default function Post({ post }) {
                   <div className="postCenter">
                     <span className="postText" id={`post${post.post_id}`}>{post.content}</span>
                     <form id={`editPostForm${post.post_id}`} action="" style={{ display: 'none' }} onSubmit={handleEditPostSubmit}>
-                      <textarea
-                        style={{ width: '50vw' }}
+                      <textarea className="form-control" style={{width:'28rem'}}
+                       
                         type="text"
                         defaultValue={post.content}
                         id={`editPostInput${post.post_id}`} onChange={() => handleEditPost(post.post_id)} />
 
-                      <br />
-
+                      <br/>
+                       
                       <input
                         type="file"
                         id="file"
                         onChange={(e) => setFile(e.target.files[0])} />
 
-                      <button type='submit'>Update</button>
-                      <button style={{ background: 'red', color: 'white' }} onClick={() => { canclePostEdit(post.post_id) }} type='button'>Cancle</button>
+                      <Button  variant="success" type='submit' size="sm">Confirm</Button>
+                      <Button style={{ background: 'red', color: 'white',marginLeft:'1%' }} size="sm" onClick={() => { canclePostEdit(post.post_id) }} type='button'>Cancle</Button>
                     </form>
                     <img className="postImg" src={require(`../image/${post.post_image}`)} alt="" id={`imgPost${post.post_id}`} />
                   </div>
@@ -283,7 +283,7 @@ export default function Post({ post }) {
                     <span className="postText" id={`post${post.post_id}`}>{post.content}</span>
                     <form id={`editPostForm${post.post_id}`} action="" style={{ display: 'none' }} onSubmit={handleEditPostSubmit}>
 
-                      <textarea
+                      <textarea 
                         style={{ width: '50vw' }}
                         type="text"
                         defaultValue={post.content}
@@ -312,12 +312,12 @@ export default function Post({ post }) {
 
                   </div>
                   <div className="postBottomRight">
-                    <a className="postCommentText" onClick={() => setShowUpdateForm(true)}>{post.comment} comments</a>
+                    <a className="postCommentText" onClick={() => setShowUpdateForm(true)}>comments</a>
                   </div>
                 </div>
               </div>
             </div>
-            {showUpdateForm && <form onSubmit={handleCreateComment}>
+          
               <div className="card-footer py-3 border-0 shadow-2-strong" style={{ backgroundColor: '#f8f9fa' }}>
                 <div className="w-100">
                   {comments.map((comment, index) => {
@@ -329,15 +329,20 @@ export default function Post({ post }) {
                               <img className="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width={40} height={40} />
                               <span>{comment.name}</span>
                             </div>
-                            {(comment.user_id === current_ID) ?
+                            {(comment.user_id === current_ID) 
+                            ?
                               <div>
                                 <a style={{ marginLeft: "-15%", color: 'red', cursor: 'pointer' }} onClick={() => { deleteComment(comment.comment_id) }}><MdDeleteForever /></a>
                                 <a style={{ color: 'green', cursor: 'pointer' }} id={`editCommentBTN${comment.comment_id}`} onClick={() => { editComment(comment.comment_id) }}><BiEdit /></a>
-                              </div> : (post.user_id === current_ID) ?
+                              </div> 
+                              : 
+                              (post.user_id === current_ID) ?
                                 <div>
                                   <button onClick={() => { deleteComment(comment.comment_id) }}>Remove comment</button>
                                 </div>
-                                : null}
+                                : 
+                                null
+                                }
                           </div>
                           <br />
                           <div className="form-outline w-100" style={{ marginLeft: "2%" }}>
@@ -375,7 +380,7 @@ export default function Post({ post }) {
                 </div>
 
               </div>
-            </form>}
+          
           </div>
         )
       }
