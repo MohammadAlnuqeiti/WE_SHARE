@@ -14,6 +14,7 @@ import { Link, useNavigate } from "react-router-dom";
 export default function Topbar() {
 
   const id = JSON.parse(localStorage.getItem('id'));
+  const ImageUser = localStorage.getItem('image');
 
   const [requestFriends,setRequestFriends] = useState([]);  
   const [requestFriend,setrequestFriend] = useState([]);
@@ -113,7 +114,7 @@ export default function Topbar() {
     </Dropdown>
           </div>
         </div>
-        <img src="/assets/wateen.png" alt="" className="topbarImg"/>
+        <img src={require(`../image/${ImageUser}`)} alt="" className="topbarImg"/>
       </div>
     </div>
   );
