@@ -74,9 +74,10 @@ const handlePost = (e) => {
                 <div className="shareOption">
                     {/* <MdPermMedia htmlColor="tomato" className="shareIcon"/> */}
                     <input
-            type="file"
+            type="file" 
             className="shareInput" id="file"
-            onChange={(e) => setFile(e.target.files[0])}/>                
+            onChange={(e) => setFile(e.target.files[0])}/> 
+                           
             </div>
                 {/* <div className="shareOption">
                     <MdLabelImportantOutline htmlColor="blue" className="shareIcon"/>

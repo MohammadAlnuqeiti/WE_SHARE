@@ -75,9 +75,13 @@
       cursor: pointer;
       border-bottom: 1px dashed gray;
       font-size: 15px;
+      text-decoration: none;
+      color: black;
   }
 
   .postBottun{
     display: flex;
  
   }
+
+ 

@@ -7,9 +7,13 @@ import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { FaEdit } from "react-icons/fa";
 import { BiEdit } from "react-icons/bi";
+import { CgBorderStyleDotted } from "react-icons/cg";
 import { MdDeleteForever } from "react-icons/md";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import Dropdown from 'react-bootstrap/Dropdown';
+
+
 
 
 
@@ -31,6 +35,7 @@ export default function Post({ post }) {
   const [comments, setComments] = useState([]);
 
   const [file, setFile] = useState(null);
+  const [showUpdateForm, setShowUpdateForm] = useState(false);
 
 
   useEffect(() => {
@@ -57,17 +62,18 @@ export default function Post({ post }) {
     formData.append("user_id", current_ID);
     formData.append("file", file);
 
-try {
-  const response = await axios.post(
-    "http://localhost:80/frontend/back_end/posts.php", formData
-  );
-  console.log(response.data);
-  getPosts();
-  // window.location.assign('/');
-} catch (error) {
-  console.error(error);
-}
-};
+    try {
+      const response = await axios.post(
+        "http://localhost:80/frontend/back_end/posts.php", formData
+      );
+      console.log(response.data);
+    
+      getPosts();
+      // window.location.assign('/');
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handlePost = (e) => {
     const value = e.target.value;
@@ -159,8 +165,10 @@ try {
 
   const handleCreateComment = (e) => {
     e.preventDefault();
+    
     axios.post('http://localhost:80/frontend/back_end/comments.php/', inputs).then((res) => {
       console.log(res);
+      setShowUpdateForm(false);
       window.location.assign('/')
     }
     )
@@ -228,12 +236,21 @@ try {
                   <div className="postTopRight">
                     {(post.user_id === current_ID) ?
                       <div className="postBottun">
-                        <div >
-                        <Button size="sm" variant="danger" onClick={() => { deletePost(post.post_id) }}><MdDeleteForever /></Button>
-                        </div>
-                        <div style={{marginLeft:"3%"}}>
-                        <Button size="sm" variant="success" id={`editPostBTN${post.post_id}`} onClick={() => { editPost(post.post_id) }}><BiEdit /></Button>
-                     </div>
+                        <Dropdown>
+                          <Dropdown.Toggle variant="text-dark" id="dropdown-basic" bsPrefix >
+                            <CgBorderStyleDotted />
+                          </Dropdown.Toggle >
+
+                          <Dropdown.Menu>
+                            <div >
+                              <Dropdown.Item variant="success" id={`editPostBTN${post.post_id}`} onClick={() => { editPost(post.post_id) }}><BiEdit />Edite</Dropdown.Item>
+                            </div>
+                            
+                            <div >
+                              <Dropdown.Item  variant="danger" onClick={() => { deletePost(post.post_id) }}><MdDeleteForever />Delete</Dropdown.Item>
+                            </div>
+                          </Dropdown.Menu>
+                        </Dropdown>
                       </div>
                       : null}
                   </div>
@@ -267,7 +284,7 @@ try {
                     <form id={`editPostForm${post.post_id}`} action="" style={{ display: 'none' }} onSubmit={handleEditPostSubmit}>
 
                       <textarea
-                        style={{ width: '50vw'}}
+                        style={{ width: '50vw' }}
                         type="text"
                         defaultValue={post.content}
                         id={`editPostInput${post.post_id}`}
@@ -295,72 +312,76 @@ try {
 
                   </div>
                   <div className="postBottomRight">
-                    <span className="postCommentText">{post.comment} comments</span>
+                    <a className="postCommentText" onClick={() => setShowUpdateForm(true)}>{post.comment} comments</a>
                   </div>
                 </div>
               </div>
             </div>
-
-            <div className="card-footer py-3 border-0 shadow-2-strong" style={{ backgroundColor: '#f8f9fa' }}>
-              <div className="w-100">
-                {comments.map((comment, index) => {
-                  if (comment.post_id === post.post_id) {
-                    return (
-                      <div key={index}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                          <div>
-                            <img className="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width={40} height={40} />
-                            <span>{comment.name}</span>
-                          </div>
-                          {(comment.user_id === current_ID) ?
+            {showUpdateForm && <form onSubmit={handleCreateComment}>
+              <div className="card-footer py-3 border-0 shadow-2-strong" style={{ backgroundColor: '#f8f9fa' }}>
+                <div className="w-100">
+                  {comments.map((comment, index) => {
+                    if (comment.post_id === post.post_id) {
+                      return (
+                        <div key={index}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                             <div>
-                              <Button  variant="danger" style={{marginLeft:"-15%"}} size="sm"  onClick={() => { deleteComment(comment.comment_id) }}><MdDeleteForever /></Button>
-                              <Button variant="success" size="sm"  id={`editCommentBTN${comment.comment_id}`} onClick={() => { editComment(comment.comment_id) }}><BiEdit /></Button>
-                            </div> : (post.user_id === current_ID) ?
+                              <img className="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width={40} height={40} />
+                              <span>{comment.name}</span>
+                            </div>
+                            {(comment.user_id === current_ID) ?
                               <div>
-                                <button onClick={() => { deleteComment(comment.comment_id) }}>Remove comment</button>
+                                <a style={{ marginLeft: "-15%", color: 'red', cursor: 'pointer' }} onClick={() => { deleteComment(comment.comment_id) }}><MdDeleteForever /></a>
+                                <a style={{ color: 'green', cursor: 'pointer' }} id={`editCommentBTN${comment.comment_id}`} onClick={() => { editComment(comment.comment_id) }}><BiEdit /></a>
+                              </div> : (post.user_id === current_ID) ?
+                                <div>
+                                  <button onClick={() => { deleteComment(comment.comment_id) }}>Remove comment</button>
+                                </div>
+                                : null}
+                          </div>
+                          <br />
+                          <div className="form-outline w-100" style={{ marginLeft: "2%" }}>
+                            <Card style={{ border: 'none', width: '90%' }}>
+                              <p style={{ paddingLeft: "2%", paddingTop: "2%" }} id={`comment${comment.comment_id}`}>{comment.comment_content}</p>
+                            </Card>
+                            <form id={`editCommentForm${comment.comment_id}`} action="" style={{ display: 'none' }} onSubmit={handleEditCommentSubmit}>
+                              <textarea style={{ width: '90%' }} className="form-control" type="text" defaultValue={comment.comment_content} id={`editCommentInput${comment.comment_id}`} onChange={() => handleEditComment(comment.comment_id)} />
+                              <div style={{ marginLeft: "2%", marginTop: "2%", display: "flex" }}>
+                                <div>
+                                  <Button variant="success" type='submit'>Confirm</Button>
+                                </div>
+                                <div style={{ marginLeft: "1%" }}>
+                                  <Button variant="danger" style={{ color: 'white' }} onClick={() => { cancleCommentEdit(comment.comment_id) }} type='button'>Cancle</Button>
+                                </div>
                               </div>
-                              : null}
-                        </div>
-                        <br />
-                        <div className="form-outline w-100" style={{marginLeft:"2%"}}>
-                        <Card style={{border:'none' ,width:'90%'}}>
-                          <p  style={{paddingLeft:"2%",paddingTop:"2%"}} id={`comment${comment.comment_id}`}>{comment.comment_content}</p>
-                          </Card>
-                          <form id={`editCommentForm${comment.comment_id}`} action="" style={{ display: 'none' }} onSubmit={handleEditCommentSubmit}>
-                            <textarea style={{width:'90%'}} className="form-control" type="text" defaultValue={comment.comment_content} id={`editCommentInput${comment.comment_id}`} onChange={() => handleEditComment(comment.comment_id)} />
-                            <div style={{marginLeft:"2%",marginTop:"2%",display:"flex"}}>
-                          <div>
-                            <Button variant="success" type='submit'>Confirm</Button>
-                            </div>
-                          <div style={{marginLeft:"1%"}}>
-                            <Button variant="danger" style={{ color: 'white' }} onClick={() => { cancleCommentEdit(comment.comment_id) }} type='button'>Cancle</Button>
-                            </div>
-                            </div>
-                          </form>
+                            </form>
 
-                          <p style={{marginLeft:"2%",marginTop:"1%"}}>{comment.comment_created_at}</p>
+                            <p style={{ marginLeft: "2%", marginTop: "1%" }}>{comment.comment_created_at}</p>
+                          </div>
+                          <hr />
                         </div>
-                        <hr />
-                      </div>
-                    )
-                  }
-                })}
-              </div>
-              <div className="card-footer py-3 border-0" style={{ backgroundColor: '#f8f9fa',marginLeft:"1%"}}>
-                <div className="d-flex flex-start w-100">
-                  <img className="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width={40} height={40} />
-                  <form className="form-outline " onSubmit={handleCreateComment}>
-                    <textarea className="form-control" id={post.post_id} name={current_ID} rows={4} style={{ background: '#fff', width: '28rem'}} onChange={handleChange} />
-                    <Button variant="success" style={{marginTop:"2% "}} type="submit" className="btn btn-primary btn-sm">Comment</Button>
-                  </form>
+                      )
+                    }
+                  })}
                 </div>
-              </div>
+                <div className="card-footer py-3 border-0" style={{ backgroundColor: '#f8f9fa', marginLeft: "1%" }}>
+                  <div className="d-flex flex-start w-100">
+                    <img className="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width={40} height={40} />
+                    <form className="form-outline " onSubmit={handleCreateComment}>
+                      <textarea className="form-control" id={post.post_id} name={current_ID} rows={4} style={{ background: '#fff', width: '28rem' }} onChange={handleChange} />
+                      <Button variant="success" style={{ marginTop: "2% " }} type="submit" className="btn btn-primary btn-sm">Comment</Button>
+                    </form>
+                  </div>
+                </div>
 
-            </div>
+              </div>
+            </form>}
           </div>
         )
-      })}
+      }
+      )
+      }
+
     </>
   )
 }
