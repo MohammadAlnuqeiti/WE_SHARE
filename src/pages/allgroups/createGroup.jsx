@@ -46,6 +46,15 @@ export default function CreateGroup(props) {
         />
       </div>
       <div>
+        <label htmlFor="text">group description</label>
+        <input
+          type="text"
+          id="text"
+          value={props.group_description}
+          onChange={(e) => props.setGroupDescription(e.target.value)}
+        />
+      </div>
+      <div>
         <label htmlFor="file">File</label>
         <input
           type="file"

@@ -96,6 +96,7 @@ const AddToGroup = (groupId) => {
 // ////////////////////
 const [text, setText] = useState("");
 const [file, setFile] = useState(null);
+const [groupDescription, setGroupDescription] = useState(null);
 
 const handleSubmit = async (e) => {
     e.preventDefault();
@@ -104,6 +105,7 @@ const handleSubmit = async (e) => {
     formData.append("text", text);
     formData.append("user_id", current_ID);
     formData.append("file", file);
+    formData.append("group_description", groupDescription);
 
     try {
       const response = await axios.post(
@@ -129,73 +131,101 @@ const handleSubmit = async (e) => {
           <div className="Allgroups">
           <Button variant="primary" onClick={()=>setShowUpdateForm(true)}>add group</Button>
 
-          {showUpdateForm&& <CreateGroup handleSubmit={handleSubmit} setText={setText} setFile={setFile} text={text} />}
+          {showUpdateForm&& <CreateGroup handleSubmit={handleSubmit} setText={setText} setFile={setFile} setGroupDescription={setGroupDescription} text={text} />}
+          <div className="Allgroups">
+          <div className="groupList">
+          <section className="blog">
+            <div className="blog-heading">
+              <span>My Recent Group</span>
+              <h3> All Groups </h3>
+            </div>
 
-      <div className="AllgroupsWrapper" style={{display:"flex"}}>
-      {data.filter(function(ele) {
+            {/* Blog-Container    */}
+
+            <div className="blogContainer">
+              {/* Blog-Box1  */}
+
+              {data.filter(function(ele) {
                     // لحتى ما اطبع المستخد اللي عامل تسجيل دخول
                     if (ele.user_id === current_ID) {
                         return false; // skip
                     }
                     return true;
-                    }).map((ele,index)=>(
-                  <Card key={index} style={{ width: '18rem' }}>
-                  <Card.Img variant="top" src={require(`../../components/image/${ele.group_image}`)} />
-                  <Card.Body>
-                    <Card.Title>{ele.name}</Card.Title>
-                    <Card.Text>
-                      Some quick example text to build on the card title and make up the
-                      bulk of the card's content.
-                    </Card.Text>
+                    }).map((ele,index)=>{
+                      return (
+              <div className="blogBox" key={index} >
+                <div className="blogImg">
+                  <img src={require(`../../components/image/${ele.group_image}`)} alt="Group1" />
+                </div>
+
+                <div className="blogText">
+                  {/* <span> 20 OCT 2023 / Created At </span> */}
+                  <h4 className="blogTitle">{ele.name} </h4>
+                  <p className="blogDesc">
+                  {ele.group_description}  
+                  </p>
+                  <div className="blogBtn">
+                   <Link to={`/groups/${ele.group_id}/show`}>
+                        <button type="submit" className="blogBtn1">
+                        {" "}
+                        Show
+                        </button>
+                    </Link>
                     {(() => {
                             if (pendingMembers.includes(ele.group_id) || acceptedMembers.includes(ele.group_id) ){
-                                if(pendingMembers.includes(ele.group_id)){
-                                  return ( 
-                                        <Link>
-                                        <Button variant="primary" onClick={()=>removeRequest(ele.group_id)}>remove request</Button>
-                                    </Link>
-                                      )
+                              if(pendingMembers.includes(ele.group_id)){
+                                return (
+
+                                           <Link>
+                                                    <button type="submit" className="blogBtn2" onClick={()=>removeRequest(ele.group_id)}>
+                                                    {" "}
+                                                    remove request
+                                                    </button>
+                                            </Link>
+
+                                    )
 
                                 }
                                 if(acceptedMembers.includes(ele.group_id)){
-                                    return (
-        
-                                      <Link>
-                                          <Button variant="danger"  onClick={()=>removeRequest(ele.group_id)}>delete group</Button>
-                                      </Link>
-
-
-                                    
-                                                )
+                                  return (
+                                        <Link>
+                                        <button type="submit" className="blogBtn2" onClick={()=>removeRequest(ele.group_id)}>
+                                        {" "}
+                                        delete group
+                                        </button>
+                                </Link>
+                                        )
 
                                 }
-                              
+                        
                              
                             }else{
-                              return ( 
-                  
-                                <Link>
-                                    <Button variant="primary" onClick={()=>AddToGroup(ele.group_id)}>Add</Button>
-                                </Link>
-                            
-                              )
-                          }
+                                return ( 
+                                    <Link>
+                                        <button type="submit" className="blogBtn3" onClick={()=>AddToGroup(ele.group_id)} >
+                                        {" "}
+                                        Add
+                                        </button>
+                                    </Link>
+                               
+                                )
+                            }
               
-            })()}
-                                      <Link to={`/groups/${ele.group_id}/show`}>
-                                          <Button variant="success">Show Group</Button>
-                                      </Link>
-     
+                      })()}
+                  </div>
+                </div>
+              </div>
 
+)})}
+            </div>
+          </section>
+        </div>
 
-
-      </Card.Body>
-    </Card>
-      ))}
-         
+    
       </div>
     </div>
-          </div>
+    </div>
+     
     </>
   );
 }
