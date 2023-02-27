@@ -15,7 +15,7 @@ export default function Group() {
   const current_ID = JSON.parse(localStorage.getItem('id'));
 
 
-  
+
 
 
 
@@ -198,6 +198,14 @@ const AddToGroup = (groupId) => {
 
     }
 
+    // delete group
+
+    const  deleteGroup = (id) => {
+      axios.delete(`http://localhost:80/react_project/back_end/groups.php/${id}`).then(function(response){
+        window.location.assign('/home')
+      })
+    }
+
 
 
 
@@ -378,6 +386,21 @@ let flag = false;
 
                   </ul>
               </div>
+{groups.user_id === current_ID ?
+                <div className="rightbarWrapper">
+                <img className="rightbarAd" src="assets/ad.png" alt="" />
+                  <h4 className="rightbarTitle">Delete group</h4>
+                  <ul className="rightbarFriendList">
+                            <Link>
+                                <Button variant="danger" onClick={() => {deleteGroup(groups.group_id)}} >Delete group</Button>
+                            </Link>
+
+
+
+                
+                  </ul>
+              </div>
+                            : "" }
            
             </div>
       </div>

@@ -12,6 +12,7 @@ import { MdDeleteForever } from "react-icons/md";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { async } from "q";
 
 
 
@@ -33,14 +34,16 @@ export default function Post({ post }) {
   const [inputs, setInputs] = useState("")
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
-
+  const [likes , setLikes] = useState([]);
   const [file, setFile] = useState(null);
-  const [showUpdateForm, setShowUpdateForm] = useState(false);
+  const [showCommentsForm, setCommentsForm] = useState(false);
 
 
   useEffect(() => {
     getPosts();
     getComments();
+    getLikes();
+
   }, [])
   // Posts
 
@@ -138,7 +141,9 @@ export default function Post({ post }) {
 
   const deletePost = (id) => {
     axios.delete(`http://localhost:80/frontend/back_end/posts.php/${id}`).then(function (response) {
-      window.location.assign('/');
+      // window.location.assign('/');
+      getPosts();
+      getComments();
     })
   }
 
@@ -168,10 +173,11 @@ export default function Post({ post }) {
     
     axios.post('http://localhost:80/frontend/back_end/comments.php/', inputs).then((res) => {
       console.log(res);
-      setShowUpdateForm(false);
-      window.location.assign('/')
+      // window.location.assign('/')
     }
     )
+    getPosts();
+    getComments();
   }
 
   const deleteComment = (id) => {
@@ -196,9 +202,12 @@ export default function Post({ post }) {
 
   const handleEditCommentSubmit = (e) => {
     e.preventDefault();
-    axios.put('http://localhost:80/frontend/back_end/comments.php/', inputs).then(
-      window.location.assign('/')
-    )
+    axios.put('http://localhost:80/frontend/back_end/comments.php/', inputs).then(()=>{
+
+      getComments();
+      getPosts();
+    }
+      )
   }
 
   const foucsOnComment = (id) => {
@@ -213,6 +222,55 @@ export default function Post({ post }) {
 
   }
 
+  const ShowComments = () => {
+
+    { showCommentsForm ? setCommentsForm(false) : setCommentsForm(true) }
+
+
+  }
+
+
+  // like
+
+
+  const getLikes = () => {
+    axios.get(`http://localhost:80/frontend/back_end/likes.php/`)
+    .then(response => {
+      console.log(response.data);
+        setLikes(response.data);
+    })
+  }
+
+  const handleLikePost = (id) => {
+    const post_id = id;
+    const user_id = current_ID;
+    setInputs({'user_id': user_id , 'post_id' : post_id})
+  }
+
+  const likePost = async (e) => {
+    e.preventDefault();
+    console.log(inputs)
+      await axios.post('http://localhost:80/frontend/back_end/likes.php/' , inputs).then(
+        // window.location.assign('/')
+        )
+        getPosts();
+        getComments();
+        getLikes();
+  }
+  const removeLikePost = async (e) => {
+    e.preventDefault();
+    console.log(inputs)
+      await axios.post('http://localhost:80/frontend/back_end/likeDelete.php/' , inputs).then(
+        // window.location.assign('/')
+        )
+        getPosts();
+        getComments();
+        getLikes();
+  }
+
+  var flagLike = false;
+  var like_count = 0;
+  // 
   return (
 
     <>
@@ -304,20 +362,44 @@ export default function Post({ post }) {
 
                   </div>
                 }
+               
                 <div className="postBottom">
-                  <div className="postBottomLeft">
-                    {/* <img className="likeIcon" src="assets/like.png" onClick={likeHandler} alt="" />
-            <img className="likeIcon" src="assets/heart.png" onClick={likeHandler} alt="" />
-            <span className="postLikeCounter">{like} people like it</span> */}
+                <div className="postBottomLeft">
+                    {
+                    likes.map((like , index_like) => {
+                      if (like.user_id == current_ID && like.post_id == post.post_id){
+                        return ( flagLike = true )
+                      }})}
 
-                  </div>
+                      {( flagLike == true ) ?
+                              <form action="" onSubmit={removeLikePost}>
+                                <button type='submit' style={{background : 'none' , border : 'none' , color : '#0d6efd' , textDecoration : 'underLine' }} onClick={()=>handleLikePost(post.post_id)}  href="#!" className="d-flex align-items-center me-3">
+                                  <i className="far fa-thumbs-up me-2" />
+                                  <p className="mb-0" style={{color : 'blue' , fontWeight : 'bold'}}>Liked</p>
+                                </button>
+                              </form>
+                      :
+                              <form action="" onSubmit={likePost}>
+                                  <button type='submit' style={{background : 'none' , border : 'none' , color : '#0d6efd' , textDecoration : 'underLine' }} onClick={()=>handleLikePost(post.post_id)}  href="#!" className="d-flex align-items-center me-3">
+                                    <i className="far fa-thumbs-up me-2" />
+                                    <p className="mb-0">Like</p> {post.post_id}
+                                  </button>
+                              </form>
+                      }
+            {likes.map((count)=>{
+              if(count.post_id == post.post_id){
+                like_count++;
+              }
+            })}
+            <span className="postLikeCounter">{like_count} people like it</span>
+          </div>
                   <div className="postBottomRight">
-                    <a className="postCommentText" onClick={() => setShowUpdateForm(true)}>comments</a>
+                    <a className="postCommentText" onClick={() =>ShowComments()}>comments</a>
                   </div>
                 </div>
               </div>
             </div>
-          
+          {showCommentsForm ?
               <div className="card-footer py-3 border-0 shadow-2-strong" style={{ backgroundColor: '#f8f9fa' }}>
                 <div className="w-100">
                   {comments.map((comment, index) => {
@@ -338,6 +420,7 @@ export default function Post({ post }) {
                               : 
                               (post.user_id === current_ID) ?
                                 <div>
+                                  
                                   <button onClick={() => { deleteComment(comment.comment_id) }}>Remove comment</button>
                                 </div>
                                 : 
@@ -369,7 +452,9 @@ export default function Post({ post }) {
                     }
                   })}
                 </div>
+                
                 <div className="card-footer py-3 border-0" style={{ backgroundColor: '#f8f9fa', marginLeft: "1%" }}>
+                
                   <div className="d-flex flex-start w-100">
                     <img className="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width={40} height={40} />
                     <form className="form-outline " onSubmit={handleCreateComment}>
@@ -380,7 +465,7 @@ export default function Post({ post }) {
                 </div>
 
               </div>
-          
+          : "" }
           </div>
         )
       }

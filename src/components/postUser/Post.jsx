@@ -119,6 +119,8 @@ try {
       );
       console.log(response.data);
       // window.location.assign('/');
+      getPosts();
+      getComments();
     } catch (error) {
       console.error(error);
     }
@@ -134,7 +136,9 @@ try {
 
   const deletePost = (id) => {
     axios.delete(`http://localhost:80/frontend/back_end/posts.php/${id}`).then(function (response) {
-      window.location.assign('/');
+      // window.location.assign('/');
+      getPosts();
+      getComments();
     })
   }
 
@@ -163,7 +167,10 @@ try {
     e.preventDefault();
     axios.post('http://localhost:80/frontend/back_end/comments.php/', inputs).then((res) => {
       console.log(res);
-      window.location.assign('/')
+      getPosts();
+      getComments();
+      // window.location.assign('/')
+
     }
     )
   }
@@ -190,8 +197,11 @@ try {
 
   const handleEditCommentSubmit = (e) => {
     e.preventDefault();
-    axios.put('http://localhost:80/frontend/back_end/comments.php/', inputs).then(
-      window.location.assign('/')
+    axios.put('http://localhost:80/frontend/back_end/comments.php/', inputs).then(()=>{
+      getPosts();
+      getComments();
+    }
+      // window.location.assign('/')
     )
   }
 

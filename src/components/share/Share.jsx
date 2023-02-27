@@ -47,7 +47,7 @@ const handleImagePost = async (e) => {
       "http://localhost:80/frontend/back_end/posts.php", formData
     );
     console.log(response.data);
-    window.location.assign('/');
+    window.location.assign('/home');
   } catch (error) {
     console.error(error);
   }

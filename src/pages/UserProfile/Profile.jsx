@@ -245,7 +245,14 @@ return <div key={index}>
             </div>
           </div>
           <div className="profileRightBottom">
+            {Myfriends.includes(users.id) ?
+<>
             <Feed user_id={id}/>
+            </>
+              : <div className="feed">
+              <div className="feedWrapper">
+                </div>
+                </div>}
             <div className="rightbar">
             <div className="rightbarWrapper">
             <h4 className="rightbarTitle">User information</h4>
@@ -266,9 +273,28 @@ return <div key={index}>
               <h4 className="rightbarTitle">User friends</h4>
               <div className="rightbarFollowings">
                 {friendsUser.map((ele,index)=>{
-                  return <>
-                        {/* <Link to={`/UserProfile/${ele.user_id}/show`} > */}
-                          <div className="rightbarFollowing"  key={index}>
+                    if(ele.friend_id === current_ID){
+                     return <a href={`/profile/${ele.friend_id}`} key={index}>
+                     <div className="rightbarFollowing">
+                         <img src={require(`../../components/image/${ele.image}`)} alt="" className="rightbarFollowingImg" />
+                         <span className="rightbarFollowingname">{ele.name}</span>
+                     </div>
+                 </a>      
+                 }
+                 else {
+                     return <a href={`/UserProfile/${ele.friend_id}/show`} key={index}>
+                     <div className="rightbarFollowing">
+                         <img src={require(`../../components/image/${ele.image}`)} alt="" className="rightbarFollowingImg" />
+                         <span className="rightbarFollowingname">{ele.name}</span>
+                     </div>
+                 </a>
+                 }
+
+                     
+                     })}
+                  {/* return <>
+                                <a href={`/UserProfile/${ele.friend_id}/show`} key={index}>
+                          <div className="rightbarFollowing"  >
                           <img
                             src={require(`../../components/image/${ele.image}`)}
                             alt=""
@@ -276,10 +302,9 @@ return <div key={index}>
                           />
                           <span className="rightbarFollowingName" style={{textAlign:"center"}}>{ele.name}</span>
                         </div>
-                        {/* </Link> */}
-                  
+</a>            
                   </>
-                })}
+                })} */}
                 {/* <div className="rightbarFollowing">
                   <img
                     src="assets/person/2.jpeg"
@@ -323,6 +348,7 @@ return <div key={index}>
               </div>
               </div>
             </div>
+          
             </div>
             </div>
             </div>
