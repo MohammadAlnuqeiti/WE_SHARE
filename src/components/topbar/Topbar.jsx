@@ -15,6 +15,7 @@ export default function Topbar() {
 
   const id = JSON.parse(localStorage.getItem('id'));
   const ImageUser = localStorage.getItem('image');
+  const NameUser = localStorage.getItem('name');
 
   const [requestFriends,setRequestFriends] = useState([]);  
   const [requestFriend,setrequestFriend] = useState([]);
@@ -46,6 +47,19 @@ export default function Topbar() {
           getFriendsRequest();
       })
     }
+
+        // الغاء  طلب الصداقة
+        const removeRequest = (friendId) => {
+          let inputs = {user_id:friendId , friend_id:id};
+          axios.put(`http://localhost:80/react_project/back_end/removeRequest.php/edit`,inputs)
+          .then((respone)=>{
+              console.log(respone.data);
+              getFriendsRequest();
+          })
+  
+  
+          
+      }
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
@@ -66,11 +80,11 @@ export default function Topbar() {
           <Dropdown >
       <Dropdown.Toggle variant="#008069" bsPrefix >
       <BsFillPersonFill style={{color:"white"}} />
-      {/* {requestFriends.length > 0 ?
+      {requestFriends.length > 0 ?
             <span className="topbarIconBadge">{requestFriends.length}</span>
             :
-            ""} */}
-            <span className="topbarIconBadge" >{requestFriends.length}</span>
+            ""}
+            {/* <span className="topbarIconBadge" >{requestFriends.length}</span> */}
       </Dropdown.Toggle >
       <Dropdown.Menu >
         
@@ -82,6 +96,9 @@ export default function Topbar() {
             <td>
             <Link>
                 <Button variant="primary" onClick={()=>AcceptFriend(ele.user_id)}>accept</Button>
+            </Link>
+            <Link>
+                <Button variant="danger" onClick={()=>removeRequest(ele.user_id)}>remove request</Button>
             </Link>
             </td>
           </tr>
@@ -115,9 +132,11 @@ export default function Topbar() {
           </div>
         </div>
 
-        <div style={{display:"flex",marginTop:"2%"}}>
-        <p style={{marginLeft:"-10%"}}>Hello,Haneen</p>
+        <div style={{display:"flex",alignItems:"center",gap: "10px"}}>
+        <p style={{marginBottom:"0"}}>Hello,{NameUser}</p>
+        <Link to={`/profile/${id}`}>
         <img style={{marginLeft:"10%"}} src={require(`../image/${ImageUser}`)} alt="" className="topbarImg"/>
+        </Link>
          </div>
       </div>
     </div>
