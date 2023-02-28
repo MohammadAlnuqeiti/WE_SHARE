@@ -63,7 +63,8 @@ export default function Topbar() {
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
-        <span className="logo">Lamasocial</span>
+        
+       <img style={{ width:"25%",height:"1%"}} src={require(`../image/logo.png`)}/>
       </div>
       <div className="topbarCenter">
         {/* <div className="searchbar">

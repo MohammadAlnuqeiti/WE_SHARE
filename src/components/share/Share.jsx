@@ -96,7 +96,7 @@ const handlePost = (e) => {
                     <span className="shareOptionText">Feelings</span>
                 </div> */}
             </div>
-            <button type="submit" className="shareButton">Post</button>
+            <button type="submit"  className="shareButton">Post</button>
         </div>
       </div>
     </div>
