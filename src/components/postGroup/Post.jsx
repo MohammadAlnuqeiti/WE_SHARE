@@ -27,6 +27,8 @@ export default function Post( props ) {
   const current_ID = JSON.parse(localStorage.getItem('id'));
   const group_id = props.group_id;
   const admin_group = props.admin_group;
+  const ImageUser = localStorage.getItem('image');
+
   const current_Email = localStorage.getItem('email');
 
   const [inputs , setInputs] = useState("")
@@ -283,7 +285,7 @@ const canclePostEdit = (id) => {
                  src={require(`../image/${props.post.image}`)} 
                 alt="" />
                 <span className="postUsername">
-                      {props.post.first_name} {props.post.last_name}
+                     {props.post.name}
                   </span>
                 <span className="postDate">{props.post.created_at}</span>
               </div>
@@ -400,7 +402,7 @@ const canclePostEdit = (id) => {
                         <div key={index}>
                           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                             <div>
-                              <img className="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width={40} height={40} />
+                              <img className="rounded-circle shadow-1-strong me-3" src={require(`../image/${comment.image}`)} alt="avatar" width={40} height={40} />
                               <span>{comment.name}</span>
                             </div>
                             {(comment.user_id === current_ID) 
@@ -448,7 +450,7 @@ const canclePostEdit = (id) => {
                 <div className="card-footer py-3 border-0" style={{ backgroundColor: '#f8f9fa', marginLeft: "1%" }}>
                 
                   <div className="d-flex flex-start w-100">
-                    <img className="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width={40} height={40} />
+                    <img className="rounded-circle shadow-1-strong me-3" src={require(`../image/${ImageUser}`)} alt="avatar" width={40} height={40} />
                     <form className="form-outline " onSubmit={handleCreateComment}>
                       <textarea className="form-control" id={props.post.post_id} name={current_ID} rows={4} style={{ background: '#fff', width: '28rem' }} onChange={handleChange} />
                       <Button variant="success" style={{ marginTop: "2% " }} type="submit" className="btn btn-primary btn-sm">Comment</Button>
@@ -457,181 +459,7 @@ const canclePostEdit = (id) => {
                 </div>
 
               </div>
-          {/* // : "" } */}
-           
-    
-          
-    {/* { posts.map((post,index) => {
-      return (
-        <div key={index}>
-    <div className="post" >
-      <div className="postWrapper">
-        <div className="postTop">
-          <div className="postTopLeft">
-            <img
-              className="postProfileImg"
-              src={require(`../image/icon.png`)}
-              alt=""
-            />
-            <span className="postUsername">
-            {post.name}
-            </span>
-            <span className="postDate">{post.created_at}</span>
-          </div>
-          <div className="postTopRight">
-          {(post.user_id === current_ID) || (admin_group===current_ID) ?
-            <div>
-              <button onClick={() => {deletePost(post.post_id)}}>Delete Your Post</button>
-              <button id={`editPostBTN${post.post_id}`} onClick={() => {editPost(post.post_id)}}><FaEdit /></button>
-            </div>
-            : null }
-          </div>
-        </div>
-        {(post.post_image !== 'a') ? 
-        <div className="postCenter">
-          <span className="postText" id={`post${post.post_id}`}>{post.content}</span>
-          <form id={`editPostForm${post.post_id}`} action="" style={{display : 'none'}} onSubmit={handleEditPostSubmit}>
-          <textarea 
-          style={{width: '50vw'}} 
-          type="text" 
-          defaultValue={post.content} 
-          id={`editPostInput${post.post_id}`} onChange={() => handleEditPost(post.post_id)}/>
-
-          <br />
-
-          <input 
-          type="file"
-          id="file"
-          onChange={(e) => setFile(e.target.files[0])}/>
-
-          <button type='submit'>Update</button>
-          <button style={{background : 'red' , color : 'white'}} onClick={()=>{canclePostEdit(post.post_id)}} type='button'>Cancle</button>
-      </form>
-          <img className="postImg" src={require(`../image/${post.post_image}`)} alt="" id={`imgPost${post.post_id}`}/>
-        </div>
-          : 
-          <div className="postCenter">
-
-          <span className="postText" id={`post${post.post_id}`}>{post.content}</span>
-          <form id={`editPostForm${post.post_id}`} action="" style={{display : 'none'}} onSubmit={handleEditPostSubmit}>
-
-          <textarea 
-            style={{width: '50vw'}} 
-            type="text" 
-            defaultValue={post.content} 
-            id={`editPostInput${post.post_id}`} 
-            onChange={() => handleEditPost(post.post_id)}/>
-
-          <input 
-            type="file"
-            id="file"
-            onChange={(e) => setFile(e.target.files[0])}/>
-
-          <br />
-
-          <button type='submit'>Update</button>
-          <button style={{background : 'red' , color : 'white'}} onClick={()=>{canclePostEdit(post.post_id)}}  type='button'>Cancle</button>
-
-      </form>
-
-          </div>
-    }
-        <div className="postBottom">
-        <div className="postBottomLeft">
-                          {
-                          likes.map((like , index_like) => {
-                            if (like.user_id === current_ID && like.post_id === post.post_id){
-                              return ( flagLike = true )
-                            }})}
-
-                            {( flagLike === true ) ?
-                                    <form action="" onSubmit={removeLikePost}>
-                                      <button type='submit' style={{background : 'none' , border : 'none' , color : '#0d6efd' , textDecoration : 'underLine' }} onClick={()=>handleLikePost(post.post_id)}  href="#!" className="d-flex align-items-center me-3">
-                                        <i className="far fa-thumbs-up me-2" />
-                                        <p className="mb-0" style={{color : 'blue' , fontWeight : 'bold'}}>Liked</p>
-                                      </button>
-                                    </form>
-                            :
-                                    <form action="" onSubmit={likePost}>
-                                        <button type='submit' style={{background : 'none' , border : 'none' , color : '#0d6efd' , textDecoration : 'underLine' }} onClick={()=>handleLikePost(post.post_id)}  href="#!" className="d-flex align-items-center me-3">
-                                          <i className="far fa-thumbs-up me-2" />
-                                          <p className="mb-0">Like</p> 
-                                        </button>
-                                    </form>
-                            }
-                            {likes.map((count) => {
-                              if(count.post_id === post.post_id){
-                                like_count++;
-                              }
-                            })}
-                            <span className="postLikeCounter">{like_count} people like it</span>
-                  </div>
-          <div className="postBottomRight">
-            <span className="postCommentText">{post.comment} comments</span>
-          </div>
-        </div>
-      </div>
-    </div>
  
-      <div className="card-footer py-3 border-0" style={{backgroundColor: '#f8f9fa'}}>
-                  <div className="w-100">
-                  { comments.map((comment,index) => {
-                    if (comment.post_id === post.post_id){
-                    return (
-                    <div key={index}>
-                        <div style={{display : 'flex' , justifyContent : 'space-between'}}>
-                          <div>
-                            <img className="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width={40} height={40} />
-                            <span>{comment.name}</span>
-                          </div>
-                          {(comment.user_id === current_ID) ||(admin_group===current_ID)? 
-                          <div>
-                              <button onClick={() => {deleteComment(comment.comment_id)}}>Remove comment</button>
-                              <button id={`editCommentBTN${comment.comment_id}`} onClick={() => {editComment(comment.comment_id)}}><FaEdit /></button>
-                          </div> : (post.user_id === current_ID) ?
-                          <div>
-                              <button onClick={() => {deleteComment(comment.comment_id)}}>Remove comment</button>
-                          </div>
-                          : null }
-                        </div>
-                        <br />
-                        <div className="form-outline w-100">
-
-
-
-
-
-                            <p id={`comment${comment.comment_id}`}>{comment.comment_content}</p>
-                            <form id={`editCommentForm${comment.comment_id}`} action="" style={{display : 'none'}} onSubmit={handleEditCommentSubmit}>
-                              <input type="text" defaultValue={comment.comment_content} id={`editCommentInput${comment.comment_id}`} onChange={() => handleEditComment(comment.comment_id)}/>
-                              <button type='submit'>Update</button>
-                              <button style={{background : 'red' , color : 'white'}} onClick={()=>{cancleCommentEdit(comment.comment_id)}}  type='button'>Cancle</button>
-                            </form>
-
-
-
-
-
-
-                            <p>{comment.comment_created_at}</p>
-                        </div>
-                        <hr />
-                    </div>
-                    )}})}
-                  </div>
-                  <div className="card-footer py-3 border-0" style={{backgroundColor: '#f8f9fa'}}>
-                      <div className="d-flex flex-start w-100">
-                        <img className="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width={40} height={40} />
-                        <form className="form-outline w-100" onSubmit={handleCreateComment}>
-                          <textarea className="form-control" id={post.post_id} name={current_ID} rows={4} style={{background: '#fff'}} onChange={handleChange}/>
-                          <button type="submit" className="btn btn-primary btn-sm">Post comment</button>
-                        </form>
-                      </div>
-                  </div>
-                  
-                </div>
-                  </div>
-                  )})} */}
     </>
   )
 }

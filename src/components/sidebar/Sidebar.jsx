@@ -75,7 +75,7 @@ const handleLogOut = () => {
           </li>
           <li className="sidebarListItem">
             <BiGroup className="sidebarIcon" />
-            <NavLink to="/Allusers" className="sidebarListItemText" onClick={handleLogOut}>Logout</NavLink>
+            <NavLink to="/logout" className="sidebarListItemText" onClick={handleLogOut}>Logout</NavLink>
           </li>   
 
           {/* <li className="sidebarListItem">
