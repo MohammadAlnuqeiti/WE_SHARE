@@ -52,11 +52,11 @@ const getMyAcceptrdGroups = () => {
         <ul className="sidebarList">
           <li className="sidebarListItem">
             <MdRssFeed className="sidebarIcon" />
-            <NavLink to="/" className="sidebarListItemText">Home</NavLink>
+            <NavLink to="/home" className="sidebarListItemText">Home</NavLink>
           </li>
           <li className="sidebarListItem">
           <BsFillPersonFill className="sidebarIcon" />
-            <NavLink to="/profile" className="sidebarListItemText">Profile</NavLink>
+            <NavLink to={`/profile/${current_ID}`} className="sidebarListItemText">Profile</NavLink>
           </li>
           <li className="sidebarListItem">
             <BiGroup className="sidebarIcon" />

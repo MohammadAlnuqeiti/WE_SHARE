@@ -7,6 +7,7 @@ import Allgroups from "./pages/allgroups/Allgroups";
 import AllUsers from "./pages/allUsers/allUsers";
 import UserProfile from "./pages/UserProfile/Profile";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import EditProfile from "./pages/profile/EditProfile";
 import {Routes, Route } from "react-router-dom";
 
 
@@ -18,9 +19,10 @@ function App() {
   return(
     <>
       <Routes>
-          <Route path='/' element={<Home/>}></Route>
-          <Route path='/profile' element={<Profile/>}></Route>
-          <Route path='/login' element={<Login/>}></Route>
+          <Route path='/home' element={<Home/>}></Route>
+          <Route path='/profile/:profile_id' element={<Profile/>}></Route>
+          <Route path='/profile/:profile_id/edit' element={<EditProfile/>}></Route>
+          <Route path='/' element={<Login/>}></Route>
           <Route path='/Register' element={<Register/>}></Route>
           <Route path='/groups/:id/show' element={<Group/>}></Route>
           <Route path='/UserProfile/:id/show' element={<UserProfile/>}></Route>

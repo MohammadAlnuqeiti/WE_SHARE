@@ -47,7 +47,7 @@ const handleImagePost = async (e) => {
       "http://localhost:80/frontend/back_end/posts.php", formData
     );
     console.log(response.data);
-    window.location.assign('/');
+    window.location.assign('/home');
   } catch (error) {
     console.error(error);
   }
@@ -62,7 +62,7 @@ const handlePost = (e) => {
     <div className="share">
       <div className="shareWrapper">
         <div className="shareTop">
-          <img className="shareProfileImg" src={ ImageUser ? require(`../image/${ImageUser}`) : require(`../image/icon.png`)} alt="" />
+          <img className="shareProfileImg" src={require(`../image/${ImageUser}`)} alt="" />
           <input
             placeholder="What's in your mind Safak?"
             className="shareInput"

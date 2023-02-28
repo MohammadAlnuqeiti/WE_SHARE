@@ -9,6 +9,7 @@ $conn = $object->connect();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $text = $_POST["text"];
+    $group_description = $_POST["group_description"];
     $user_id = $_POST['user_id'];
     $file = $_FILES["file"];
 
@@ -23,10 +24,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   
     if (move_uploaded_file($file["tmp_name"], $targetPath)) {
       echo "File uploaded successfully";
-        $sql = "INSERT INTO groups (user_id , group_name , group_image)
-                VALUES ( ? , ? , ? )" ;
+        $sql = "INSERT INTO groups (user_id , group_name , group_description ,group_image)
+                VALUES ( ? , ? , ? , ?)" ;
         $query = $conn->prepare($sql);
-        $query->execute([ $user_id , $text , $fileName]);
+        $query->execute([ $user_id , $text , $group_description ,$fileName]);
     } else {
       echo "Error uploading file";
     }

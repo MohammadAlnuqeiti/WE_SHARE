@@ -14,6 +14,7 @@ import { Link, useNavigate } from "react-router-dom";
 export default function Topbar() {
 
   const id = JSON.parse(localStorage.getItem('id'));
+  const ImageUser = localStorage.getItem('image');
 
   const [requestFriends,setRequestFriends] = useState([]);  
   const [requestFriend,setrequestFriend] = useState([]);
