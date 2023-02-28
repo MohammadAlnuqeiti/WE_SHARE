@@ -10,6 +10,10 @@ import { BiEdit } from "react-icons/bi";
 import { MdDeleteForever } from "react-icons/md";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import Dropdown from 'react-bootstrap/Dropdown';
+import { CgBorderStyleDotted } from "react-icons/cg";
+import { CgSoftwareUpload } from "react-icons/cg";
+
 
 
 
@@ -291,12 +295,20 @@ try {
                   <div className="postTopRight">
                     {(props.post.user_id === current_ID) ?
                       <div className="postBottun">
+                        <Dropdown>
+                          <Dropdown.Toggle variant="text-dark" id="dropdown-basic" bsPrefix >
+                            <CgBorderStyleDotted />
+                          </Dropdown.Toggle >
+
+                          <Dropdown.Menu>
                         <div >
-                        <Button size="sm" variant="danger" onClick={() => { deletePost(props.post.post_id) }}><MdDeleteForever /></Button>
+                        <Dropdown.Item  id={`editPostBTN${props.post.post_id}`} onClick={() => { editPost(props.post.post_id) }}><BiEdit />Edite</Dropdown.Item>
                         </div>
-                        <div style={{marginLeft:"3%"}}>
-                        <Button size="sm" variant="success" id={`editPostBTN${props.post.post_id}`} onClick={() => { editPost(props.post.post_id) }}><BiEdit /></Button>
+                        <div >
+                        <Dropdown.Item  onClick={() => { deletePost(props.post.post_id) }}><MdDeleteForever />Delete</Dropdown.Item>
                      </div>
+                     </Dropdown.Menu>
+                        </Dropdown>
                       </div>
                       : null}
                   </div>
@@ -305,8 +317,8 @@ try {
                   <div className="postCenter">
                     <span className="postText" id={`post${props.post.post_id}`}>{props.post.content}</span>
                     <form id={`editPostForm${props.post.post_id}`} action="" style={{ display: 'none' }} onSubmit={handleEditPostSubmit}>
-                      <textarea
-                        style={{ width: '50vw' }}
+                      <textarea className="form-control"
+                        style={{ width: '28rem' }}
                         type="text"
                         defaultValue={props.post.content}
                         id={`editPostInput${props.post.post_id}`} onChange={() => handleEditPost(props.post.post_id)} />
@@ -318,8 +330,8 @@ try {
                         id="file"
                         onChange={(e) => setFile(e.target.files[0])} />
 
-                      <button type='submit'>Update</button>
-                      <button style={{ background: 'red', color: 'white' }} onClick={() => { canclePostEdit(props.post.post_id) }} type='button'>Cancle</button>
+                      <Button variant="success" type='submit'>Confirm</Button>
+                      <Button variant="danger" style={{ background: 'red', color: 'white',marginLeft:'1%' }} onClick={() => { canclePostEdit(props.post.post_id) }} type='button'>Cancle</Button>
                     </form>
                     <img className="postImg" src={require(`../image/${props.post.post_image}`)} alt="" id={`imgPost${props.post.post_id}`} />
                   </div>
@@ -337,14 +349,16 @@ try {
                         onChange={() => handleEditPost(props.post.post_id)} />
 
                       <input
+                       className="shareInput"
                         type="file"
                         id="file"
                         onChange={(e) => setFile(e.target.files[0])} />
+                         <label className="label" for="file"><CgSoftwareUpload size={20}/>Choose file</label>
 
                       <br />
 
-                      <button type='submit'>Update</button>
-                      <button style={{ background: 'red', color: 'white' }} onClick={() => { canclePostEdit(props.post.post_id) }} type='button'>Cancle</button>
+                      <Button type='submit'>Confirm</Button>
+                      <Button style={{ background: 'red', color: 'white' }} onClick={() => { canclePostEdit(props.post.post_id) }} type='button'>Cancle</Button>
 
                     </form>
 

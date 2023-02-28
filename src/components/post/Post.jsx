@@ -13,9 +13,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { async } from "q";
-
-
-
+import {AiFillLike} from "react-icons/ai";
 
 
 export default function Post(props) {
@@ -378,7 +376,7 @@ console.log(props);
                                     <form action="" onSubmit={removeLikePost}>
                                       <button type='submit' style={{background : 'none' , border : 'none' , color : '#0d6efd' , textDecoration : 'underLine' }} onClick={()=>handleLikePost(props.post.post_id)}  href="#!" className="d-flex align-items-center me-3">
                                         <i className="far fa-thumbs-up me-2" />
-                                        <p className="mb-0" style={{color : 'blue' , fontWeight : 'bold'}}>Liked</p>
+                                        <p className="mb-0" style={{color : 'blue' , fontWeight : 'bold'}}><AiFillLike/>Liked</p>
                                       </button>
                                     </form>
                             :
