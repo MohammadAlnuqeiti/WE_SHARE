@@ -13,7 +13,10 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { async } from "q";
+import {AiOutlineLike} from "react-icons/ai";
 import {AiFillLike} from "react-icons/ai";
+
+
 
 
 export default function Post(props) {
@@ -374,16 +377,16 @@ console.log(props);
 
                             {( flagLike === true ) ?
                                     <form action="" onSubmit={removeLikePost}>
-                                      <button type='submit' style={{background : 'none' , border : 'none' , color : '#0d6efd' , textDecoration : 'underLine' }} onClick={()=>handleLikePost(props.post.post_id)}  href="#!" className="d-flex align-items-center me-3">
+                                      <button type='submit' style={{background : 'none' , border : 'none' , color : '#008069'}} onClick={()=>handleLikePost(props.post.post_id)}  href="#!" className="d-flex align-items-center me-3">
                                         <i className="far fa-thumbs-up me-2" />
-                                        <p className="mb-0" style={{color : 'blue' , fontWeight : 'bold'}}><AiFillLike/>Liked</p>
+                                        <AiFillLike size={25} /><p className="mb-0" style={{color : '#008069' }}>Like</p>
                                       </button>
                                     </form>
                             :
                                     <form action="" onSubmit={likePost}>
-                                        <button type='submit' style={{background : 'none' , border : 'none' , color : '#0d6efd' , textDecoration : 'underLine' }} onClick={()=>handleLikePost(props.post.post_id)}  href="#!" className="d-flex align-items-center me-3">
+                                        <button type='submit' style={{background : 'none' , border : 'none' }} onClick={()=>handleLikePost(props.post.post_id)}  href="#!" className="d-flex align-items-center me-3">
                                           <i className="far fa-thumbs-up me-2" />
-                                          <p className="mb-0">Like</p>
+                                          <AiOutlineLike size={25}/> <p className="mb-0">Like</p>
                                         </button>
                                     </form>
                             }
@@ -430,7 +433,7 @@ console.log(props);
                               (props.post.user_id === current_ID) ?
                                 <div>
                                   
-                                  <button onClick={() => { deleteComment(comment.comment_id) }}>Remove comment</button>
+                                  <Button variant="danger" style={{marginLeft:"-24%"}} onClick={() => { deleteComment(comment.comment_id) }}><MdDeleteForever /></Button>
                                 </div>
                                 : 
                                 null

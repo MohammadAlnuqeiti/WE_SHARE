@@ -13,6 +13,8 @@ import Card from 'react-bootstrap/Card';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { CgBorderStyleDotted } from "react-icons/cg";
 import { CgSoftwareUpload } from "react-icons/cg";
+import {AiOutlineLike} from "react-icons/ai";
+import {AiFillLike} from "react-icons/ai";
 
 
 
@@ -323,15 +325,18 @@ try {
                         defaultValue={props.post.content}
                         id={`editPostInput${props.post.post_id}`} onChange={() => handleEditPost(props.post.post_id)} />
 
-                      <br />
-
                       <input
                         type="file"
                         id="file"
-                        onChange={(e) => setFile(e.target.files[0])} />
-
-                      <Button variant="success" type='submit'>Confirm</Button>
+                        className="shareInput"
+                        onChange={(e) => setFile(e.target.files[0])} hidden/> 
+                        <label className="label" for="file"><CgSoftwareUpload size={20}/>Choose file</label> 
+                    
+                      <Button variant="success" type='submit' style={{marginLeft:"25%"}}>Confirm</Button>
                       <Button variant="danger" style={{ background: 'red', color: 'white',marginLeft:'1%' }} onClick={() => { canclePostEdit(props.post.post_id) }} type='button'>Cancle</Button>
+                      
+           
+                    
                     </form>
                     <img className="postImg" src={require(`../image/${props.post.post_image}`)} alt="" id={`imgPost${props.post.post_id}`} />
                   </div>
@@ -353,11 +358,10 @@ try {
                         type="file"
                         id="file"
                         onChange={(e) => setFile(e.target.files[0])} />
-                         <label className="label" for="file"><CgSoftwareUpload size={20}/>Choose file</label>
 
                       <br />
 
-                      <Button type='submit'>Confirm</Button>
+                      <Button type='submit' >Confirm</Button>
                       <Button style={{ background: 'red', color: 'white' }} onClick={() => { canclePostEdit(props.post.post_id) }} type='button'>Cancle</Button>
 
                     </form>
@@ -374,16 +378,16 @@ try {
 
                       {( flagLike == true ) ?
                               <form action="" onSubmit={removeLikePost}>
-                                <button type='submit' style={{background : 'none' , border : 'none' , color : '#0d6efd' , textDecoration : 'underLine' }} onClick={()=>handleLikePost(props.post.post_id)}  href="#!" className="d-flex align-items-center me-3">
+                                <button type='submit' style={{background : 'none' , border : 'none', color : '#008069'  }} onClick={()=>handleLikePost(props.post.post_id)}  href="#!" className="d-flex align-items-center me-3">
                                   <i className="far fa-thumbs-up me-2" />
-                                  <p className="mb-0" style={{color : 'blue' , fontWeight : 'bold'}}>Liked</p>
+                                  <AiFillLike size={25} />  <p className="mb-0" >Like</p>
                                 </button>
                               </form>
                       :
                               <form action="" onSubmit={likePost}>
-                                  <button type='submit' style={{background : 'none' , border : 'none' , color : '#0d6efd' , textDecoration : 'underLine' }} onClick={()=>handleLikePost(props.post.post_id)}  href="#!" className="d-flex align-items-center me-3">
+                                  <button type='submit' style={{background : 'none' , border : 'none'}} onClick={()=>handleLikePost(props.post.post_id)}  href="#!" className="d-flex align-items-center me-3">
                                     <i className="far fa-thumbs-up me-2" />
-                                    <p className="mb-0">Like</p>
+                                    <AiOutlineLike size={25}/><p className="mb-0">Like</p>
                                   </button>
                               </form>
                       }
