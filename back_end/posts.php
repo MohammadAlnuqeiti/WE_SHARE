@@ -22,6 +22,7 @@ switch ($method) {
         $query->execute();
         $posts = $query->fetchAll(PDO::FETCH_ASSOC);
         echo json_encode($posts);
+
         break;
 
 
