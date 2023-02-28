@@ -118,7 +118,7 @@ function EditProfile({ post }){
               <div className="row mt-3">
                 <div className="col-md-12"><input type="file" className="form-control" placeholder="image"   name="file" id="file"onChange={(e) => setFile(e.target.files[0])}/></div>
               </div>
-              <div className="mt-5 text-right"><button className="btn btn-primary profile-button" type="submit">Save Profile</button></div>
+              <div className="mt-5 text-right"><button className="buttonn" type="submit">Save Profile</button></div>
             </form>
             </div>
 

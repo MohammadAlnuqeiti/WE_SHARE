@@ -83,7 +83,10 @@ if(name==="email"){
     <div className="login">
       <div className="loginWrapper">
         <div className="loginLeft">
-          <h3 className="loginLogo">405 FOUND</h3>
+          <h3 className="loginLogo">
+            
+          <img style={{ width:"100%"}} src={require(`../../components/image/weshare green.png`)}/>
+          </h3>
           <span className="loginDesc">
           Connect with friends and the world around you on 405 FOUND.
           </span>
