@@ -29,6 +29,7 @@ const user_id = props.user_id;
   const [inputs, setInputs] = useState("")
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
+  const [likes , setLikes] = useState([]);
 
   const [file, setFile] = useState(null);
 
@@ -36,6 +37,8 @@ const user_id = props.user_id;
   useEffect(() => {
     getPosts();
     getComments();
+    getLikes();
+
     console.log(user_id);
   }, [])
   // Posts
@@ -217,48 +220,96 @@ try {
 
   }
 
+     // like
+
+
+     const getLikes = () => {
+      axios.get(`http://localhost:80/frontend/back_end/likes.php/`)
+      .then(response => {
+        console.log(response.data);
+          setLikes(response.data);
+      })
+    }
+  
+    const handleLikePost = (id) => {
+      const post_id = id;
+      const user_id = current_ID;
+      setInputs({'user_id': user_id , 'post_id' : post_id})
+    }
+  
+    const likePost = async (e) => {
+      e.preventDefault();
+      console.log(inputs)
+        await axios.post('http://localhost:80/frontend/back_end/likes.php/' , inputs).then(
+          // window.location.assign('/')
+          )
+          getPosts();
+          getComments();
+          getLikes();
+    }
+    const removeLikePost = async (e) => {
+      e.preventDefault();
+      console.log(inputs)
+        await axios.post('http://localhost:80/frontend/back_end/likeDelete.php/' , inputs).then(
+          // window.location.assign('/')
+          )
+          getPosts();
+          getComments();
+          getLikes();
+    }
+
+    const ShowComments = (id) => {
+      document.getElementById(`commentsForPost${id}`).style.display = 'block';
+  
+      // { showCommentsForm ? setCommentsForm(false) : setCommentsForm(true) }
+  
+  
+    }
+  
+  var flagLike = false;
+  var like_count = 0;
   return (
 
     <>
-      {posts.map((post, index) => {
+      {/* {posts.map((post, index) => {
         return (
-          <div key={index}>
+          <div key={index}> */}
             <div className="post" >
               <div className="postWrapper">
                 <div className="postTop">
                   <div className="postTopLeft">
                     <img
                       className="postProfileImg"
-                      src={require(`../image/icon.png`)}
+                      src={require(`../image/${props.post.image}`)}
                       alt=""
                     />
                     <span className="postUsername">
-                      {post.name}
+                      {props.post.name}
                     </span>
-                    <span className="postDate">{post.created_at}</span>
+                    <span className="postDate">{props.post.created_at}</span>
                   </div>
                   <div className="postTopRight">
-                    {(post.user_id === current_ID) ?
+                    {(props.post.user_id === current_ID) ?
                       <div className="postBottun">
                         <div >
-                        <Button size="sm" variant="danger" onClick={() => { deletePost(post.post_id) }}><MdDeleteForever /></Button>
+                        <Button size="sm" variant="danger" onClick={() => { deletePost(props.post.post_id) }}><MdDeleteForever /></Button>
                         </div>
                         <div style={{marginLeft:"3%"}}>
-                        <Button size="sm" variant="success" id={`editPostBTN${post.post_id}`} onClick={() => { editPost(post.post_id) }}><BiEdit /></Button>
+                        <Button size="sm" variant="success" id={`editPostBTN${props.post.post_id}`} onClick={() => { editPost(props.post.post_id) }}><BiEdit /></Button>
                      </div>
                       </div>
                       : null}
                   </div>
                 </div>
-                {(post.post_image !== 'a') ?
+                {(props.post.post_image !== 'a') ?
                   <div className="postCenter">
-                    <span className="postText" id={`post${post.post_id}`}>{post.content}</span>
-                    <form id={`editPostForm${post.post_id}`} action="" style={{ display: 'none' }} onSubmit={handleEditPostSubmit}>
+                    <span className="postText" id={`post${props.post.post_id}`}>{props.post.content}</span>
+                    <form id={`editPostForm${props.post.post_id}`} action="" style={{ display: 'none' }} onSubmit={handleEditPostSubmit}>
                       <textarea
                         style={{ width: '50vw' }}
                         type="text"
-                        defaultValue={post.content}
-                        id={`editPostInput${post.post_id}`} onChange={() => handleEditPost(post.post_id)} />
+                        defaultValue={props.post.content}
+                        id={`editPostInput${props.post.post_id}`} onChange={() => handleEditPost(props.post.post_id)} />
 
                       <br />
 
@@ -268,22 +319,22 @@ try {
                         onChange={(e) => setFile(e.target.files[0])} />
 
                       <button type='submit'>Update</button>
-                      <button style={{ background: 'red', color: 'white' }} onClick={() => { canclePostEdit(post.post_id) }} type='button'>Cancle</button>
+                      <button style={{ background: 'red', color: 'white' }} onClick={() => { canclePostEdit(props.post.post_id) }} type='button'>Cancle</button>
                     </form>
-                    <img className="postImg" src={require(`../image/${post.post_image}`)} alt="" id={`imgPost${post.post_id}`} />
+                    <img className="postImg" src={require(`../image/${props.post.post_image}`)} alt="" id={`imgPost${props.post.post_id}`} />
                   </div>
                   :
                   <div className="postCenter">
 
-                    <span className="postText" id={`post${post.post_id}`}>{post.content}</span>
-                    <form id={`editPostForm${post.post_id}`} action="" style={{ display: 'none' }} onSubmit={handleEditPostSubmit}>
+                    <span className="postText" id={`post${props.post.post_id}`}>{props.post.content}</span>
+                    <form id={`editPostForm${props.post.post_id}`} action="" style={{ display: 'none' }} onSubmit={handleEditPostSubmit}>
 
                       <textarea
                         style={{ width: '50vw'}}
                         type="text"
-                        defaultValue={post.content}
-                        id={`editPostInput${post.post_id}`}
-                        onChange={() => handleEditPost(post.post_id)} />
+                        defaultValue={props.post.content}
+                        id={`editPostInput${props.post.post_id}`}
+                        onChange={() => handleEditPost(props.post.post_id)} />
 
                       <input
                         type="file"
@@ -293,7 +344,7 @@ try {
                       <br />
 
                       <button type='submit'>Update</button>
-                      <button style={{ background: 'red', color: 'white' }} onClick={() => { canclePostEdit(post.post_id) }} type='button'>Cancle</button>
+                      <button style={{ background: 'red', color: 'white' }} onClick={() => { canclePostEdit(props.post.post_id) }} type='button'>Cancle</button>
 
                     </form>
 
@@ -301,22 +352,45 @@ try {
                 }
                 <div className="postBottom">
                   <div className="postBottomLeft">
-                    {/* <img className="likeIcon" src="assets/like.png" onClick={likeHandler} alt="" />
-            <img className="likeIcon" src="assets/heart.png" onClick={likeHandler} alt="" />
-            <span className="postLikeCounter">{like} people like it</span> */}
+                  {
+                    likes.map((like , index_like) => {
+                      if (like.user_id == current_ID && like.post_id == props.post.post_id){
+                        return ( flagLike = true )
+                      }})}
 
+                      {( flagLike == true ) ?
+                              <form action="" onSubmit={removeLikePost}>
+                                <button type='submit' style={{background : 'none' , border : 'none' , color : '#0d6efd' , textDecoration : 'underLine' }} onClick={()=>handleLikePost(props.post.post_id)}  href="#!" className="d-flex align-items-center me-3">
+                                  <i className="far fa-thumbs-up me-2" />
+                                  <p className="mb-0" style={{color : 'blue' , fontWeight : 'bold'}}>Liked</p>
+                                </button>
+                              </form>
+                      :
+                              <form action="" onSubmit={likePost}>
+                                  <button type='submit' style={{background : 'none' , border : 'none' , color : '#0d6efd' , textDecoration : 'underLine' }} onClick={()=>handleLikePost(props.post.post_id)}  href="#!" className="d-flex align-items-center me-3">
+                                    <i className="far fa-thumbs-up me-2" />
+                                    <p className="mb-0">Like</p>
+                                  </button>
+                              </form>
+                      }
+            {likes.map((count)=>{
+              if(count.post_id == props.post.post_id){
+                like_count++;
+              }
+            })}
+            <span className="postLikeCounter">{like_count} people like it</span>
                   </div>
                   <div className="postBottomRight">
-                    <span className="postCommentText">{post.comment} comments</span>
+                    <span className="postCommentText" onClick={() =>ShowComments(props.post.post_id)}>comments</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="card-footer py-3 border-0 shadow-2-strong" style={{ backgroundColor: '#f8f9fa' }}>
+            <div className="card-footer py-3 border-0 shadow-2-strong"  style={{ backgroundColor: '#f8f9fa',display:"none" }} id={`commentsForPost${props.post.post_id}`}>
               <div className="w-100">
                 {comments.map((comment, index) => {
-                  if (comment.post_id === post.post_id) {
+                  if (comment.post_id === props.post.post_id) {
                     return (
                       <div key={index}>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -328,7 +402,7 @@ try {
                             <div>
                               <Button  variant="danger" style={{marginLeft:"-15%"}} size="sm"  onClick={() => { deleteComment(comment.comment_id) }}><MdDeleteForever /></Button>
                               <Button variant="success" size="sm"  id={`editCommentBTN${comment.comment_id}`} onClick={() => { editComment(comment.comment_id) }}><BiEdit /></Button>
-                            </div> : (post.user_id === current_ID) ?
+                            </div> : (props.post.user_id === current_ID) ?
                               <div>
                                 <button onClick={() => { deleteComment(comment.comment_id) }}>Remove comment</button>
                               </div>
@@ -363,16 +437,14 @@ try {
                 <div className="d-flex flex-start w-100">
                   <img className="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width={40} height={40} />
                   <form className="form-outline " onSubmit={handleCreateComment}>
-                    <textarea className="form-control" id={post.post_id} name={current_ID} rows={4} style={{ background: '#fff', width: '28rem'}} onChange={handleChange} />
+                    <textarea className="form-control" id={props.post.post_id} name={current_ID} rows={4} style={{ background: '#fff', width: '28rem'}} onChange={handleChange} />
                     <Button variant="success" style={{marginTop:"2% "}} type="submit" className="btn btn-primary btn-sm">Comment</Button>
                   </form>
                 </div>
               </div>
 
             </div>
-          </div>
-        )
-      })}
+     
     </>
   )
 }
