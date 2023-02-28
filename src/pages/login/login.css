@@ -19,8 +19,11 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 20px;
   }
-  
+  .loginLeft{
+    margin-right: 30px;
+  }
   .loginLogo {
     font-size: 50px;
     font-weight: 800;

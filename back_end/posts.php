@@ -15,10 +15,31 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($method) {
     case 'GET' :
-        $sql = "SELECT * FROM `users`
-                INNER JOIN `posts` ON posts.user_id = users.id
-                ORDER BY posts.created_at DESC" ;
+        $path = explode('/' , $_SERVER['REQUEST_URI']);
+        $user_id =$path[4];
+        // $sql = "SELECT * FROM `users`
+        //         INNER JOIN `posts` ON posts.user_id = users.id
+        //         ORDER BY posts.created_at DESC" ;
+        $sql = "SELECT p.*, u.*
+        FROM posts p
+        LEFT JOIN users u ON p.user_id = u.id
+        WHERE p.user_id = $user_id OR p.group_id IN (
+            SELECT group_id
+            FROM groups
+            WHERE user_id = $user_id
+        ) OR p.user_id IN (
+            SELECT friend_id
+            FROM friends
+            WHERE user_id = $user_id AND status = 'accepted'
+        ) OR p.group_id IN (
+            SELECT group_id
+            FROM members
+            WHERE user_id = $user_id
+        )
+        ORDER BY p.created_at DESC";
         $query = $conn->prepare($sql);
+        // $stmt->bindParam(':id', $path[3]);
+        
         $query->execute();
         $posts = $query->fetchAll(PDO::FETCH_ASSOC);
         echo json_encode($posts);

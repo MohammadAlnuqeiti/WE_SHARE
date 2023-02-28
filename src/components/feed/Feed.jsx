@@ -9,12 +9,16 @@ import { async } from "q";
 
 export default function Feed() {
 
+
+  const current_ID = JSON.parse(localStorage.getItem('id'));
+
   
   const [inputs, setInputs] = useState("")
   const [posts, setPosts] = useState([]);
-
-
+  
+  
   useEffect(() => {
+    // console.log(current_ID);
     getPosts();
   }, [])
 
@@ -29,7 +33,7 @@ export default function Feed() {
 // }
 
 const getPosts = async () =>{
- await axios.get(`http://localhost:80/frontend/back_end/posts.php/`)
+ await axios.get(`http://localhost:80/frontend/back_end/posts.php/${current_ID}`)
   .then(response => {
     console.log(response.data);
     setPosts(response.data);

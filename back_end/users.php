@@ -17,6 +17,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($method) {
     case 'GET' :
+        
         $sql = "SELECT * FROM users" ;
         $path = explode('/' , $_SERVER['REQUEST_URI']);
         if(isset($path[4]) && is_numeric($path[4])){
