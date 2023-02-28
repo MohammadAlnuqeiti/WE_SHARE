@@ -19,17 +19,10 @@ import { async } from "q";
 
 
 export default function Post({ post }) {
-  // const [like,setLike] = useState(post.like)
-  // const [isLiked,setIsLiked] = useState(false)
-
-  // const likeHandler =()=>{
-  //   setLike(isLiked ? like-1 : like+1)
-  //   setIsLiked(!isLiked)
-  // }
+ 
 
 
   const current_ID = JSON.parse(localStorage.getItem('id'));
-  const current_Email = localStorage.getItem('email');
 
   const [inputs, setInputs] = useState("")
   const [posts, setPosts] = useState([]);
@@ -52,7 +45,10 @@ export default function Post({ post }) {
   function getPosts() {
     axios.get(`http://localhost:80/frontend/back_end/posts.php/`)
       .then(response => {
+        // console.log(response.data);
         setPosts(response.data);
+        getComments();
+        getLikes();
       })
   }
 
@@ -139,8 +135,8 @@ export default function Post({ post }) {
 
 
 
-  const deletePost = (id) => {
-    axios.delete(`http://localhost:80/frontend/back_end/posts.php/${id}`).then(function (response) {
+  const deletePost = async (id) => {
+    await axios.delete(`http://localhost:80/frontend/back_end/posts.php/${id}`).then(function (response) {
       // window.location.assign('/');
       getPosts();
       getComments();
@@ -160,19 +156,20 @@ export default function Post({ post }) {
 
 
 
-  function getComments() {
-    axios.get(`http://localhost:80/frontend/back_end/comments.php/`)
+  async function getComments() {
+    await axios.get(`http://localhost:80/frontend/back_end/comments.php/`)
       .then(response => {
         console.log(response.data);
         setComments(response.data);
       })
   }
 
-  const handleCreateComment = (e) => {
+  const handleCreateComment = async (e) => {
     e.preventDefault();
     
-    axios.post('http://localhost:80/frontend/back_end/comments.php/', inputs).then((res) => {
+    await axios.post('http://localhost:80/frontend/back_end/comments.php/', inputs).then((res) => {
       console.log(res);
+      getPosts();
       // window.location.assign('/')
     }
     )
@@ -200,9 +197,9 @@ export default function Post({ post }) {
     setInputs({ 'comment_content': value, 'comment_id': comment_id })
   }
 
-  const handleEditCommentSubmit = (e) => {
+  const handleEditCommentSubmit = async (e) => {
     e.preventDefault();
-    axios.put('http://localhost:80/frontend/back_end/comments.php/', inputs).then(()=>{
+    await axios.put('http://localhost:80/frontend/back_end/comments.php/', inputs).then(()=>{
 
       getComments();
       getPosts();
@@ -222,9 +219,10 @@ export default function Post({ post }) {
 
   }
 
-  const ShowComments = () => {
+  const ShowComments = (id) => {
+    document.getElementById(`commentsForPost${id}`).style.display = 'block';
 
-    { showCommentsForm ? setCommentsForm(false) : setCommentsForm(true) }
+    // { showCommentsForm ? setCommentsForm(false) : setCommentsForm(true) }
 
 
   }
@@ -241,7 +239,7 @@ export default function Post({ post }) {
     })
   }
 
-  const handleLikePost = (id) => {
+  const handleLikePost =  (id) => {
     const post_id = id;
     const user_id = current_ID;
     setInputs({'user_id': user_id , 'post_id' : post_id})
@@ -250,22 +248,26 @@ export default function Post({ post }) {
   const likePost = async (e) => {
     e.preventDefault();
     console.log(inputs)
-      await axios.post('http://localhost:80/frontend/back_end/likes.php/' , inputs).then(
-        // window.location.assign('/')
-        )
+      await axios.post('http://localhost:80/frontend/back_end/likes.php/' , inputs).then(()=>{
+
         getPosts();
         getComments();
         getLikes();
+      }
+
+        )
   }
   const removeLikePost = async (e) => {
     e.preventDefault();
     console.log(inputs)
-      await axios.post('http://localhost:80/frontend/back_end/likeDelete.php/' , inputs).then(
-        // window.location.assign('/')
-        )
+      await axios.post('http://localhost:80/frontend/back_end/likeDelete.php/' , inputs).then(()=>{
+
         getPosts();
         getComments();
         getLikes();
+      }
+        // window.location.assign('/')
+        )
   }
 
   var flagLike = false;
@@ -301,7 +303,7 @@ export default function Post({ post }) {
 
                           <Dropdown.Menu>
                             <div >
-                              <Dropdown.Item variant="success" id={`editPostBTN${post.post_id}`} onClick={() => { editPost(post.post_id) }}><BiEdit />Edite</Dropdown.Item>
+                              <Dropdown.Item variant="success" id={`editPostBTN${post.post_id}`} onClick={() => { editPost(post.post_id) }}><BiEdit />Edit</Dropdown.Item>
                             </div>
                             
                             <div >
@@ -365,42 +367,42 @@ export default function Post({ post }) {
                
                 <div className="postBottom">
                 <div className="postBottomLeft">
-                    {
-                    likes.map((like , index_like) => {
-                      if (like.user_id == current_ID && like.post_id == post.post_id){
-                        return ( flagLike = true )
-                      }})}
+                          {
+                          likes.map((like , index_like) => {
+                            if (like.user_id === current_ID && like.post_id === post.post_id){
+                              return ( flagLike = true )
+                            }})}
 
-                      {( flagLike == true ) ?
-                              <form action="" onSubmit={removeLikePost}>
-                                <button type='submit' style={{background : 'none' , border : 'none' , color : '#0d6efd' , textDecoration : 'underLine' }} onClick={()=>handleLikePost(post.post_id)}  href="#!" className="d-flex align-items-center me-3">
-                                  <i className="far fa-thumbs-up me-2" />
-                                  <p className="mb-0" style={{color : 'blue' , fontWeight : 'bold'}}>Liked</p>
-                                </button>
-                              </form>
-                      :
-                              <form action="" onSubmit={likePost}>
-                                  <button type='submit' style={{background : 'none' , border : 'none' , color : '#0d6efd' , textDecoration : 'underLine' }} onClick={()=>handleLikePost(post.post_id)}  href="#!" className="d-flex align-items-center me-3">
-                                    <i className="far fa-thumbs-up me-2" />
-                                    <p className="mb-0">Like</p> {post.post_id}
-                                  </button>
-                              </form>
-                      }
-            {likes.map((count)=>{
-              if(count.post_id == post.post_id){
-                like_count++;
-              }
-            })}
-            <span className="postLikeCounter">{like_count} people like it</span>
-          </div>
+                            {( flagLike === true ) ?
+                                    <form action="" onSubmit={removeLikePost}>
+                                      <button type='submit' style={{background : 'none' , border : 'none' , color : '#0d6efd' , textDecoration : 'underLine' }} onClick={()=>handleLikePost(post.post_id)}  href="#!" className="d-flex align-items-center me-3">
+                                        <i className="far fa-thumbs-up me-2" />
+                                        <p className="mb-0" style={{color : 'blue' , fontWeight : 'bold'}}>Liked</p>
+                                      </button>
+                                    </form>
+                            :
+                                    <form action="" onSubmit={likePost}>
+                                        <button type='submit' style={{background : 'none' , border : 'none' , color : '#0d6efd' , textDecoration : 'underLine' }} onClick={()=>handleLikePost(post.post_id)}  href="#!" className="d-flex align-items-center me-3">
+                                          <i className="far fa-thumbs-up me-2" />
+                                          <p className="mb-0">Like</p>
+                                        </button>
+                                    </form>
+                            }
+                            {likes.map((count)=>{
+                              if(count.post_id === post.post_id){
+                                like_count++;
+                              }
+                            })}
+                            <span className="postLikeCounter">{like_count} people like it</span>
+                  </div>
                   <div className="postBottomRight">
-                    <a className="postCommentText" onClick={() =>ShowComments()}>comments</a>
+                    <a className="postCommentText" onClick={() =>ShowComments(post.post_id)}>comments</a>
                   </div>
                 </div>
               </div>
             </div>
-          {showCommentsForm ?
-              <div className="card-footer py-3 border-0 shadow-2-strong" style={{ backgroundColor: '#f8f9fa' }}>
+          {/* {showCommentsForm ? */}
+              <div className="card-footer py-3 border-0 shadow-2-strong" style={{ backgroundColor: '#f8f9fa',display:"none" }} id={`commentsForPost${post.post_id}`}>
                 <div className="w-100">
                   {comments.map((comment, index) => {
                     if (comment.post_id === post.post_id) {
@@ -465,7 +467,7 @@ export default function Post({ post }) {
                 </div>
 
               </div>
-          : "" }
+          {/* // : "" } */}
           </div>
         )
       }

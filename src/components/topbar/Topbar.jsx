@@ -114,7 +114,10 @@ export default function Topbar() {
     </Dropdown>
           </div>
         </div>
+        <Link to={`/profile/${id}`}>
+
         <img src={require(`../image/${ImageUser}`)} alt="" className="topbarImg"/>
+        </Link>
       </div>
     </div>
   );
