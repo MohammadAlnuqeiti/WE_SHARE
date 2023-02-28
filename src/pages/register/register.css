@@ -33,7 +33,6 @@
   }
   
   .loginBox{
-      height: 500px;
       padding: 20px;
       background-color: white;
       border-radius: 10px;
@@ -62,7 +61,7 @@
       height: 50px;
       border-radius: 10px;
       border: none;
-      background-color: #1775ee;
+      background-color:#008069;
       color: white;
       font-size: 20px;
       font-weight: 500;
@@ -74,6 +73,7 @@
       color: #1775ee;
   }
   
+
   .loginRegisterButton{
       padding-top: .5rem;
       padding-bottom: .5rem;
@@ -88,4 +88,9 @@
       font-size: 20px;
       font-weight: 500;
       cursor: pointer;
+  }
+
+
+  .error{
+    color: red;
   }

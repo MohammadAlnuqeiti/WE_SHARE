@@ -161,6 +161,7 @@ const checkPass=RegExp(/^^[A-Za-z]\w{8,31}$/);
         console.error('Invalid Form')
       }
       console.log( this.users);
+    
 
     }
   render() {
@@ -179,7 +180,6 @@ const checkPass=RegExp(/^^[A-Za-z]\w{8,31}$/);
         <div className="loginRight">
         <form onSubmit={this.handleSubmit} noValidate >
           <div className="loginBox">
-          
         <InputGroup className="mb-3">
             <FloatingLabel  label="name">
             <Form.Control type="text" name="name" onChange={this.handleChange}  aria-label="name" placeholder="name" noValidate/>
@@ -209,10 +209,10 @@ const checkPass=RegExp(/^^[A-Za-z]\w{8,31}$/);
             </FloatingLabel>  
         </InputGroup>
             <button className="loginButton">Sign Up</button>
-            <button className="loginRegisterButton">
-              Log into Account
-            </button>
            
+            <button href='/login' className="loginRegisterButton">
+            <a href="/login" style={{textDecoration:"none",color:"white",marginTop:"-2%"}}>Log into Account</a>
+            </button>
           </div>
           </form>
         </div>

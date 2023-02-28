@@ -415,6 +415,7 @@ export default function Post({ post }) {
                             </div>
                             {(comment.user_id === current_ID) 
                             ?
+                            
                               <div>
                                 <a style={{ marginLeft: "-15%", color: 'red', cursor: 'pointer' }} onClick={() => { deleteComment(comment.comment_id) }}><MdDeleteForever /></a>
                                 <a style={{ color: 'green', cursor: 'pointer' }} id={`editCommentBTN${comment.comment_id}`} onClick={() => { editComment(comment.comment_id) }}><BiEdit /></a>

@@ -75,8 +75,8 @@ const handlePost = (e) => {
                 <div className="shareOption">
                     {/* <MdPermMedia htmlColor="tomato" className="shareIcon"/> */}
                     <input type="file" className="shareInput" id="file"
-            onChange={(e) => setFile(e.target.files[0])} hidden/>
-            <label for="file"><CgSoftwareUpload size={20}/> Choose file</label>
+                     onChange={(e) => setFile(e.target.files[0])} hidden/>
+            <label className="label" for="file"><CgSoftwareUpload size={20}/>Choose file</label>
                     {/* <input
             type="file" 
             className="shareInput" id="file"
