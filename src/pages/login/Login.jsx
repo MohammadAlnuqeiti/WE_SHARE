@@ -94,11 +94,10 @@ if(name==="email"){
 
             <input  placeholder="Email" className="loginInput" type='email' name='email' onBlur={this.handleBlur} noValidate />
             <input placeholder="Password" className="loginInput" type='password' name='password' onBlur={this.handleBlur} noValidate />
-            <button className="loginButton">Log In</button>
+            <button  className="loginButton">Log In</button>
             <p className="errorr" id="err"></p>
-            <span className="loginForgot">Forgot Password?</span>
             <button className="loginRegisterButton">
-              Create a New Account
+              <a href="/register" style={{textDecoration:"none",color:"white"}}>Create a New Account</a>
             </button>
 
           </div>

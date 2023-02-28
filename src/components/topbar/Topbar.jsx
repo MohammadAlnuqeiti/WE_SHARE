@@ -51,31 +51,31 @@ export default function Topbar() {
         <span className="logo">Lamasocial</span>
       </div>
       <div className="topbarCenter">
-        <div className="searchbar">
+        {/* <div className="searchbar">
           <BsSearch className="searchIcon" />
           <input
             placeholder="Search for friend, post or video"
             className="searchInput"
           />
-        </div>
+        </div> */}
       </div>
       <div className="topbarRight">
         <div className="topbarIcons">
-          <div className="topbarIconItem">
-          <Dropdown>
-      <Dropdown.Toggle  >
-      <BsFillPersonFill />
+          <div  className="topbarIconItem">
+          <Dropdown >
+      <Dropdown.Toggle variant="#008069" bsPrefix >
+      <BsFillPersonFill style={{color:"white"}} />
       {/* {requestFriends.length > 0 ?
             <span className="topbarIconBadge">{requestFriends.length}</span>
             :
             ""} */}
-            <span className="topbarIconBadge">{requestFriends.length}</span>
-      </Dropdown.Toggle>
-      <Dropdown.Menu>
+            <span className="topbarIconBadge" >{requestFriends.length}</span>
+      </Dropdown.Toggle >
+      <Dropdown.Menu >
         
       {requestFriends.map((ele,index)=>{
             return(
-        <Dropdown.Item href="#/action-1" key={index}>
+        <Dropdown.Item   href="#/action-1" key={index} >
           <tr>
             <td>{ele.name}</td>
             <td>
@@ -101,7 +101,7 @@ export default function Topbar() {
           <div className="topbarIconItem">
        
             <Dropdown>
-      <Dropdown.Toggle  id="dropdown-basic">
+      {/* <Dropdown.Toggle  id="dropdown-basic" bsPrefix>
       <span className="topbarIconBadge1">1</span>
       <MdNotifications />
       </Dropdown.Toggle>
@@ -109,11 +109,14 @@ export default function Topbar() {
         <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
         <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
         <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-      </Dropdown.Menu>
+      </Dropdown.Menu> */}
     </Dropdown>
           </div>
         </div>
-        <img src="/assets/wateen.png" alt="" className="topbarImg"/>
+        <div style={{display:"flex",marginTop:"2%"}}>
+        <p style={{marginLeft:"-10%"}}>Hello,Haneen</p>
+        <img style={{marginLeft:"10%"}} src="/assets/wateen.png" alt="" className="topbarImg"/>
+         </div>
       </div>
     </div>
   );
