@@ -61,9 +61,10 @@ if(name==="email"){
                   console.log(true);
                   window.localStorage.setItem('email',this.state.email)
                   window.localStorage.setItem('id',ele.id)
+                  window.localStorage.setItem('name',ele.name)
                   window.localStorage.setItem('image',ele.image)
 
-                  window.location.assign('/')
+                  window.location.assign('/home')
                   // window.location.href="http://localhost:3000/home";
 
                   

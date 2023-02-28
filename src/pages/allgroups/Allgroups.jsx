@@ -114,13 +114,17 @@ const handleSubmit = async (e) => {
       );
       console.log(response.data);
       setShowUpdateForm(false);
+      window.location.assign('/Allgroups');
+
 
     } catch (error) {
       console.error(error);
     }
   };
 
-
+const ShowUpdateForm = () => {
+  {showUpdateForm ? setShowUpdateForm(false) : setShowUpdateForm(true)}
+}
 
     return (
       <>
@@ -129,7 +133,7 @@ const handleSubmit = async (e) => {
           <Sidebar />
 
           <div className="Allgroups">
-          <Button variant="primary" onClick={()=>setShowUpdateForm(true)}>add group</Button>
+          <Button variant="primary" onClick={()=>ShowUpdateForm()}>add group</Button>
 
           {showUpdateForm&& <CreateGroup handleSubmit={handleSubmit} setText={setText} setFile={setFile} setGroupDescription={setGroupDescription} text={text} />}
           <div className="Allgroups">

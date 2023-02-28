@@ -4,10 +4,54 @@ import Online from "../online/Online";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import { useParams } from 'react-router-dom';
 
 export default function Rightbar({ profile }) {
+// 
 
+const {profile_id} = useParams();
+
+const current_ID = JSON.parse(localStorage.getItem('id'));
+const current_Email = localStorage.getItem('email');
+
+const [inputs , setInputs] = useState("")
+const [users , setUsers] = useState([]);
+const [usersData , setDataUsers] = useState([]);
+
+
+
+useEffect(()=>{
+    getUsers();
+    getDataUsers();
+} , [])
+
+
+function getUsers(){
+    axios.get(`http://localhost:80/frontend/back_end/getAllFriendsUser.php/${profile_id}`)
+    .then(response => {
+      console.log(response.data);
+        setUsers(response.data);
+    })
+  }
+  
+  const getDataUsers = () => {
+
+    axios.get(`http://localhost:80/frontend/back_end/user.php/users/${current_ID}`)
+    .then((respone)=>{
+      setDataUsers(respone.data[0])
+        console.log(respone.data[0]);
+    })
+}
+  var i = 1;
+
+
+
+
+
+
+
+
+// 
   const id = JSON.parse(localStorage.getItem('id'));
     const [acceptrdFriends,setAcceptedFriends] = useState([]);
     const [friends,setfriends] = useState([]);
@@ -21,7 +65,7 @@ export default function Rightbar({ profile }) {
     
     const getFriendsAccepted = () => {
 
-      axios.get(`http://localhost:80/react_project/back_end/friends.php/${id}`)
+      axios.get(`http://localhost:80/frontend/back_end/friends.php/${id}`)
       .then((respone)=>{
           console.log(respone.data);
           let friends = respone.data.map((ele)=>{
@@ -64,72 +108,45 @@ export default function Rightbar({ profile }) {
   const ProfileRightbar = () => {
     return (
       <>
-        <h4 className="rightbarTitle">User information</h4>
-        <div className="rightbarInfo">
-          <div className="rightbarInfoItem">
-            <span className="rightbarInfoKey">City:</span>
-            <span className="rightbarInfoValue">New York</span>
-          </div>
-          <div className="rightbarInfoItem">
-            <span className="rightbarInfoKey">From:</span>
-            <span className="rightbarInfoValue">Madrid</span>
-          </div>
-          <div className="rightbarInfoItem">
-            <span className="rightbarInfoKey">Relationship:</span>
-            <span className="rightbarInfoValue">Single</span>
-          </div>
-        </div>
-        <h4 className="rightbarTitle">User friends</h4>
-        <div className="rightbarFollowings">
-          <div className="rightbarFollowing">
-            <img
-              src="assets/person/1.jpeg"
-              alt=""
-              className="rightbarFollowingImg"
-            />
-            <span className="rightbarFollowingName">John Carter</span>
-          </div>
-          <div className="rightbarFollowing">
-            <img
-              src="assets/person/2.jpeg"
-              alt=""
-              className="rightbarFollowingImg"
-            />
-            <span className="rightbarFollowingName">John Carter</span>
-          </div>
-          <div className="rightbarFollowing">
-            <img
-              src="assets/person/3.jpeg"
-              alt=""
-              className="rightbarFollowingImg"
-            />
-            <span className="rightbarFollowingName">John Carter</span>
-          </div>
-          <div className="rightbarFollowing">
-            <img
-              src="assets/person/4.jpeg"
-              alt=""
-              className="rightbarFollowingImg"
-            />
-            <span className="rightbarFollowingName">John Carter</span>
-          </div>
-          <div className="rightbarFollowing">
-            <img
-              src="assets/person/5.jpeg"
-              alt=""
-              className="rightbarFollowingImg"
-            />
-            <span className="rightbarFollowingName">John Carter</span>
-          </div>
-          <div className="rightbarFollowing">
-            <img
-              src="assets/person/6.jpeg"
-              alt=""
-              className="rightbarFollowingImg"
-            />
-            <span className="rightbarFollowingName">John Carter</span>
-          </div>
-        </div>
+         <h4 className='rightbarTitle'>User information <a href={`/profile/${profile_id}/edit`}><button>Edit</button></a></h4>
+                <div className="rightbarInfo">
+                <div className="rightbarInfoItem">
+                  <span className="rightbarInfoKey">email:</span>
+                  <span className="rightbarInfoValue">{usersData.email}</span>
+                </div>
+                <div className="rightbarInfoItem">
+                  <span className="rightbarInfoKey">Phone:</span>
+                  <span className="rightbarInfoValue">{usersData.phone}</span>
+                </div>
+                    <div className="rightbarInfoItem">
+                        <span className="rightbarInfoKey">Relationship:</span>
+                        <span className="rightbarInfoValue">Single</span>
+                    </div>
+                </div>
+                <h4 className='rightbarTitle'>User friends</h4>
+                <div className="rightbarFollowings" style={{display : 'grid' , gridTemplateColumns : 'repeat(3 , 1fr)'}}>
+                    {acceptrdFriends.map((ele,index)=>{
+                               if(ele.friend_id === current_ID){
+                                return <a href={`/profile/${ele.friend_id}`} key={index}>
+                                <div className="rightbarFollowing">
+                                    <img src={require(`../image/${ele.image}`)} alt="" className="rightbarFollowingImg" />
+                                    <span className="rightbarFollowingname">{ele.name}</span>
+                                </div>
+                            </a>      
+                            }
+                            else {
+                                return <a href={`/UserProfile/${ele.friend_id}/show`} key={index}>
+                                <div className="rightbarFollowing">
+                                    <img src={require(`../image/${ele.image}`)} alt="" className="rightbarFollowingImg" />
+                                    <span className="rightbarFollowingname">{ele.name}</span>
+                                </div>
+                            </a>
+                            }
+
+                                
+                                })}
+
+                </div>
       </>
     );
   };
