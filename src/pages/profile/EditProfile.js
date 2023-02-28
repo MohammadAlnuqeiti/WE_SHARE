@@ -79,48 +79,59 @@ function EditProfile({ post }){
         <Topbar />
             <div className="profile">
                 <Sidebar />
+              
                 <div className="profileRight">
                     <div className="profilerightTop">
+                        
                             {user.map((Oneuser)=>{
                                 return( <>
                         <div className="profileCover">
                             <img className='profileCoverImg' src="http://www.prodraw.net/fb_cover/images/fb_cover_52.jpg" alt="" />
-                                <img src={require(`../../components/image/${Oneuser.image}`)} style={{width : '20vw'}} alt="" /> 
+                                {/* <img src={require(`../../components/image/${Oneuser.image}`)} style={{width : '20vw'}} alt="" />  */}
                                 
                         </div>
                             <div>
-                                <form style={{marginLeft : '30vw'}} id={`editUserForm${Oneuser.id}`} onSubmit={handleEditUserSubmit}>
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <td><label htmlFor=""> Name</label></td>
-                                                <td><input style={{width: '10vw'}} name="name" type="text" defaultValue={Oneuser.name} onChange={handleEditUser}/></td>
-                                            </tr>
-                                       
-                                            <tr>
-                                                <td><label htmlFor="">Password</label></td>
-                                                <td><input style={{width: '10vw'}} name="password" type="password" defaultValue={Oneuser.password} onChange={handleEditUser}/></td>
-                                            </tr>
-                                            <tr>
-                                                <td><label htmlFor="">Phone</label></td>
-                                                <td><input style={{width: '10vw'}} name="phone" type="number" defaultValue={Oneuser.phone} onChange={handleEditUser}/></td>
-                                            </tr>
-                                            <tr>
-                                                <td><label htmlFor="">Image</label></td>
-                                                <td><input type="file" name="file" id="file"onChange={(e) => setFile(e.target.files[0])}/></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>                
+                            <div className="container rounded bg-white mt-0">
+        <div className="row">
+          <div className="col-md-3 border-right">
+            <div className="d-flex flex-column align-items-center text-center p-3 py-5"><img className="rounded-circle mt-5" src={require(`../../components/image/${Oneuser.image}`)} width={90} /><span className="font-weight-bold">{Oneuser.name}</span><span className="text-black-50">{Oneuser.email}</span><span>{Oneuser.phone}</span></div>
+          </div>
+          <div className="col-md-8">
+            <div className="p-3 py-5">
+              <div className="d-flex justify-content-between align-items-center mb-3">
+                <div className="d-flex flex-row align-items-center back"><i className="fa fa-long-arrow-left mr-1 mb-1" />
+                <a href={`/profile/${profile_id}`}><h6>Back to profile</h6></a>
+                </div>
+                <h6 className="text-right">Edit Profile</h6>
+              </div>
 
-                                    <button type='submit'>Update</button>
-                                    <a href={`/profile/${profile_id}`}><button style={{background : 'red' , color : 'white'}} type='button'>Back To Profile</button></a>
-                                </form>
+              <form  id={`editUserForm${Oneuser.id}`} onSubmit={handleEditUserSubmit}>
+              <div className="row mt-3">
+                <div className="col-md-12"><input type="text" className="form-control" placeholder=" name" name="name" defaultValue={Oneuser.name} onChange={handleEditUser} /></div>
+              </div>
+              <div className="row mt-3">
+                <div className="col-md-12"><input type="password" className="form-control" placeholder="Email" name="password" defaultValue={Oneuser.password} onChange={handleEditUser} /></div>
+              </div>
+              <div className="row mt-3">
+                <div className="col-md-12"><input type="number" className="form-control" placeholder="phone"  name="phone" defaultValue={Oneuser.phone} /></div>
+              </div>
+              <div className="row mt-3">
+                <div className="col-md-12"><input type="file" className="form-control" placeholder="image"   name="file" id="file"onChange={(e) => setFile(e.target.files[0])}/></div>
+              </div>
+              <div className="mt-5 text-right"><button className="btn btn-primary profile-button" type="submit">Save Profile</button></div>
+            </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+                            
                             </div>
                             </>
                             )
                         })}
                         <div className="profileInfo">
-                            <h4 className='profileInfoName'>{user.first_name} {user.last_name}</h4>
+                            <h4 className='profileInfoName'>{user.name}</h4>
                         </div>
                     </div>
                 </div>

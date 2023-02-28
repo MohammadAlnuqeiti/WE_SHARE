@@ -80,7 +80,8 @@ const handlePost = (e) => {
                     <input
             type="file"
             className="shareInput" id="file"
-            onChange={(e) => setFile(e.target.files[0])}/>                
+            onChange={(e) => setFile(e.target.files[0])}/> 
+                           
             </div>
                 {/* <div className="shareOption">
                     <MdLabelImportantOutline htmlColor="blue" className="shareIcon"/>

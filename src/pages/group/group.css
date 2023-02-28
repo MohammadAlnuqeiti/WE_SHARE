@@ -12,13 +12,13 @@
 }
 
 .groupCover{
-    height: 320px;
+    height: 380px;
     position: relative;
 }
 
 .groupCoverImg{
     width: 100%;
-    height: 250px;
+    height: 360px;
     object-fit: cover;
 }
 
@@ -38,7 +38,8 @@
 .groupInfo{
     display: flex;
     align-items: center;
-    justify-content:start;
+    justify-content: space-between;
+    margin-right: 50px;
 }
 
 .groupInfoName{
@@ -121,7 +122,7 @@
   .rightbarFollowings{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
   }
   
   .rightbarFollowing{
@@ -132,7 +133,7 @@
   }
   
   .rightbarFollowingImg{
-    width: 100px;
+    width: 100%;
     height: 100px;
     object-fit: cover;
     border-radius: 5px;

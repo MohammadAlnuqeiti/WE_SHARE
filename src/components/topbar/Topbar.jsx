@@ -114,9 +114,10 @@ export default function Topbar() {
     </Dropdown>
           </div>
         </div>
+
         <div style={{display:"flex",marginTop:"2%"}}>
         <p style={{marginLeft:"-10%"}}>Hello,Haneen</p>
-        <img style={{marginLeft:"10%"}} src="/assets/wateen.png" alt="" className="topbarImg"/>
+        <img style={{marginLeft:"10%"}} src={require(`../image/${ImageUser}`)} alt="" className="topbarImg"/>
          </div>
       </div>
     </div>

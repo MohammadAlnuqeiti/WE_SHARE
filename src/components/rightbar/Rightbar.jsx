@@ -92,13 +92,16 @@ function getUsers(){
         <ul className="rightbarFriendList">
         {acceptrdFriends.map((ele,index)=>{
             return(
+            <a href={`/UserProfile/${ele.friend_id}/show`} key={index}>
             <li className="rightbarFriend" key={index}>
+
               <div className="rightbarProfileImgContainer">
                 <img className="rightbarProfileImg" src={require(`../image/${ele.image}`)} alt="" />
                 <span className="rightbarOnline"></span>
               </div>
               <span className="rightbarUsername">{ele.name}</span>
             </li>
+              </a>
             )})}
         </ul>
       </>
@@ -108,7 +111,10 @@ function getUsers(){
   const ProfileRightbar = () => {
     return (
       <>
-         <h4 className='rightbarTitle'>User information <a href={`/profile/${profile_id}/edit`}><button>Edit</button></a></h4>
+      {/* <button class="button" style="vertical-align:middle"><span>Hover </span></button> */}
+         <h4 className='rightbarTitle'>User information <a href={`/profile/${profile_id}/edit`}><button class="button" style={{verticalAlign:"middle"}}><span>Edit </span></button></a>
+         
+         </h4>
                 <div className="rightbarInfo">
                 <div className="rightbarInfoItem">
                   <span className="rightbarInfoKey">email:</span>
