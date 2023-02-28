@@ -8,6 +8,7 @@ import AllUsers from "./pages/allUsers/allUsers";
 import UserProfile from "./pages/UserProfile/Profile";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import EditProfile from "./pages/profile/EditProfile";
+import Post from "./components/post/New folder/Post";
 import {Routes, Route } from "react-router-dom";
 
 
@@ -20,6 +21,7 @@ function App() {
     <>
       <Routes>
           <Route path='/home' element={<Home/>}></Route>
+          <Route path='/post' element={<Post/>}></Route>
           <Route path='/profile/:profile_id' element={<Profile/>}></Route>
           <Route path='/profile/:profile_id/edit' element={<EditProfile/>}></Route>
           <Route path='/' element={<Login/>}></Route>

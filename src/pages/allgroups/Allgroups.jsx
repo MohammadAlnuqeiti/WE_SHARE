@@ -132,8 +132,12 @@ const ShowUpdateForm = () => {
         <div className="groupContainer">
           <Sidebar />
 
-          <div className="Allgroups">
-          <Button variant="primary" onClick={()=>ShowUpdateForm()}>add group</Button>
+          <div className="Allgroups">.
+          <div className="btn">
+          <button  className="button-88" onClick={()=>ShowUpdateForm()}>add group</button>
+
+          </div>
+          {/* <Button variant="primary" onClick={()=>ShowUpdateForm()}>add group</Button> */}
 
           {showUpdateForm&& <CreateGroup handleSubmit={handleSubmit} setText={setText} setFile={setFile} setGroupDescription={setGroupDescription} text={text} />}
           <div className="Allgroups">

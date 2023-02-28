@@ -44,7 +44,14 @@ const getMyAcceptrdGroups = () => {
   })
 
 }
-
+const handleLogOut = () => {
+  window.localStorage.removeItem('email');
+  window.localStorage.removeItem('id');
+  window.localStorage.removeItem('name');
+  window.localStorage.removeItem('image');
+  window.location.pathname = "/";
+ 
+}
 
   return (
     <div className="sidebar">
@@ -66,6 +73,10 @@ const getMyAcceptrdGroups = () => {
             <BiGroup className="sidebarIcon" />
             <NavLink to="/Allusers" className="sidebarListItemText">All Users</NavLink>
           </li>
+          <li className="sidebarListItem">
+            <BiGroup className="sidebarIcon" />
+            <NavLink to="/Allusers" className="sidebarListItemText" onClick={handleLogOut}>Logout</NavLink>
+          </li>   
 
           {/* <li className="sidebarListItem">
             <BsFillPersonFill className="sidebarIcon" />
@@ -91,6 +102,8 @@ const getMyAcceptrdGroups = () => {
                       </a>
                     </li>
            )})}
+
+<hr className="sidebarHr" />
 
         <h5 >Groups</h5>
 
