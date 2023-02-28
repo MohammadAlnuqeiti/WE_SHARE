@@ -62,9 +62,11 @@ export default function Topbar() {
       }
   return (
     <div className="topbarContainer">
-      <div className="topbarLeft">
+      <div className="topbarLeft" style={{marginLeft:"30px"}}>
+      <Link to={`/home`}>
+       <img style={{ width:"160px"}} src={require(`../image/weshare white.png`)}/>
+        </Link>
         
-       <img style={{ width:"25%",height:"1%"}} src={require(`../image/logo.png`)}/>
       </div>
       <div className="topbarCenter">
         {/* <div className="searchbar">

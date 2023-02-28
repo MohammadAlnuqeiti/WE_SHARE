@@ -430,7 +430,7 @@ console.log(props);
                               (props.post.user_id === current_ID) ?
                                 <div>
                                   
-                                  <button onClick={() => { deleteComment(comment.comment_id) }}>Remove comment</button>
+                                  <a style={{ marginLeft: "-15%", color: 'red', cursor: 'pointer' }} onClick={() => { deleteComment(comment.comment_id) }}><MdDeleteForever /></a>
                                 </div>
                                 : 
                                 null
