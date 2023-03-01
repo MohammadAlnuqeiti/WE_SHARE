@@ -307,7 +307,7 @@ try {
                           </Dropdown.Toggle >
 
                           <Dropdown.Menu>
-                        <div >
+                        <div>
                         <Dropdown.Item  id={`editPostBTN${props.post.post_id}`} onClick={() => { editPost(props.post.post_id) }}><BiEdit />Edite</Dropdown.Item>
                         </div>
                         <div >
@@ -319,6 +319,8 @@ try {
                       : null}
                   </div>
                 </div>
+
+                
                 {(props.post.post_image !== 'a') ?
                   <div className="postCenter">
                     <span className="postText" id={`post${props.post.post_id}`}>{props.post.content}</span>
@@ -333,8 +335,8 @@ try {
                         type="file"
                         id="file"
                         className="shareInput"
-                        onChange={(e) => setFile(e.target.files[0])} hidden/> 
-                        <label className="label" for="file"><IoMdPhotos size={20}/></label> 
+                        onChange={(e) => setFile(e.target.files[0])} /> 
+                        {/* <label className="label" for="file"><IoMdPhotos size={20}/></label>  */}
 
                        
                     

@@ -16,6 +16,7 @@ import { async } from "q";
 import {AiOutlineLike} from "react-icons/ai";
 import {AiFillLike} from "react-icons/ai";
 import { CgSoftwareUpload } from "react-icons/cg";
+import { IoMdPhotos } from "react-icons/io";
 
 
 
@@ -351,12 +352,16 @@ console.log(props);
                         id={`editPostInput${props.post.post_id}`} onChange={() => handleEditPost(props.post.post_id)} />
 
                       <br/>
-                       
-                      <input
+                       {/*  */}
+                       <input type="file" className="shareInput" id="file"
+                     onChange={(e) => setFile(e.target.files[0])} />
+            {/* <label className="label" for="file"><IoMdPhotos size={20}/></label> */}
+                       {/*  */}
+                      {/* <input
                         type="file"
                         id="file"
                         onChange={(e) => setFile(e.target.files[0])} hidden />
-                         <label className="label" for="file"><CgSoftwareUpload size={20}/>Choose file</label> 
+                         <label className="label" for="file"><CgSoftwareUpload size={20}/>Choose file</label>  */}
 
                       <Button  variant="success" type='submit' size="sm" style={{marginLeft:"25%"}}>Update</Button>
                       <Button style={{ background: 'red', color: 'white',marginLeft:'1%' }} size="sm" onClick={() => { canclePostEdit(props.post.post_id) }} type='button'>Cancle</Button>
@@ -379,8 +384,8 @@ console.log(props);
                       <input
                         type="file"
                         id="file"
-                        onChange={(e) => setFile(e.target.files[0])} hidden />
-                          <label className="label" for="file"><CgSoftwareUpload size={20}/>Choose file</label> 
+                        onChange={(e) => setFile(e.target.files[0])}  />
+                          {/* <label className="label" for="file"><CgSoftwareUpload size={20}/>Choose file</label>  */}
 
 
                       <Button variant="success" type='submit' size="sm" style={{marginLeft:"25%"}}>Update</Button>
