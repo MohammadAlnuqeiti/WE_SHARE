@@ -8,7 +8,7 @@ import { FaEdit } from "react-icons/fa";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { CgBorderStyleDotted } from "react-icons/cg";
-
+import { CgSoftwareUpload} from "react-icons/cg";
 import { MdDeleteForever } from "react-icons/md";
 import { BiEdit } from "react-icons/bi";
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -281,8 +281,8 @@ const canclePostEdit = (id) => {
     <div className='post'>
       <div className="postWrapper">
         <div className="postTop">
-            <div className="postTopLeft flex">
-              <div>
+            <div className="postTopLeft" >
+            
                 <img className='postProfileImg'
                  src={require(`../image/${props.post.image}`)} 
                 alt="" />
@@ -291,19 +291,32 @@ const canclePostEdit = (id) => {
                   </span>
                 <span className="postDate">{props.post.created_at}</span>
               </div>
-              <div>
+              <div className="postTopRight" style={{marginLeft: "333px"}}>
               {(props.post.user_id === current_ID) || (admin_group===current_ID) ?
-                    <div>
-                      <button onClick={() => {deletePost(props.post.post_id)}}>Delete Your Post</button>
-                      <button id={`editPostBTN${props.post.post_id}`} onClick={() => {editPost(props.post.post_id)}}>edit</button>
-                    </div>
+                    <div className="postBottun">
+                        <Dropdown>
+                          <Dropdown.Toggle variant="text-dark" id="dropdown-basic" bsPrefix >
+                            <CgBorderStyleDotted />
+                          </Dropdown.Toggle >
+
+                          <Dropdown.Menu>
+                            <div>
+                      <Dropdown.Item id={`editPostBTN${props.post.post_id}`} onClick={() => {editPost(props.post.post_id)}}><BiEdit />Edit</Dropdown.Item>
+                      </div>
+                      <div>
+                      <Dropdown.Item onClick={() => {deletePost(props.post.post_id)}}><MdDeleteForever />Delete</Dropdown.Item>
+                      </div>
+                      </Dropdown.Menu>
+                      </Dropdown>
+                     </div>
+
                     : null }
+
                   </div>
 
                   
                   {(props.post.post_image != 'a') ? 
-
-                  <div>
+                        <div>
                       <form id={`editPostForm${props.post.post_id}`} action="" style={{display : 'none'}} onSubmit={handleEditPostSubmit}>
                           <textarea 
                           style={{width: '50vw'}} 
@@ -317,11 +330,13 @@ const canclePostEdit = (id) => {
                           type="file"
                           id="file"
                           onChange={(e) => setFile(e.target.files[0])}/>
+                          <label className="label" for="file"><CgSoftwareUpload size={20}/>Choose file</label> 
 
-                          <button type='submit'>Update</button>
-                          <button style={{background : 'red' , color : 'white'}} onClick={()=>{canclePostEdit(props.post.post_id)}} type='button'>Cancle</button>
+
+                          <Button variant="success" type='submit' size="sm" style={{marginLeft:"25%"}}>Update</Button>
+                          <Button style={{ background: 'red', color: 'white',marginLeft:'1%' }} size="sm" onClick={()=>{canclePostEdit(props.post.post_id)}} type='button'>Cancle</Button>
                       </form>
-                  </div>
+                      </div>
 
                   : 
                   
@@ -349,10 +364,8 @@ const canclePostEdit = (id) => {
                 </form>
                 </div>
                 }
-              </div>
             </div>
-            <div className="postTopRight">
-            </div>
+          
         </div>
         <div className="postCenter">
           <span id={`post${props.post.post_id}`} className="postText">{props.post.content}</span>

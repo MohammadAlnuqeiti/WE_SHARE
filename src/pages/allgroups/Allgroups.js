@@ -174,10 +174,10 @@ const ShowUpdateForm = () => {
                   </p>
                   <div className="blogBtn">
                    <Link to={`/groups/${ele.group_id}/show`}>
-                        <Button style={{backgroundColor:"#23c483"}} type="submit" className="blogBtn1">
+                        <button  type="submit" className="blogBtn1">
                         Show
                         {" "}
-                        </Button>
+                        </button>
                     </Link>
                     {(() => {
                             if (pendingMembers.includes(ele.group_id) || acceptedMembers.includes(ele.group_id) ){
@@ -185,10 +185,10 @@ const ShowUpdateForm = () => {
                                 return (
 
                                            <Link>
-                                                    <Button type="submit" variant="danger" className="blogBtn2" onClick={()=>removeRequest(ele.group_id)}>
+                                                    <button type="submit"  className="blogBtn2" onClick={()=>removeRequest(ele.group_id)}>
                                                     {" "}
-                                                    remove request
-                                                    </Button>
+                                                    Remove Request
+                                                    </button>
                                             </Link>
 
                                     )
@@ -199,7 +199,7 @@ const ShowUpdateForm = () => {
                                         <Link>
                                         <button type="submit" className="blogBtn2" onClick={()=>removeRequest(ele.group_id)}>
                                         {" "}
-                                        delete group
+                                        Delete Group
                                         </button>
                                 </Link>
                                         )

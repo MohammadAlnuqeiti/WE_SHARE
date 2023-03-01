@@ -305,6 +305,7 @@ console.log(props);
                     <span className="postUsername">
                       {props.post.name}
                     </span>
+                    
                     <span className="postDate">{props.post.created_at}</span>
                   </div>
                   <div className="postTopRight">
@@ -359,7 +360,7 @@ console.log(props);
                     <form id={`editPostForm${props.post.post_id}`} action="" style={{ display: 'none' }} onSubmit={handleEditPostSubmit}>
 
                       <textarea 
-                        style={{ width: '50vw' }}
+                        className="form-control" style={{width:'28rem'}}
                         type="text"
                         defaultValue={props.post.content}
                         id={`editPostInput${props.post.post_id}`}
@@ -370,10 +371,10 @@ console.log(props);
                         id="file"
                         onChange={(e) => setFile(e.target.files[0])} hidden />
                           <label className="label" for="file"><CgSoftwareUpload size={20}/>Choose file</label> 
-                      <br />
 
-                      <button type='submit'>Update</button>
-                      <button style={{ background: 'red', color: 'white' }} onClick={() => { canclePostEdit(props.post.post_id) }} type='button'>Cancle</button>
+
+                      <Button variant="success" type='submit' size="sm" style={{marginLeft:"25%"}}>Update</Button>
+                      <Button style={{ background: 'red', color: 'white',marginLeft:'1%' }} size="sm" onClick={() => { canclePostEdit(props.post.post_id) }} type='button'>Cancle</Button>
 
                     </form>
 
@@ -417,7 +418,7 @@ console.log(props);
                   }
                 })}
                   <div className="postBottomRight">
-                    <a className="postCommentText" onClick={() =>ShowComments(props.post.post_id)}>comments ({comment_count})</a>
+                    <a className="postCommentText"  onClick={() =>ShowComments(props.post.post_id)}>comments ({comment_count})</a>
                   </div>
                 </div>
               </div>

@@ -94,19 +94,14 @@ export default function Topbar() {
       {requestFriends.map((ele,index)=>{
             return(
         <Dropdown.Item   href="#/action-1" key={index} >
-          <tr>
-            <td>{ele.name}</td>
-            <td>
-            <Link>
-                <Button variant="primary" onClick={()=>AcceptFriend(ele.user_id)}>accept</Button>
-            </Link>
-            <Link>
-                <Button variant="danger" onClick={()=>removeRequest(ele.user_id)}>remove request</Button>
-            </Link>
-            </td>
-          </tr>
-          
-        
+          <div style={{display:"flex",borderRadius:"50%",justifyContent:"space-evenly"}}>
+         <img style={{maxWidth:"30%",maxHeight:"10%"}} src={require(`../image/${ele.image}`)}/>
+            <p style={{fontWeight:"600"}}>{ele.name}</p>
+         </div>
+         <br/>
+                <Button size="sm" variant="success" onClick={()=>AcceptFriend(ele.user_id)}>Confirm</Button>
+                <Button style={{marginLeft:"2%"}} size="sm" variant="danger" onClick={()=>removeRequest(ele.user_id)}>Delete</Button>
+   
         </Dropdown.Item>
         // <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
         // <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
@@ -121,7 +116,7 @@ export default function Topbar() {
           </div> */}
           <div className="topbarIconItem">
        
-            <Dropdown>
+            {/* <Dropdown> */}
       {/* <Dropdown.Toggle  id="dropdown-basic" bsPrefix>
       <span className="topbarIconBadge1">1</span>
       <MdNotifications />
@@ -131,7 +126,7 @@ export default function Topbar() {
         <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
         <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
       </Dropdown.Menu> */}
-    </Dropdown>
+    {/* </Dropdown> */}
           </div>
         </div>
 
