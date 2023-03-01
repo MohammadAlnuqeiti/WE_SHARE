@@ -346,7 +346,6 @@ console.log(props);
                     <span className="postText" id={`post${props.post.post_id}`}>{props.post.content}</span>
                     <form id={`editPostForm${props.post.post_id}`} action="" style={{ display: 'none' }} onSubmit={handleEditPostSubmit}>
                       <textarea className="form-control" style={{width:'28rem'}}
-                       
                         type="text"
                         defaultValue={props.post.content}
                         id={`editPostInput${props.post.post_id}`} onChange={() => handleEditPost(props.post.post_id)} />

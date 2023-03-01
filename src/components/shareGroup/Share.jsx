@@ -2,6 +2,8 @@ import "./share.css";
 import { MdPermMedia,MdLabelImportantOutline,MdOutlineMeetingRoom,MdEmojiEmotions } from 'react-icons/md';
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { IoMdPhotos } from "react-icons/io";
+
 
 
 export default function Share(props) {
@@ -82,7 +84,9 @@ const handlePost = (e) => {
                     <input
             type="file"
             className="shareInput" id="file"
-            onChange={(e) => setFile(e.target.files[0])}/> 
+            onChange={(e) => setFile(e.target.files[0])} hidden/> 
+           <label className="label" for="file"><IoMdPhotos size={20}/></label>
+
                            
             </div>
                 {/* <div className="shareOption">

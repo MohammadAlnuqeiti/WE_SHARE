@@ -296,13 +296,14 @@ const canclePostEdit = (id) => {
               <div className="postTopRight" style={{marginLeft: "333px"}}>
               {(props.post.user_id === current_ID) || (admin_group===current_ID) ?
                     <div className="postBottun">
+                    
                         <Dropdown>
                           <Dropdown.Toggle variant="text-dark" id="dropdown-basic" bsPrefix >
                             <CgBorderStyleDotted />
                           </Dropdown.Toggle >
 
                           <Dropdown.Menu>
-                            <div>
+                      <div>
                       <Dropdown.Item id={`editPostBTN${props.post.post_id}`} onClick={() => {editPost(props.post.post_id)}}><BiEdit />Edit</Dropdown.Item>
                       </div>
                       <div>
@@ -313,36 +314,41 @@ const canclePostEdit = (id) => {
                      </div>
 
                     : null }
-
+                   
+                
+                  </div>
                   </div>
 
                   
                   {(props.post.post_image != 'a') ? 
-                        <div>
-                      <form id={`editPostForm${props.post.post_id}`} action="" style={{display : 'none'}} onSubmit={handleEditPostSubmit}>
+                          <div className="postCenter">
+<span id={`post${props.post.post_id}`} className="postText">{props.post.content}</span>
+<form id={`editPostForm${props.post.post_id}`} action="" style={{display : 'none'}} onSubmit={handleEditPostSubmit}>
                           <textarea 
-                          style={{width: '50vw'}} 
+                          className="form-control" style={{width:'28rem'}}
                           type="text" 
                           defaultValue={props.post.content} 
                           id={`editPostInput${props.post.post_id}`} onChange={() => handleEditPost(props.post.post_id)}/>
 
-                          <br />
 
                           <input 
                           type="file"
                           id="file"
-                          onChange={(e) => setFile(e.target.files[0])}/>
-                          <label className="label" for="file"><CgSoftwareUpload size={20}/>Choose file</label> 
+                          onChange={(e) => setFile(e.target.files[0])} />
+                          {/* <label className="label" for="file"><CgSoftwareUpload size={20}/>Choose file</label>  */}
 
 
                           <Button variant="success" type='submit' size="sm" style={{marginLeft:"25%"}}>Update</Button>
                           <Button style={{ background: 'red', color: 'white',marginLeft:'1%' }} size="sm" onClick={()=>{canclePostEdit(props.post.post_id)}} type='button'>Cancle</Button>
                       </form>
-                      </div>
+                 
+                  <img className='postImg' src={require(`../image/${props.post.post_image}`)} alt="" />
 
+                  </div>
                   : 
                   
-                  <div>
+                    <div className="postCenter">
+                  <span id={`post${props.post.post_id}`} className="postText">{props.post.content}</span>
                 
                 <form id={`editPostForm${props.post.post_id}`} action="" style={{display : 'none'}} onSubmit={handleEditPostSubmit}>
 
@@ -366,16 +372,14 @@ const canclePostEdit = (id) => {
                 </form>
                 </div>
                 }
-            </div>
           
-        </div>
-        <div className="postCenter">
+        {/* <div className="postCenter">
           <span id={`post${props.post.post_id}`} className="postText">{props.post.content}</span>
           {(props.post.post_image) != 'a' ? 
           <img className='postImg' src={require(`../image/${props.post.post_image}`)} alt="" />
         : null 
-        }
-          </div>
+        } */}
+          {/* </div> */}
         <div className="postBottom">
           <div className="postBottomLeft">
                     {
@@ -414,6 +418,7 @@ const canclePostEdit = (id) => {
           <div className="postBottomRight">
           <a className="postCommentText" onClick={() =>ShowComments(props.post.post_id)}>comments ({comment_count})</a>
           </div>
+        </div>
         </div>
       </div>
       <div className="card-footer py-3 border-0 shadow-2-strong" style={{ backgroundColor: '#f8f9fa',display:"none" }} id={`commentsForPost${props.post.post_id}`}>
