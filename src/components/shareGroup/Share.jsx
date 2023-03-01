@@ -50,6 +50,8 @@ const handleImagePost = async (e) => {
       "http://localhost:80/frontend/back_end/postsGroup.php", formData
     );
     console.log(response.data);
+    props.handleSubmit(Math.random());
+
     // window.location.assign(`/groups/${group_id}/show`);
   } catch (error) {
     console.error(error);

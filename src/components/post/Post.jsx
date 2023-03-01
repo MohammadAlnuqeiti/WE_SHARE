@@ -111,7 +111,7 @@ export default function Post(props) {
 
   const handleEditPostSubmit = async (e) => {
     e.preventDefault();
-
+// console.log(e.target.id);
     const formEditData = new FormData();
 
     formEditData.append("post_content", inputs['post_content']);
@@ -124,15 +124,19 @@ export default function Post(props) {
       const response = await axios.post(
         "http://localhost:80/frontend/back_end/postEdit.php", formEditData
       );
-      setCheck(true);
+      props.handleSubmit(Math.random());
       updateState();
+      HiddenFormPostUpdate(e.target.id);
       console.log(response.data);
-      // window.location.assign('/');
     } catch (error) {
       console.error(error);
     }
   };
 
+  const HiddenFormPostUpdate = (id) =>{
+    console.log(id);
+    canclePostEdit(id);
+  }
 const updateState = () =>{
 
   props.handleSubmit(Math.random());
@@ -151,6 +155,8 @@ const updateState = () =>{
     await axios.delete(`http://localhost:80/frontend/back_end/posts.php/${id}`).then(function (response) {
       // window.location.assign('/');
       getPosts();
+      props.handleSubmit(Math.random());
+
       setCheck(true);
       getComments();
     })
@@ -158,10 +164,13 @@ const updateState = () =>{
 
 
   const canclePostEdit = (id) => {
+    console.log(id);
     document.getElementById(`post${id}`).style.display = 'block';
     document.getElementById(`editPostForm${id}`).style.display = 'none';
     document.getElementById(`editPostBTN${id}`).style.display = 'inline-block';
     document.getElementById(`imgPost${id}`).style.display = 'block';
+    props.handleSubmit(Math.random());
+
   }
 
   // Comments
@@ -212,7 +221,7 @@ const updateState = () =>{
   const handleEditCommentSubmit =  (e) => {
     e.preventDefault();
      axios.put('http://localhost:80/frontend/back_end/comments.php/', inputs).then(()=>{
-
+      cancleCommentEdit(e.target.id)
       getComments();
       getPosts();
     }
@@ -225,6 +234,7 @@ const updateState = () =>{
 
 
   const cancleCommentEdit = (id) => {
+    console.log(id);
     document.getElementById(`comment${id}`).style.display = 'block';
     document.getElementById(`editCommentForm${id}`).style.display = 'none';
     document.getElementById(`editCommentBTN${id}`).style.display = 'inline-block';
