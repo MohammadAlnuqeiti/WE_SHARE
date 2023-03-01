@@ -307,19 +307,38 @@ console.log(props);
             <div className="post" >
               <div className="postWrapper">
                 <div className="postTop">
-                  <div className="postTopLeft">
+                  <div className="postTopLeft" style={{display:"flex"}}>
+
+
+<div>
                     <img
                       className="postProfileImg"
                       src={require(`../image/${props.post.image}`)}
                       alt=""
                     />
+
+</div>
+                 <div style={{display:"flex",flexDirection:"column"}}>
+                  <div>
                     <span className="postUsername">
                       {props.post.name}
                     </span>
-                    
+ 
                     <span className="postDate">{props.post.created_at}</span>
+
                   </div>
+                  <div style={{marginLeft:"4%"}}>
+                    
+<span style={{color:"gray",fontSize:"14px"}}>hikljhgfdgk;lkjfdkllkhjghfgdghkljkhgjhfgdfgklkljkhgjhf</span>
+                  </div>
+                  </div> 
+
+                    
+                  </div>
+                
+                
                   <div className="postTopRight">
+
                     {(props.post.user_id === current_ID) ?
                       <div className="postBottun">
                         <Dropdown>
@@ -341,6 +360,7 @@ console.log(props);
                       : null}
                   </div>
                 </div>
+        
                 {(props.post.post_image !== 'a') ?
                   <div className="postCenter">
                     <span className="postText" id={`post${props.post.post_id}`}>{props.post.content}</span>

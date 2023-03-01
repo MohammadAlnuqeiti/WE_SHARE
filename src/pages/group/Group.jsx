@@ -338,6 +338,8 @@ let flag = false;
 
                   </ul>
               </div>
+              <hr className="sidebarHr" />
+              
             { groups.user_id === current_ID ? <div className="rightbarWrapper">
                 <img className="rightbarAd" src="assets/ad.png" alt="" />
                   <h4 className="rightbarTitle">Request Members ({pendingRequestGroups.length})</h4>
@@ -348,12 +350,11 @@ let flag = false;
                             <li className="sidebarFriend" key={index}>
                               <img className="sidebarFriendImg" src={require(`../../components/image/${element.image}`)} alt="" />
                               <span className="sidebarFriendName">{element.name}</span>
-                              <Link>
-                                <Button variant="primary" onClick={() => {acceptRequest(element.user_id)}} >accept</Button>
-                            </Link>
-                            <Link>
-                                <Button variant="danger" onClick={() => {deleteRequest(element.user_id)}} >delete</Button>
-                            </Link>
+                              
+                                <Button style={{ marginLeft: "8% " ,border:"none",backgroundColor:"#23c483"}} onClick={() => {acceptRequest(element.user_id)}} >Accept</Button>
+                           
+                                <Button style={{ marginLeft: "3% "}} variant="danger" onClick={() => {deleteRequest(element.user_id)}} >Delete</Button>
+                        
                             </li>
                                )  })}
 
@@ -363,6 +364,7 @@ let flag = false;
                   </ul>
               </div>
                : "" }
+               <hr className="sidebarHr" />
                 <div className="rightbarWrapper">
                 <img className="rightbarAd" src="assets/ad.png" alt="" />
                   <h4 className="rightbarTitle">Members ({usersGroups.length})</h4>
@@ -374,9 +376,9 @@ let flag = false;
                               <img className="sidebarFriendImg" src={require(`../../components/image/${element.image}`)} alt="" />
                               <span className="sidebarFriendName">{element.name}</span>
                               { groups.user_id === current_ID ?
-                                    <Link>
-                                        <Button variant="danger" onClick={() => {deleteFromGroup(element.user_id)}} >Delete</Button>
-                                    </Link>
+                                 
+                                        <Button style={{ marginLeft: "5% "}} variant="danger" onClick={() => {deleteFromGroup(element.user_id)}} >Remove Member</Button>
+                            
                                 : "" }
                             </li>
                                )  })}
@@ -386,18 +388,16 @@ let flag = false;
 
                   </ul>
               </div>
+              <hr className="sidebarHr" />
+
 {groups.user_id === current_ID ?
                 <div className="rightbarWrapper">
                 <img className="rightbarAd" src="assets/ad.png" alt="" />
-                  <h4 className="rightbarTitle">Delete group</h4>
+                  <h4 className="rightbarTitle">Delete Group </h4>
                   <ul className="rightbarFriendList">
                             <Link>
-                                <Button variant="danger" onClick={() => {deleteGroup(groups.group_id)}} >Delete group</Button>
+                                <Button variant="danger" onClick={() => {deleteGroup(groups.group_id)}} >Delete Group</Button>
                             </Link>
-
-
-
-                
                   </ul>
               </div>
                             : "" }

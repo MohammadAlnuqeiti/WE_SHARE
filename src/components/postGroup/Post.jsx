@@ -12,6 +12,8 @@ import { CgSoftwareUpload} from "react-icons/cg";
 import { MdDeleteForever } from "react-icons/md";
 import { BiEdit } from "react-icons/bi";
 import Dropdown from 'react-bootstrap/Dropdown';
+import {AiOutlineLike} from "react-icons/ai";
+import {AiFillLike} from "react-icons/ai";
 
 
 export default function Post( props ) {
@@ -390,16 +392,16 @@ const canclePostEdit = (id) => {
 
                       {( flagLike == true ) ?
                               <form action="" onSubmit={removeLikePost}>
-                                <button type='submit' style={{background : 'none' , border : 'none' , color : '#0d6efd' , textDecoration : 'underLine' }} onClick={()=>handleLikePost(props.post.post_id)}  href="#!" className="d-flex align-items-center me-3">
+                                <button type='submit' style={{background : 'none' , border : 'none' , color : 'rgb(35, 196, 131)'}} onClick={()=>handleLikePost(props.post.post_id)}  href="#!" className="d-flex align-items-center me-3">
                                   <i className="far fa-thumbs-up me-2" />
-                                  <p className="mb-0" style={{color : 'blue' , fontWeight : 'bold'}}>Liked</p>
+                                  <AiFillLike size={25} /><p className="mb-0" style={{color : 'rgb(35, 196, 131)' }}>Like</p>
                                 </button>
                               </form>
                       :
                               <form action="" onSubmit={likePost}>
-                                  <button type='submit' style={{background : 'none' , border : 'none' , color : '#0d6efd' , textDecoration : 'underLine' }} onClick={()=>handleLikePost(props.post.post_id)}  href="#!" className="d-flex align-items-center me-3">
+                                  <button type='submit' style={{background : 'none' , border : 'none'}} onClick={()=>handleLikePost(props.post.post_id)}  href="#!" className="d-flex align-items-center me-3">
                                     <i className="far fa-thumbs-up me-2" />
-                                    <p className="mb-0">Like</p>
+                                    <AiOutlineLike size={25}/> <p className="mb-0">Like</p>
                                   </button>
                               </form>
                       }
@@ -434,10 +436,18 @@ const canclePostEdit = (id) => {
                             </div>
                             {(comment.user_id === current_ID) 
                             ?
-                              <div>
-                                <a style={{ marginLeft: "-15%", color: 'red', cursor: 'pointer' }} onClick={() => { deleteComment(comment.comment_id) }}><MdDeleteForever /></a>
-                                <a style={{ color: 'green', cursor: 'pointer' }} id={`editCommentBTN${comment.comment_id}`} onClick={() => { editComment(comment.comment_id) }}><BiEdit /></a>
-                              </div> 
+                            <Dropdown>
+                            <Dropdown.Toggle variant="text-dark" id="dropdown-basic" bsPrefix >
+                              <CgBorderStyleDotted />
+                            </Dropdown.Toggle >
+  
+                            <Dropdown.Menu>
+                                <div>
+                                  <Dropdown.Item  id={`editCommentBTN${comment.comment_id}`} onClick={() => { editComment(comment.comment_id) }}><BiEdit />Edit</Dropdown.Item>
+                                  <Dropdown.Item  onClick={() => { deleteComment(comment.comment_id) }}><MdDeleteForever />Delete</Dropdown.Item>
+                                </div>
+                                </Dropdown.Menu> 
+                                </Dropdown>
                               : 
                               (props.post.user_id === current_ID) ?
                                 <div>
