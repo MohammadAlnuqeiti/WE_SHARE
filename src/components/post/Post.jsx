@@ -28,10 +28,11 @@ export default function Post(props) {
   const ImageUser = localStorage.getItem('image');
 
   const [inputs, setInputs] = useState("")
-  // const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
   const [likes , setLikes] = useState([]);
   const [file, setFile] = useState(null);
+  const [check, setCheck] = useState(false);
   const [showCommentsForm, setCommentsForm] = useState(false);
 
 
@@ -40,20 +41,20 @@ export default function Post(props) {
     getComments();
     getLikes();
 
-  }, [])
+  }, [check])
   // Posts
 
 
 
-  // function getPosts() {
-  //   axios.get(`http://localhost:80/frontend/back_end/posts.php/`)
-  //     .then(response => {
-  //       // console.log(response.data);
-  //       setPosts(response.data);
-  //       getComments();
-  //       getLikes();
-  //     })
-  // }
+  function getPosts() {
+    axios.get(`http://localhost:80/frontend/back_end/posts.php/`)
+      .then(response => {
+        // console.log(response.data);
+        setPosts(response.data);
+        getComments();
+        getLikes();
+      })
+  }
 
   const handleImagePost = async (e) => {
     e.preventDefault();
@@ -123,6 +124,8 @@ export default function Post(props) {
       const response = await axios.post(
         "http://localhost:80/frontend/back_end/postEdit.php", formEditData
       );
+      setCheck(true);
+      updateState();
       console.log(response.data);
       // window.location.assign('/');
     } catch (error) {
@@ -130,7 +133,13 @@ export default function Post(props) {
     }
   };
 
+const updateState = () =>{
 
+  props.handleSubmit(Math.random());
+  setCheck(Math.random())
+  console.log(props);
+
+}
 
 
 
@@ -141,7 +150,8 @@ export default function Post(props) {
   const deletePost = async (id) => {
     await axios.delete(`http://localhost:80/frontend/back_end/posts.php/${id}`).then(function (response) {
       // window.location.assign('/');
-      // getPosts();
+      getPosts();
+      setCheck(true);
       getComments();
     })
   }
@@ -172,11 +182,10 @@ export default function Post(props) {
     
     await axios.post('http://localhost:80/frontend/back_end/comments.php/', inputs).then((res) => {
       console.log(res);
-      // getPosts();
+      getPosts();
       // window.location.assign('/')
     }
     )
-    // getPostyyyys();
     getComments();
   }
 
@@ -200,12 +209,12 @@ export default function Post(props) {
     setInputs({ 'comment_content': value, 'comment_id': comment_id })
   }
 
-  const handleEditCommentSubmit = async (e) => {
+  const handleEditCommentSubmit =  (e) => {
     e.preventDefault();
-    await axios.put('http://localhost:80/frontend/back_end/comments.php/', inputs).then(()=>{
+     axios.put('http://localhost:80/frontend/back_end/comments.php/', inputs).then(()=>{
 
       getComments();
-      // getPosts();
+      getPosts();
     }
       )
   }
@@ -253,7 +262,7 @@ export default function Post(props) {
     console.log(inputs)
       await axios.post('http://localhost:80/frontend/back_end/likes.php/' , inputs).then(()=>{
 
-        // getPosts();
+        getPosts();
         getComments();
         getLikes();
       }
@@ -265,7 +274,7 @@ export default function Post(props) {
     console.log(inputs)
       await axios.post('http://localhost:80/frontend/back_end/likeDelete.php/' , inputs).then(()=>{
 
-        // getPosts();
+        getPosts();
         getComments();
         getLikes();
       }
@@ -275,6 +284,8 @@ export default function Post(props) {
 console.log(props);
   var flagLike = false;
   var like_count = 0;
+  var comment_count = 0 ;
+  var comment_count_show = 0 ;
   // 
   return (
 
@@ -399,17 +410,34 @@ console.log(props);
                             })}
                             <span className="postLikeCounter">{like_count} people like it</span>
                   </div>
+                  <p style={{display:"none"}}>{comment_count = 0}</p>
+                {comments.map((count)=>{
+                  if(count.post_id == props.post.post_id){
+                    comment_count++
+                  }
+                })}
                   <div className="postBottomRight">
-                    <a className="postCommentText" onClick={() =>ShowComments(props.post.post_id)}>comments</a>
+                    <a className="postCommentText" onClick={() =>ShowComments(props.post.post_id)}>comments ({comment_count})</a>
                   </div>
                 </div>
               </div>
             </div>
+
+
+             
           {/* {showCommentsForm ? */}
               <div className="card-footer py-3 border-0 shadow-2-strong" style={{ backgroundColor: '#f8f9fa',display:"none" }} id={`commentsForPost${props.post.post_id}`}>
                 <div className="w-100">
+                {/* <p style={{display:"none"}}>{comment_count_show = 0}</p> */}
+
+
                   {comments.map((comment, index) => {
                     if (comment.post_id === props.post.post_id) {
+
+                      // if(comment_count_show<1){
+                      //   comment_count_show++
+                      // }
+
                       return (
                         <div key={index}>
                           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -442,6 +470,10 @@ console.log(props);
                                 }
                           </div>
                           <br />
+
+
+
+
                           <div className="form-outline w-100" style={{ marginLeft: "2%" }}>
                             <Card style={{ border: 'none', width: '90%' }}>
                               <p style={{ paddingLeft: "2%", paddingTop: "2%" }} id={`comment${comment.comment_id}`}>{comment.comment_content}</p>
@@ -468,7 +500,7 @@ console.log(props);
                 </div>
                 
                 <div className="card-footer py-3 border-0" style={{ backgroundColor: '#f8f9fa', marginLeft: "1%" }}>
-                
+              
                   <div className="d-flex flex-start w-100">
                     <img className="rounded-circle shadow-1-strong me-3" src={require(`../image/${ImageUser}`)} alt="avatar" width={40} height={40} />
                     <form className="form-outline " onSubmit={handleCreateComment}>

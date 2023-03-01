@@ -16,11 +16,12 @@ export default function Feed() {
   const [inputs, setInputs] = useState("")
   const [posts, setPosts] = useState([]);
   
-  
+  const [check, setCheck] = useState();
+
   useEffect(() => {
-    // console.log(current_ID);
+    console.log("rerender");
     getPosts();
-  }, [])
+  }, [check])
 
 
 
@@ -40,6 +41,14 @@ const getPosts = async () =>{
   })
 }
 
+const handleSubmit = (check) => {
+  console.log(check,"dddd");
+  getPosts();
+  setCheck(check);
+  
+
+}
+
   return (
     <div className="feed">
       <div className="feedWrapper">
@@ -48,7 +57,7 @@ const getPosts = async () =>{
                   <></>
                   :
                   posts.map((post) =>(
-                    <Post key = {post.id} post ={post}/>
+                    <Post key = {post.id} post ={post} handleSubmit={handleSubmit}/>
                     ))}
         {/* <Post/> */}
         

@@ -272,6 +272,8 @@ const canclePostEdit = (id) => {
 
   var flagLike = false;
   var like_count = 0;
+  var comment_count = 0 ;
+  var comment_count_show = 0 ;
   // 
   return (
 
@@ -389,8 +391,13 @@ const canclePostEdit = (id) => {
             })}
             <span className="postLikeCounter">{like_count} people like it</span>
           </div>
+          {comments.map((count)=>{
+                  if(count.post_id == props.post.post_id){
+                    comment_count++
+                  }
+                })}
           <div className="postBottomRight">
-          <a className="postCommentText" onClick={() =>ShowComments(props.post.post_id)}>comments</a>
+          <a className="postCommentText" onClick={() =>ShowComments(props.post.post_id)}>comments ({comment_count})</a>
           </div>
         </div>
       </div>

@@ -130,7 +130,7 @@ function getUsers(){
                     </div>
                 </div>
                 <h4 className='rightbarTitle'>User friends</h4>
-                <div className="rightbarFollowings" style={{display : 'grid' , gridTemplateColumns : 'repeat(3 , 1fr)'}}>
+                <div className="rightbarFollowings" >
                     {acceptrdFriends.map((ele,index)=>{
                                if(ele.friend_id === current_ID){
                                 return <a href={`/profile/${ele.friend_id}`} key={index}>

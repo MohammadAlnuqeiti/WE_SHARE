@@ -9,10 +9,12 @@ import axios from "axios";
 export default function Feed(props) {
 
   const [posts , setPosts] = useState([]);
+  const [check, setCheck] = useState(false);
+
 
   useEffect(() => {
     getPosts();
-  }, [])
+  }, [props.check])
 
   // Posts
 

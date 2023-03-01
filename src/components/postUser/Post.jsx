@@ -274,6 +274,8 @@ try {
   
   var flagLike = false;
   var like_count = 0;
+  var comment_count = 0 ;
+  var comment_count_show = 0 ;
   return (
 
     <>
@@ -400,8 +402,14 @@ try {
             })}
             <span className="postLikeCounter">{like_count} people like it</span>
                   </div>
+                  <p style={{display:"none"}}>{comment_count = 0}</p>
+                {comments.map((count)=>{
+                  if(count.post_id == props.post.post_id){
+                    comment_count++
+                  }
+                })}
                   <div className="postBottomRight">
-                    <span className="postCommentText" onClick={() =>ShowComments(props.post.post_id)}>comments</span>
+                    <span className="postCommentText" onClick={() =>ShowComments(props.post.post_id)}>comments ({comment_count})</span>
                   </div>
                 </div>
               </div>
