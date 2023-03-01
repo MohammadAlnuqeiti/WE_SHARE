@@ -164,10 +164,25 @@ const updateState = () =>{
 
   const canclePostEdit = (id) => {
     console.log(id);
-    document.getElementById(`post${id}`).style.display = 'block';
-    document.getElementById(`editPostForm${id}`).style.display = 'none';
-    document.getElementById(`editPostBTN${id}`).style.display = 'inline-block';
-    document.getElementById(`imgPost${id}`).style.display = 'block';
+    setCheck(Math.random());
+    props.handleSubmit(Math.random());
+    getComments();
+
+
+    if (
+      document.getElementById(`post${id}`) &&
+      document.getElementById(`editPostForm${id}`) &&
+      document.getElementById(`editPostBTN${id}`) &&
+      document.getElementById(`imgPost${id}`)
+
+    ) {
+      document.getElementById(`post${id}`).style.display = 'block';
+      document.getElementById(`editPostForm${id}`).style.display = 'none';
+      document.getElementById(`editPostBTN${id}`).style.display = 'inline-block';
+      document.getElementById(`imgPost${id}`).style.display = 'block';
+    }
+
+
     props.handleSubmit(Math.random());
 
   }

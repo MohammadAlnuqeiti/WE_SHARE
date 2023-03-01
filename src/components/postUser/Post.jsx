@@ -27,6 +27,7 @@ export default function Post(props) {
   //   setLike(isLiked ? like-1 : like+1)
   //   setIsLiked(!isLiked)
   // }
+  const ImageUser = localStorage.getItem('image');
 
 const user_id = props.user_id;
   const current_ID = JSON.parse(localStorage.getItem('id'));
@@ -310,7 +311,7 @@ try {
 
                           <Dropdown.Menu>
                         <div>
-                        <Dropdown.Item  id={`editPostBTN${props.post.post_id}`} onClick={() => { editPost(props.post.post_id) }}><BiEdit />Edite</Dropdown.Item>
+                        <Dropdown.Item  id={`editPostBTN${props.post.post_id}`} onClick={() => { editPost(props.post.post_id) }}><BiEdit />Edit</Dropdown.Item>
                         </div>
                         <div >
                         <Dropdown.Item  onClick={() => { deletePost(props.post.post_id) }}><MdDeleteForever />Delete</Dropdown.Item>
@@ -429,7 +430,7 @@ try {
                       <div key={index}>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                           <div>
-                            <img className="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width={40} height={40} />
+                            <img className="rounded-circle shadow-1-strong me-3" src={require(`../image/${comment.image}`)} alt="avatar" width={40} height={40} />
                             <span>{comment.name}</span>
                           </div>
                           {(comment.user_id === current_ID) ?
@@ -469,7 +470,7 @@ try {
               </div>
               <div className="card-footer py-3 border-0" style={{ backgroundColor: '#f8f9fa',marginLeft:"1%"}}>
                 <div className="d-flex flex-start w-100">
-                  <img className="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width={40} height={40} />
+                <img className="rounded-circle shadow-1-strong me-3" src={require(`../image/${ImageUser}`)} alt="avatar" width={40} height={40} />
                   <form className="form-outline " onSubmit={handleCreateComment}>
                     <textarea className="form-control" id={props.post.post_id} name={current_ID} rows={4} style={{ background: '#fff', width: '28rem'}} onChange={handleChange} />
                     <Button style={{marginTop:"2% ",backgroundColor:"#23c483",border:"none"}} type="submit"  >Comment</Button>
@@ -478,6 +479,7 @@ try {
               </div>
 
             </div>
+            
      
     </>
   )
