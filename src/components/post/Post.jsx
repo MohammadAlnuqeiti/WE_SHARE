@@ -310,28 +310,41 @@ console.log(props);
                   <div className="postTopLeft" style={{display:"flex"}}>
 
 
-<div>
-                    <img
-                      className="postProfileImg"
-                      src={require(`../image/${props.post.image}`)}
-                      alt=""
-                    />
+                    <div>
+                        <img
+                          className="postProfileImg"
+                          src={require(`../image/${props.post.image}`)}
+                          alt=""
+                        />
+                    </div>
+                      {props.post.group_id > 0 
+                            ?
+                    <div style={{display:"flex",flexDirection:"column"}}>
+                      <div>
+                        <span className="postUsername">
+                          {props.post.name}
+                        </span>
+    
+                        <span className="postDate">{props.post.created_at}</span>
 
-</div>
-                 <div style={{display:"flex",flexDirection:"column"}}>
-                  <div>
-                    <span className="postUsername">
-                      {props.post.name}
-                    </span>
- 
-                    <span className="postDate">{props.post.created_at}</span>
-
-                  </div>
-                  <div style={{marginLeft:"4%"}}>
-                    
-<span style={{color:"gray",fontSize:"14px"}}>hikljhgfdgk;lkjfdkllkhjghfgdghkljkhgjhfgdfgklkljkhgjhf</span>
-                  </div>
-                  </div> 
+                      </div>
+                      <div style={{marginLeft:"4%",width:"350px"}}>
+                            <span style={{color:"gray",fontSize:"14px"}}>shared this post in <a href={`/groups/${props.post.group_id}/show`}>{props.post.group_name}</a> group</span>
+                        
+                            {/* <p style={{marginTop : '-2px' , marginLeft : '5px'}}> shared this post in <a href={/groups/${post.group_id}/show}>{post.group_name}</a> group</p> */}
+                      </div>
+                    </div> 
+                          :  <div style={{display:"flex",flexDirection:"column"}}>
+                          <div>
+                            <span className="postUsername">
+                              {props.post.name}
+                            </span>
+        
+                            <span className="postDate">{props.post.created_at}</span>
+    
+                          </div>
+                       
+                        </div> }
 
                     
                   </div>
