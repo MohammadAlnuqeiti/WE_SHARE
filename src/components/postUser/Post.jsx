@@ -126,6 +126,8 @@ try {
       const response = await axios.post(
         "http://localhost:80/frontend/back_end/postEdit.php", formEditData
       );
+      props.handleSubmit(Math.random());
+
       console.log(response.data);
       // window.location.assign('/');
       getPosts();
@@ -340,7 +342,7 @@ try {
 
                        
                     
-                      <Button  size="sm" type='submit' style={{marginLeft:"25%",backgroundColor:"rgb(35, 196, 131)",borderBlockColor:"rgb(35, 196, 131)",border:"none"}}>Update</Button>
+                        <Button  variant="success" type='submit' size="sm" style={{marginLeft:"25%"}}>Update</Button>
                       <Button variant="danger" size="sm" style={{ background: 'red', color: 'white',marginLeft:'1%' }} onClick={() => { canclePostEdit(props.post.post_id) }} type='button'>Cancle</Button>
                       
            

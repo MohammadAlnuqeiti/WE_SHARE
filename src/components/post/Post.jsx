@@ -154,11 +154,9 @@ const updateState = () =>{
 
   const deletePost = async (id) => {
     await axios.delete(`http://localhost:80/frontend/back_end/posts.php/${id}`).then(function (response) {
-      // window.location.assign('/');
       getPosts();
       props.handleSubmit(Math.random());
 
-      setCheck(true);
       getComments();
     })
   }
@@ -193,10 +191,10 @@ const updateState = () =>{
     await axios.post('http://localhost:80/frontend/back_end/comments.php/', inputs).then((res) => {
       console.log(res);
       getPosts();
+      getComments();
       // window.location.assign('/')
     }
     )
-    getComments();
   }
 
   const deleteComment = (id) => {
@@ -222,11 +220,13 @@ const updateState = () =>{
   const handleEditCommentSubmit =  (e) => {
     e.preventDefault();
      axios.put('http://localhost:80/frontend/back_end/comments.php/', inputs).then(()=>{
-      cancleCommentEdit(e.target.id)
-      getComments();
+      // props.handleSubmit(Math.random());
+      // setCheck(Math.random())
       getPosts();
+      getComments();
+
     }
-      )
+    )
   }
 
   const foucsOnComment = (id) => {
