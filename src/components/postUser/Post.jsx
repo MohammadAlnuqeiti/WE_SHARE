@@ -146,6 +146,8 @@ try {
   const deletePost = (id) => {
     axios.delete(`http://localhost:80/frontend/back_end/posts.php/${id}`).then(function (response) {
       // window.location.assign('/');
+      props.handleSubmit(Math.random());
+
       getPosts();
       getComments();
     })

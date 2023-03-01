@@ -52,7 +52,7 @@ const handleSubmit = (check) => {
   return (
     <div className="feed">
       <div className="feedWrapper">
-        <Share />
+        <Share handleSubmit={handleSubmit}/>
         {(posts == []) ?
                   <></>
                   :

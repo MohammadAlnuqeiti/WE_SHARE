@@ -68,7 +68,7 @@ const getDataGroups = () => {
       setGroups(response.data);
   })
 }
-
+// لعرض  اعضاء الجروب
 const getUsersGroup = () => {
 
   axios.get(`http://localhost:80/frontend/back_end/getUsersGroup.php/${id}`)
@@ -235,7 +235,7 @@ let flag = false;
               <img
                 className="groupCoverImg"
                 src={groups && groups.group_image ?require(`../../components/image/${groups.group_image}`) : "assets/ad.png"}
-
+ 
                 alt="cvccv"
               />
             
