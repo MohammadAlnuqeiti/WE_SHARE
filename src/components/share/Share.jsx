@@ -66,7 +66,7 @@ const handlePost = (e) => {
         <div className="shareTop">
           <img className="shareProfileImg" src={require(`../image/${ImageUser}`)} alt="" />
           <input
-            placeholder="What's in your mind Safak?"
+            placeholder="What's in your mind?"
             className="shareInput"
             id={current_ID} rows={4} style={{background: '#fff'}} onChange={handlePost}
           />
