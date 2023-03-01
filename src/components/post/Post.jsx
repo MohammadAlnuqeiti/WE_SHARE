@@ -13,7 +13,11 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { async } from "q";
+import {AiOutlineLike} from "react-icons/ai";
 import {AiFillLike} from "react-icons/ai";
+import { CgSoftwareUpload } from "react-icons/cg";
+
+
 
 
 export default function Post(props) {
@@ -340,9 +344,10 @@ console.log(props);
                       <input
                         type="file"
                         id="file"
-                        onChange={(e) => setFile(e.target.files[0])} />
+                        onChange={(e) => setFile(e.target.files[0])} hidden />
+                         <label className="label" for="file"><CgSoftwareUpload size={20}/>Choose file</label> 
 
-                      <Button  variant="success" type='submit' size="sm">Confirm</Button>
+                      <Button  variant="success" type='submit' size="sm" style={{marginLeft:"25%"}}>Update</Button>
                       <Button style={{ background: 'red', color: 'white',marginLeft:'1%' }} size="sm" onClick={() => { canclePostEdit(props.post.post_id) }} type='button'>Cancle</Button>
                     </form>
                     <img className="postImg" src={require(`../image/${props.post.post_image}`)} alt="" id={`imgPost${props.post.post_id}`} />
@@ -363,8 +368,8 @@ console.log(props);
                       <input
                         type="file"
                         id="file"
-                        onChange={(e) => setFile(e.target.files[0])} />
-
+                        onChange={(e) => setFile(e.target.files[0])} hidden />
+                          <label className="label" for="file"><CgSoftwareUpload size={20}/>Choose file</label> 
                       <br />
 
                       <button type='submit'>Update</button>
@@ -385,16 +390,16 @@ console.log(props);
 
                             {( flagLike === true ) ?
                                     <form action="" onSubmit={removeLikePost}>
-                                      <button type='submit' style={{background : 'none' , border : 'none' , color : '#0d6efd' , textDecoration : 'underLine' }} onClick={()=>handleLikePost(props.post.post_id)}  href="#!" className="d-flex align-items-center me-3">
+                                      <button type='submit' style={{background : 'none' , border : 'none' , color : 'rgb(35, 196, 131)'}} onClick={()=>handleLikePost(props.post.post_id)}  href="#!" className="d-flex align-items-center me-3">
                                         <i className="far fa-thumbs-up me-2" />
-                                        <p className="mb-0" style={{color : 'blue' , fontWeight : 'bold'}}><AiFillLike/>Liked</p>
+                                        <AiFillLike size={25} /><p className="mb-0" style={{color : 'rgb(35, 196, 131)' }}>Like</p>
                                       </button>
                                     </form>
                             :
                                     <form action="" onSubmit={likePost}>
-                                        <button type='submit' style={{background : 'none' , border : 'none' , color : '#0d6efd' , textDecoration : 'underLine' }} onClick={()=>handleLikePost(props.post.post_id)}  href="#!" className="d-flex align-items-center me-3">
+                                        <button type='submit' style={{background : 'none' , border : 'none' }} onClick={()=>handleLikePost(props.post.post_id)}  href="#!" className="d-flex align-items-center me-3">
                                           <i className="far fa-thumbs-up me-2" />
-                                          <p className="mb-0">Like</p>
+                                          <AiOutlineLike size={25}/> <p className="mb-0">Like</p>
                                         </button>
                                     </form>
                             }
@@ -458,7 +463,7 @@ console.log(props);
                               (props.post.user_id === current_ID) ?
                                 <div>
                                   
-                                  <a style={{ marginLeft: "-15%", color: 'red', cursor: 'pointer' }} onClick={() => { deleteComment(comment.comment_id) }}><MdDeleteForever /></a>
+                                  <Button variant="danger" style={{marginLeft:"-24%"}} onClick={() => { deleteComment(comment.comment_id) }}><MdDeleteForever /></Button>
                                 </div>
                                 : 
                                 null
@@ -500,7 +505,7 @@ console.log(props);
                     <img className="rounded-circle shadow-1-strong me-3" src={require(`../image/${ImageUser}`)} alt="avatar" width={40} height={40} />
                     <form className="form-outline " onSubmit={handleCreateComment}>
                       <textarea className="form-control" id={props.post.post_id} name={current_ID} rows={4} style={{ background: '#fff', width: '28rem' }} onChange={handleChange} />
-                      <Button variant="success" style={{ marginTop: "2% " }} type="submit" className="btn btn-primary btn-sm">Comment </Button>
+                      <Button  style={{ marginTop: "2% " ,border:"none",backgroundColor:"#23c483"}} type="submit">Comment</Button>
                     </form>
                   </div>
                 </div>

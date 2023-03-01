@@ -81,3 +81,23 @@
     display: flex;
  
   }
+
+  .label{
+    display: inline-block;
+    background-color:#23c483;
+    color: white;
+    padding: 0.5rem;
+    font-family: sans-serif;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    margin-top: 2%;
+   
+  }
+  /* .shareInput {
+    border: none;
+    width: 80%;
+  }
+  
+  .shareInput:focus {
+    outline: none;
+  } */

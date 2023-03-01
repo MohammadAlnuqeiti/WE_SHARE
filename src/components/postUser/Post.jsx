@@ -12,7 +12,9 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { CgBorderStyleDotted } from "react-icons/cg";
-import { CgSoftwareUpload } from "react-icons/cg";
+import {IoMdPhotos} from "react-icons/io";
+import {AiOutlineLike} from "react-icons/ai";
+import {AiFillLike} from "react-icons/ai";
 
 
 
@@ -325,15 +327,20 @@ try {
                         defaultValue={props.post.content}
                         id={`editPostInput${props.post.post_id}`} onChange={() => handleEditPost(props.post.post_id)} />
 
-                      <br />
-
                       <input
                         type="file"
                         id="file"
-                        onChange={(e) => setFile(e.target.files[0])} />
+                        className="shareInput"
+                        onChange={(e) => setFile(e.target.files[0])} hidden/> 
+                        <label className="label" for="file"><IoMdPhotos size={20}/></label> 
 
-                      <Button variant="success" type='submit'>Confirm</Button>
-                      <Button variant="danger" style={{ background: 'red', color: 'white',marginLeft:'1%' }} onClick={() => { canclePostEdit(props.post.post_id) }} type='button'>Cancle</Button>
+                       
+                    
+                      <Button  size="sm" type='submit' style={{marginLeft:"25%",backgroundColor:"rgb(35, 196, 131)",borderBlockColor:"rgb(35, 196, 131)",border:"none"}}>Update</Button>
+                      <Button variant="danger" size="sm" style={{ background: 'red', color: 'white',marginLeft:'1%' }} onClick={() => { canclePostEdit(props.post.post_id) }} type='button'>Cancle</Button>
+                      
+           
+                    
                     </form>
                     <img className="postImg" src={require(`../image/${props.post.post_image}`)} alt="" id={`imgPost${props.post.post_id}`} />
                   </div>
@@ -355,11 +362,10 @@ try {
                         type="file"
                         id="file"
                         onChange={(e) => setFile(e.target.files[0])} />
-                         <label className="label" for="file"><CgSoftwareUpload size={20}/>Choose file</label>
 
                       <br />
 
-                      <Button type='submit'>Confirm</Button>
+                      <Button type='submit' >Confirm</Button>
                       <Button style={{ background: 'red', color: 'white' }} onClick={() => { canclePostEdit(props.post.post_id) }} type='button'>Cancle</Button>
 
                     </form>
@@ -376,16 +382,16 @@ try {
 
                       {( flagLike == true ) ?
                               <form action="" onSubmit={removeLikePost}>
-                                <button type='submit' style={{background : 'none' , border : 'none' , color : '#0d6efd' , textDecoration : 'underLine' }} onClick={()=>handleLikePost(props.post.post_id)}  href="#!" className="d-flex align-items-center me-3">
+                                <button type='submit' style={{background : 'none' , border : 'none', color : 'rgb(35, 196, 131)'  }} onClick={()=>handleLikePost(props.post.post_id)}  href="#!" className="d-flex align-items-center me-3">
                                   <i className="far fa-thumbs-up me-2" />
-                                  <p className="mb-0" style={{color : 'blue' , fontWeight : 'bold'}}>Liked</p>
+                                  <AiFillLike size={25} />  <p className="mb-0" >Like</p>
                                 </button>
                               </form>
                       :
                               <form action="" onSubmit={likePost}>
-                                  <button type='submit' style={{background : 'none' , border : 'none' , color : '#0d6efd' , textDecoration : 'underLine' }} onClick={()=>handleLikePost(props.post.post_id)}  href="#!" className="d-flex align-items-center me-3">
+                                  <button type='submit' style={{background : 'none' , border : 'none'}} onClick={()=>handleLikePost(props.post.post_id)}  href="#!" className="d-flex align-items-center me-3">
                                     <i className="far fa-thumbs-up me-2" />
-                                    <p className="mb-0">Like</p>
+                                    <AiOutlineLike size={25}/><p className="mb-0">Like</p>
                                   </button>
                               </form>
                       }
@@ -426,7 +432,7 @@ try {
                               <Button variant="success" size="sm"  id={`editCommentBTN${comment.comment_id}`} onClick={() => { editComment(comment.comment_id) }}><BiEdit /></Button>
                             </div> : (props.post.user_id === current_ID) ?
                               <div>
-                                <button onClick={() => { deleteComment(comment.comment_id) }}>Remove comment</button>
+                                <Button variant="danger"  style={{marginLeft:"-15%"}} onClick={() => { deleteComment(comment.comment_id) }}><MdDeleteForever /></Button>
                               </div>
                               : null}
                         </div>
@@ -460,7 +466,7 @@ try {
                   <img className="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width={40} height={40} />
                   <form className="form-outline " onSubmit={handleCreateComment}>
                     <textarea className="form-control" id={props.post.post_id} name={current_ID} rows={4} style={{ background: '#fff', width: '28rem'}} onChange={handleChange} />
-                    <Button variant="success" style={{marginTop:"2% "}} type="submit" className="btn btn-primary btn-sm">Comment</Button>
+                    <Button style={{marginTop:"2% ",backgroundColor:"#23c483",border:"none"}} type="submit"  >Comment</Button>
                   </form>
                 </div>
               </div>

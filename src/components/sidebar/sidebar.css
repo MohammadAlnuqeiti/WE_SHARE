@@ -73,9 +73,17 @@ a:active { text-decoration: none; }
     
   }
   
+  .sidebarListItem:hover {
+    color: #23c483;
+    
+  }
+ 
+
   .sidebarIcon {
     margin-right: 15px;
   }
+
+
   
   .sidebarButton {
     width: 150px;

@@ -12,8 +12,8 @@ import {
   SidebarContent
 } from "react-pro-sidebar";
 
-//import icons from react icons
 import "./style.css";
+//import icons from react icons
 import { FaList, FaRegHeart } from "react-icons/fa";
 import {
   FiHome,
@@ -25,7 +25,7 @@ import { RiPencilLine } from "react-icons/ri";
 import { BiCog } from "react-icons/bi";
 
 //import sidebar css from react-pro-sidebar module and our custom css
-// import "react-pro-sidebar/dist/css/styles.css";
+
 import "./sidebar.css";
 
 const Header = () => {

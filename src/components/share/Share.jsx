@@ -2,7 +2,7 @@ import "./share.css";
 import { MdPermMedia,MdLabelImportantOutline,MdOutlineMeetingRoom,MdEmojiEmotions } from 'react-icons/md';
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { CgSoftwareUpload } from "react-icons/cg";
+import { IoMdPhotos } from "react-icons/io";
 
 
 export default function Share() {
@@ -76,7 +76,7 @@ const handlePost = (e) => {
                     {/* <MdPermMedia htmlColor="tomato" className="shareIcon"/> */}
                     <input type="file" className="shareInput" id="file"
                      onChange={(e) => setFile(e.target.files[0])} hidden/>
-            <label className="label" for="file"><CgSoftwareUpload size={20}/>Choose file</label>
+            <label className="label" for="file"><IoMdPhotos size={20}/></label>
                     {/* <input
             type="file" 
             className="shareInput" id="file"

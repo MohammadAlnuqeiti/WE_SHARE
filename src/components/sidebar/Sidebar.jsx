@@ -12,6 +12,12 @@ import { useState , useEffect } from 'react';
 import { Users } from "../../dummyData/dummyData";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { TbLogout} from 'react-icons/tb';
+import { MdOutlineGroups} from 'react-icons/md';
+import { HiOutlineHome} from 'react-icons/hi';
+
+
+
 
 
 export default function Sidebar() {
@@ -58,23 +64,23 @@ const handleLogOut = () => {
       <div className="sidebarWrapper">
         <ul className="sidebarList">
           <li className="sidebarListItem">
-            <MdRssFeed className="sidebarIcon" />
+            <HiOutlineHome size={20} className="sidebarIcon" />
             <NavLink to="/home" className="sidebarListItemText">Home</NavLink>
           </li>
           <li className="sidebarListItem">
-          <BsFillPersonFill className="sidebarIcon" />
+          <BsFillPersonFill size={20} className="sidebarIcon" />
             <NavLink to={`/profile/${current_ID}`} className="sidebarListItemText">Profile</NavLink>
           </li>
           <li className="sidebarListItem">
-            <BiGroup className="sidebarIcon" />
-            <NavLink to="/Allgroups" className="sidebarListItemText">All Groups</NavLink>
+            <MdOutlineGroups size={20} className="sidebarIcon" />
+            <NavLink to="/Allgroups" className="sidebarListItemText">Groups</NavLink>
           </li>
           <li className="sidebarListItem">
-            <BiGroup className="sidebarIcon" />
-            <NavLink to="/Allusers" className="sidebarListItemText">All Users</NavLink>
+            <BiGroup size={20} className="sidebarIcon" />
+            <NavLink to="/Allusers" className="sidebarListItemText">Users</NavLink>
           </li>
           <li className="sidebarListItem">
-            <BiGroup className="sidebarIcon" />
+            <TbLogout size={20} className="sidebarIcon" />
             <NavLink to="/logout" className="sidebarListItemText" onClick={handleLogOut}>Logout</NavLink>
           </li>   
 
@@ -123,6 +129,7 @@ const handleLogOut = () => {
            )})}
         </ul>
       </div>
+      
     </div>
   );
 }
