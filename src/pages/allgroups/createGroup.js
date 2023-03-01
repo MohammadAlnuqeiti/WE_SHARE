@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from "react-router-dom";
 import { useState , useEffect } from 'react';
+import { IoMdPhotos } from "react-icons/io";
 
 
 export default function CreateGroup(props) {
@@ -36,10 +37,7 @@ export default function CreateGroup(props) {
 <div id= "form">
 
     {/*  Button Add to Group */}
-      <button className="BtnAdd"> Create Group </button>
-
-      <br />
-      <br />
+      <h2 style={{color:"white"}}>Create Group</h2>
       <br />
 
 
@@ -52,12 +50,13 @@ export default function CreateGroup(props) {
 
          <input  name="title" placeholder="Group Title" type="text" id="text" value={props.text} onChange={(e) => props.setText(e.target.value)} />
          <input name="description" required placeholder="Group Description"  type="text" id="text" value={props.group_description} onChange={(e) => props.setGroupDescription(e.target.value)} />
-        <input type="file"  name="img" id="file" accept="image/*"  onChange={(e) => props.setFile(e.target.files[0])}/>
+        <input type="file"  name="img" id="file" accept="image/*"  onChange={(e) => props.setFile(e.target.files[0])} hidden/>
+        <label className="label" for="file"><IoMdPhotos size={20}/>Choose Photo</label>
 
 
+        <br/>
 
-
-         <button className="button_submit">Add Group</button>
+        <button className="BtnAdd"> Create Group </button>
        </form>
      </section>
     </div>

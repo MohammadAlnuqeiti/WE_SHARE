@@ -82,7 +82,7 @@ export default function Topbar() {
           <div  className="topbarIconItem">
           <Dropdown >
       <Dropdown.Toggle variant="#008069" bsPrefix >
-      <BsFillPersonFill style={{color:"white"}} />
+      <BsFillPersonFill size={25} style={{color:"white"}} />
       {requestFriends.length > 0 ?
             <span className="topbarIconBadge">{requestFriends.length}</span>
             :

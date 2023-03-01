@@ -73,7 +73,7 @@
     padding: 0.7em 1.4em 0.7em 1.1em;
     color: white;
     background: #ad5389;
-    background: linear-gradient(0deg, rgb(0, 128, 105) 0%, rgba(102,247,113,1) 100%);
+    background: linear-gradient(0deg, rgb(35, 196, 131) 0%, rgb(35, 196, 131) 100%);
     border: none;
     box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
     letter-spacing: 0.05em;
@@ -86,7 +86,7 @@
 
   .label{
     display: inline-block;
-    background-color:gray;
+    background-color:#23c483;
     color: white;
     padding: 0.5rem;
     font-family: sans-serif;
