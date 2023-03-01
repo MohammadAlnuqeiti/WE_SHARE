@@ -5,7 +5,7 @@ import axios from "axios";
 import { IoMdPhotos } from "react-icons/io";
 
 
-export default function Share() {
+export default function Share(props) {
 
   const current_ID = JSON.parse(localStorage.getItem('id'));
   const ImageUser = localStorage.getItem('image');
@@ -47,7 +47,9 @@ const handleImagePost = async (e) => {
       "http://localhost:80/frontend/back_end/posts.php", formData
     );
     console.log(response.data);
-    window.location.assign('/home');
+    props.handleSubmit(Math.random());
+
+    // window.location.assign('/home');
   } catch (error) {
     console.error(error);
   }

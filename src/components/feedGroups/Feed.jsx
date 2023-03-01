@@ -19,10 +19,18 @@ export default function Feed(props) {
   const [posts , setPosts] = useState([]);
   const [comments , setComments] = useState([]);
   const [likes , setLikes] = useState([]);
+  const [check, setCheck] = useState();
 
+  const handleSubmit = (check) => {
+    console.log(check,"dddd");
+    getPosts();
+    setCheck(check);
+    
+  
+  }
   useEffect(()=>{
     getPosts();
-} , [])
+} , [check])
 
 function getPosts(){
   axios.get(`http://localhost:80/frontend/back_end/postsGroup.php/${props.group_id})`)
@@ -34,13 +42,13 @@ function getPosts(){
   return (
     <div className="feed">
       <div className="feedWrapper">
-        <Share group_id={props.group_id}/>
+        <Share group_id={props.group_id} handleSubmit={handleSubmit}/>
 
         {(posts == []) ?
                   <></>
                   :
                   posts.map((p) =>(
-                    <Post group_id={props.group_id} admin_group={props.admin_group} key = {p.id} post ={p}/>
+                    <Post group_id={props.group_id} admin_group={props.admin_group} key = {p.id} post ={p} handleSubmit={handleSubmit}/>
                     ))}
         {/* <Post group_id={props.group_id} admin_group={props.admin_group}/> */}
         

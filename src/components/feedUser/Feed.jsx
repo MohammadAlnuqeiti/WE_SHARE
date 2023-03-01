@@ -12,10 +12,17 @@ export default function Feed(props) {
   const [check, setCheck] = useState(false);
 
 
+
   useEffect(() => {
     getPosts();
-  }, [props.check])
-
+  }, [check])
+  const handleSubmit = (check) => {
+    console.log(check,"dddd");
+    getPosts();
+    setCheck(check);
+    
+  
+  }
   // Posts
 
 
@@ -31,12 +38,12 @@ export default function Feed(props) {
   return (
     <div className="feed">
       <div className="feedWrapper">
-        <Share />
+        <Share handleSubmit={handleSubmit}/>
         {(posts == []) ?
                   <></>
                   :
                   posts.map((p) =>(
-                    <Post  user_id={props.user_id} key = {p.id} post ={p}/>
+                    <Post  user_id={props.user_id} key = {p.id} post ={p} handleSubmit={handleSubmit}/>
                     ))}
         {/* <Post user_id={props.user_id}/> */}
         
