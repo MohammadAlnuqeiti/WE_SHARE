@@ -17,7 +17,7 @@ export default class Login extends Component {
     }
 
     componentDidMount = () =>{
-        axios.get("http://localhost:80/frontend/back_end/user.php/users/")
+        axios.get("http://localhost:80/WE_SHARE/back_end/user.php/users/")
         .then((respone)=>{
             this.setState({
                 users:respone.data

@@ -39,7 +39,7 @@ export default function Profile() {
   // لعرض  بيانات المستخدم في الموقع
   const getDataUsers = () => {
 
-    axios.get(`http://localhost:80/frontend/back_end/user.php/users/${current_ID}`)
+    axios.get(`http://localhost:80/WE_SHARE/back_end/user.php/users/${current_ID}`)
     .then((respone)=>{
       setDataUsers(respone.data)
         console.log(respone.data);

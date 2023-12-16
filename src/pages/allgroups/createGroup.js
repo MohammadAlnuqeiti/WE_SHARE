@@ -21,7 +21,7 @@ export default function CreateGroup(props) {
 
 //     try {
 //       const response = await axios.post(
-//         "http://localhost:80/frontend/back_end/groups.php",
+//         "http://localhost:80/WE_SHARE/back_end/groups.php",
 //         formData
 //       );
 //       console.log(response.data);

@@ -27,7 +27,7 @@ useEffect(()=>{
 
 
 function getUsers(){
-    axios.get(`http://localhost:80/frontend/back_end/getAllFriendsUser.php/${profile_id}`)
+    axios.get(`http://localhost:80/WE_SHARE/back_end/getAllFriendsUser.php/${profile_id}`)
     .then(response => {
       console.log(response.data);
         setUsers(response.data);
@@ -36,7 +36,7 @@ function getUsers(){
   
   const getDataUsers = () => {
 
-    axios.get(`http://localhost:80/frontend/back_end/user.php/users/${current_ID}`)
+    axios.get(`http://localhost:80/WE_SHARE/back_end/user.php/users/${current_ID}`)
     .then((respone)=>{
       setDataUsers(respone.data[0])
         console.log(respone.data[0]);
@@ -65,7 +65,7 @@ function getUsers(){
     
     const getFriendsAccepted = () => {
 
-      axios.get(`http://localhost:80/frontend/back_end/friends.php/${id}`)
+      axios.get(`http://localhost:80/WE_SHARE/back_end/friends.php/${id}`)
       .then((respone)=>{
           console.log(respone.data);
           let friends = respone.data.map((ele)=>{

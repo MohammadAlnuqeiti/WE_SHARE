@@ -30,7 +30,7 @@ export default function Feed() {
 
 
 const getPosts =  () =>{
-  axios.get(`http://localhost:80/frontend/back_end/posts.php/${current_ID}`)
+  axios.get(`http://localhost:80/WE_SHARE/back_end/posts.php/${current_ID}`)
   .then(response => {
     console.log(response.data);
     setPosts(response.data);

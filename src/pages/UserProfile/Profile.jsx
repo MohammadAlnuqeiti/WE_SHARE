@@ -39,7 +39,7 @@ export default function UserProfile() {
     // لعرض  بيانات المستخدم في الموقع
     const getDataUsers = () => {
 
-      axios.get(`http://localhost:80/frontend/back_end/user.php/users/${id}`)
+      axios.get(`http://localhost:80/WE_SHARE/back_end/user.php/users/${id}`)
       .then((respone)=>{
         setDataUsers(respone.data)
           console.log(respone.data);
@@ -50,7 +50,7 @@ export default function UserProfile() {
     
     const getFriendsUser = () => {
 
-      axios.get(`http://localhost:80/frontend/back_end/friends.php/${id}`)
+      axios.get(`http://localhost:80/WE_SHARE/back_end/friends.php/${id}`)
       .then((respone)=>{
           console.log(respone.data);
           let friends = respone.data.map((ele)=>{
@@ -67,7 +67,7 @@ export default function UserProfile() {
  // اللي بعثهم المستخدم pending عرض جميع طلبات الصداقة في حالة 
  const getFriendsPending = () => {
 
-  axios.get(`http://localhost:80/frontend/back_end/acceptFriend.php/${current_ID}`)
+  axios.get(`http://localhost:80/WE_SHARE/back_end/acceptFriend.php/${current_ID}`)
   .then((respone)=>{
       console.log(respone.data);
       let pendingRequest = respone.data.map((ele)=>{
@@ -83,7 +83,7 @@ export default function UserProfile() {
 
 const getFriendsAccepted = () => {
 
-  axios.get(`http://localhost:80/frontend/back_end/friends.php/${current_ID}`)
+  axios.get(`http://localhost:80/WE_SHARE/back_end/friends.php/${current_ID}`)
   .then((respone)=>{
       console.log(respone.data);
       let friends = respone.data.map((ele)=>{
@@ -99,7 +99,7 @@ const getFriendsAccepted = () => {
 
   const getFriendsRequest = () => {
 
-      axios.get(`http://localhost:80/frontend/back_end/friendRequests.php/${current_ID}`)
+      axios.get(`http://localhost:80/WE_SHARE/back_end/friendRequests.php/${current_ID}`)
       .then((respone)=>{
           console.log(respone.data);
           let requestFriend = respone.data.map((ele)=>{
@@ -115,7 +115,7 @@ const getFriendsAccepted = () => {
 //  pending وحالته بتكون friends  اضافة صديق جديد في جدول ال 
 const AddFriends = (friendId) => {
   let inputs = {user_id:current_ID , friend_id:friendId};
-  axios.post(`http://localhost:80/frontend/back_end/friends.php/save`,inputs)
+  axios.post(`http://localhost:80/WE_SHARE/back_end/friends.php/save`,inputs)
   .then((respone)=>{
       console.log(respone.data);
       getFriendsPending();
@@ -130,7 +130,7 @@ const AddFriends = (friendId) => {
 // status الموافقة على طلب الصداقة وتغيير ال 
 const AcceptFriend = (friendId) => {
   let inputs = {user_id:current_ID , friend_id:friendId};
-  axios.put(`http://localhost:80/frontend/back_end/friends.php/edit`,inputs)
+  axios.put(`http://localhost:80/WE_SHARE/back_end/friends.php/edit`,inputs)
   .then((respone)=>{
       console.log(respone.data);
       getFriendsPending();
@@ -146,7 +146,7 @@ const AcceptFriend = (friendId) => {
 // الغاء ارسال طلب الصداقة
 const removeRequest = (friendId) => {
   let inputs = {user_id:current_ID , friend_id:friendId};
-  axios.put(`http://localhost:80/frontend/back_end/removeRequest.php/edit`,inputs)
+  axios.put(`http://localhost:80/WE_SHARE/back_end/removeRequest.php/edit`,inputs)
   .then((respone)=>{
       console.log(respone.data);
       getFriendsPending();
@@ -160,7 +160,7 @@ const removeRequest = (friendId) => {
 // حذف الصداقة
 const removeFriend = (friendId) => {
   let inputs = {user_id:current_ID , friend_id:friendId};
-  axios.put(`http://localhost:80/frontend/back_end/removeFriends.php`,inputs)
+  axios.put(`http://localhost:80/WE_SHARE/back_end/removeFriends.php`,inputs)
   .then((respone)=>{
       console.log(respone.data);
       getFriendsPending();

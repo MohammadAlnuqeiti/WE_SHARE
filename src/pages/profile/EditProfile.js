@@ -38,7 +38,7 @@ function EditProfile({ post }){
 
 
     function getUser(){
-        axios.get(`http://localhost:80/frontend/back_end/userProfile.php/${profile_id}`)
+        axios.get(`http://localhost:80/WE_SHARE/back_end/userProfile.php/${profile_id}`)
         .then(response => {
             setUser(response.data);
         })
@@ -65,7 +65,7 @@ function EditProfile({ post }){
       
         try {
           const response = await axios.post(
-            `http://localhost:80/frontend/back_end/editUserProfile.php/${profile_id}`, formEditData
+            `http://localhost:80/WE_SHARE/back_end/editUserProfile.php/${profile_id}`, formEditData
           );
           console.log(response.data);
           window.location.assign(`/profile/${profile_id}`);

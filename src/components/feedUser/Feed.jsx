@@ -29,7 +29,7 @@ export default function Feed(props) {
 
 
   function getPosts() {
-    axios.get(`http://localhost:80/frontend/back_end/getPostForUser.php/${props.user_id}`)
+    axios.get(`http://localhost:80/WE_SHARE/back_end/getPostForUser.php/${props.user_id}`)
       .then(response => {
         console.log(response.data);
         setPosts(response.data);

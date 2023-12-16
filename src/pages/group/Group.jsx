@@ -46,7 +46,7 @@ export default function Group() {
 
 const getMyAcceptrdGroups = () => {
 
-  axios.get(`http://localhost:80/frontend/back_end/getMyGroupAcceptedStatus.php/${current_ID}`)
+  axios.get(`http://localhost:80/WE_SHARE/back_end/getMyGroupAcceptedStatus.php/${current_ID}`)
   .then(response => {
       console.log(response.data)
       let myAcceptedGroups = response.data.map((ele)=>{
@@ -62,7 +62,7 @@ const getMyAcceptrdGroups = () => {
 }
 const getDataGroups = () => {
 
-  axios.get(`http://localhost:80/frontend/back_end/getDataGroups.php/${id}`)
+  axios.get(`http://localhost:80/WE_SHARE/back_end/getDataGroups.php/${id}`)
   .then(response => {
       console.log(response.data)
       setGroups(response.data);
@@ -71,7 +71,7 @@ const getDataGroups = () => {
 // لعرض  اعضاء الجروب
 const getUsersGroup = () => {
 
-  axios.get(`http://localhost:80/frontend/back_end/getUsersGroup.php/${id}`)
+  axios.get(`http://localhost:80/WE_SHARE/back_end/getUsersGroup.php/${id}`)
   .then(response => {
       console.log(response.data)
       setUserGroups(response.data);
@@ -80,7 +80,7 @@ const getUsersGroup = () => {
 }
 
 const getPendingRequest = () => {
-  axios.get(`http://localhost:80/frontend/back_end/getPendingRequestForGroup.php/${id}`)
+  axios.get(`http://localhost:80/WE_SHARE/back_end/getPendingRequestForGroup.php/${id}`)
   .then((respone)=>{
       console.log(respone.data);
     
@@ -93,7 +93,7 @@ const getPendingRequest = () => {
 const deleteFromGroup = (userId) => {
 
   let inputs = {user_id:userId , group_id:id};
-  axios.put(`http://localhost:80/frontend/back_end/deleteRequestForGroup.php`,inputs)
+  axios.put(`http://localhost:80/WE_SHARE/back_end/deleteRequestForGroup.php`,inputs)
   .then((respone)=>{
       console.log(respone.data);
       getDataGroups();
@@ -108,7 +108,7 @@ const deleteFromGroup = (userId) => {
 const deleteRequest = (userId) => {
 
   let inputs = {user_id:userId , group_id:id};
-  axios.put(`http://localhost:80/frontend/back_end/deleteRequestForGroup.php`,inputs)
+  axios.put(`http://localhost:80/WE_SHARE/back_end/deleteRequestForGroup.php`,inputs)
   .then((respone)=>{
       console.log(respone.data);
       getDataGroups();
@@ -122,7 +122,7 @@ const deleteRequest = (userId) => {
 const acceptRequest = (userId) => {
 
   let inputs = {user_id:userId , group_id:id};
-  axios.put(`http://localhost:80/frontend/back_end/membersGroup.php`,inputs)
+  axios.put(`http://localhost:80/WE_SHARE/back_end/membersGroup.php`,inputs)
   .then((respone)=>{
       console.log(respone.data);
       getDataGroups();
@@ -136,7 +136,7 @@ const acceptRequest = (userId) => {
 // لعرض كل الجروبات في الموقع
 
 function getGroups(){
-  axios.get(`http://localhost:80/frontend/back_end/groups.php/`)
+  axios.get(`http://localhost:80/WE_SHARE/back_end/groups.php/`)
   .then(response => {
       console.log(response.data)
       setDataGroups(response.data);
@@ -148,7 +148,7 @@ function getGroups(){
 // لاضافة عضو لجروب معين
 const AddToGroup = (groupId) => {
   let inputs = {user_id:current_ID , group_id:groupId};
-  axios.post(`http://localhost:80/frontend/back_end/membersGroup.php/save`,inputs)
+  axios.post(`http://localhost:80/WE_SHARE/back_end/membersGroup.php/save`,inputs)
   .then((respone)=>{
       console.log(respone.data);
       getPendingMempers();
@@ -159,7 +159,7 @@ const AddToGroup = (groupId) => {
      //للجروبات pending لعرض كل طلبات المستخدم اللي حالتهم 
     const getPendingMempers = () => {
 
-        axios.get(`http://localhost:80/frontend/back_end/getPendingMember.php/${current_ID}`)
+        axios.get(`http://localhost:80/WE_SHARE/back_end/getPendingMember.php/${current_ID}`)
         .then((respone)=>{
             console.log(respone.data);
             let pendingMembers = respone.data.map((ele)=>{
@@ -174,7 +174,7 @@ const AddToGroup = (groupId) => {
          //للجروبات accepted لعرض كل طلبات المستخدم اللي حالتهم 
          const getAcceptedMempers = () => {
 
-          axios.get(`http://localhost:80/frontend/back_end/getAcceptedMember.php/${current_ID}`)
+          axios.get(`http://localhost:80/WE_SHARE/back_end/getAcceptedMember.php/${current_ID}`)
           .then((respone)=>{
               console.log(respone.data);
               let acceptedMembers = respone.data.map((ele)=>{
@@ -189,7 +189,7 @@ const AddToGroup = (groupId) => {
   // لحذب طلب الاضافة 
     const removeRequest = (GroupId) => {
       let inputs = {user_id:current_ID , group_id:GroupId};
-      axios.put(`http://localhost:80/frontend/back_end/getPendingMember.php/edit`,inputs)
+      axios.put(`http://localhost:80/WE_SHARE/back_end/getPendingMember.php/edit`,inputs)
       .then((respone)=>{
           console.log(respone.data);
           getUsersGroup();

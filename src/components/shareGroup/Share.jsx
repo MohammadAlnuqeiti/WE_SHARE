@@ -49,7 +49,7 @@ const handleImagePost = async (e) => {
 
   try {
     const response = await axios.post(
-      "http://localhost:80/frontend/back_end/postsGroup.php", formData
+      "http://localhost:80/WE_SHARE/back_end/postsGroup.php", formData
     );
     console.log(response.data);
     props.handleSubmit(Math.random());

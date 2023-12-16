@@ -33,7 +33,7 @@ export default function Topbar() {
       // لعرض  بيانات المستخدم في الموقع
       const getDataUsers = () => {
 
-        axios.get(`http://localhost:80/frontend/back_end/user.php/users/${id}`)
+        axios.get(`http://localhost:80/WE_SHARE/back_end/user.php/users/${id}`)
         .then((respone)=>{
           setDataUsers(respone.data)
             console.log(respone.data);
@@ -41,7 +41,7 @@ export default function Topbar() {
     }
   const getFriendsRequest = () => {
 
-    axios.get(`http://localhost:80/frontend/back_end/friendRequests.php/${id}`)
+    axios.get(`http://localhost:80/WE_SHARE/back_end/friendRequests.php/${id}`)
     .then((respone)=>{
         console.log(respone.data);
         let requestFriend = respone.data.map((ele)=>{
@@ -56,7 +56,7 @@ export default function Topbar() {
     // status الموافقة على طلب الصداقة وتغيير ال 
     const AcceptFriend = (friendId) => {
       let inputs = {user_id:id , friend_id:friendId};
-      axios.put(`http://localhost:80/frontend/back_end/friends.php/edit`,inputs)
+      axios.put(`http://localhost:80/WE_SHARE/back_end/friends.php/edit`,inputs)
       .then((respone)=>{
           getFriendsRequest();
       })

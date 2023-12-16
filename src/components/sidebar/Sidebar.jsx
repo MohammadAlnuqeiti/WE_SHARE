@@ -35,7 +35,7 @@ export default function Sidebar(props) {
 } , [props.check])
 
 function getGroups(){
-  axios.get(`http://localhost:80/frontend/back_end/groups.php/`)
+  axios.get(`http://localhost:80/WE_SHARE/back_end/groups.php/`)
   .then(response => {
       console.log(response.data)
       setGroups(response.data);
@@ -44,7 +44,7 @@ function getGroups(){
 
 const getMyAcceptrdGroups = () => {
 
-  axios.get(`http://localhost:80/frontend/back_end/getMyGroupAcceptedStatus.php/${current_ID}`)
+  axios.get(`http://localhost:80/WE_SHARE/back_end/getMyGroupAcceptedStatus.php/${current_ID}`)
   .then(response => {
       console.log(response.data)
       setMyAcceptrdGroups(response.data);

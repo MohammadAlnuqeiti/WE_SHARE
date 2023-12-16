@@ -33,7 +33,7 @@ export default function Feed(props) {
 } , [check])
 
 function getPosts(){
-  axios.get(`http://localhost:80/frontend/back_end/postsGroup.php/${props.group_id})`)
+  axios.get(`http://localhost:80/WE_SHARE/back_end/postsGroup.php/${props.group_id})`)
   .then(response => {
       setPosts(response.data);
   })

@@ -30,7 +30,7 @@ export default function Allgroups() {
 
     const getGroups =()=>{
         
-        axios.get("http://localhost/frontend/back_end/groups.php")
+        axios.get("http://localhost/WE_SHARE/back_end/groups.php")
       
         .then((res)=>{
             console.log(res.data)
@@ -42,7 +42,7 @@ export default function Allgroups() {
 // لاضافة عضو لجروب معين
 const AddToGroup = (groupId) => {
   let inputs = {user_id:current_ID , group_id:groupId};
-  axios.post(`http://localhost:80/frontend/back_end/membersGroup.php/save`,inputs)
+  axios.post(`http://localhost:80/WE_SHARE/back_end/membersGroup.php/save`,inputs)
   .then((respone)=>{
       console.log(respone.data);
       getGroups();
@@ -54,7 +54,7 @@ const AddToGroup = (groupId) => {
      //للجروبات pending لعرض كل طلبات المستخدم اللي حالتهم 
     const getPendingMempers = () => {
 
-        axios.get(`http://localhost:80/frontend/back_end/getPendingMember.php/${current_ID}`)
+        axios.get(`http://localhost:80/WE_SHARE/back_end/getPendingMember.php/${current_ID}`)
         .then((respone)=>{
             console.log(respone.data);
             let pendingMembers = respone.data.map((ele)=>{
@@ -69,7 +69,7 @@ const AddToGroup = (groupId) => {
          //للجروبات accepted لعرض كل طلبات المستخدم اللي حالتهم 
          const getAcceptedMempers = () => {
 
-          axios.get(`http://localhost:80/frontend/back_end/getAcceptedMember.php/${current_ID}`)
+          axios.get(`http://localhost:80/WE_SHARE/back_end/getAcceptedMember.php/${current_ID}`)
           .then((respone)=>{
               console.log(respone.data);
               let acceptedMembers = respone.data.map((ele)=>{
@@ -84,7 +84,7 @@ const AddToGroup = (groupId) => {
   // لحذب طلب الاضافة 
     const removeRequest = (GroupId) => {
       let inputs = {user_id:current_ID , group_id:GroupId};
-      axios.put(`http://localhost:80/frontend/back_end/getPendingMember.php/edit`,inputs)
+      axios.put(`http://localhost:80/WE_SHARE/back_end/getPendingMember.php/edit`,inputs)
       .then((respone)=>{
           console.log(respone.data);
           getGroups();
@@ -110,7 +110,7 @@ const handleSubmit = async (e) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:80/frontend/back_end/groups.php",
+        "http://localhost:80/WE_SHARE/back_end/groups.php",
         formData
       );
       console.log(response.data);

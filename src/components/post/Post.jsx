@@ -49,7 +49,7 @@ export default function Post(props) {
 
 
   // function getPosts() {
-  //   axios.get(`http://localhost:80/frontend/back_end/posts.php/`)
+  //   axios.get(`http://localhost:80/WE_SHARE/back_end/posts.php/`)
   //     .then(response => {
   //       // console.log(response.data);
   //       setPosts(response.data);
@@ -68,7 +68,7 @@ export default function Post(props) {
 
   //   try {
   //     const response = await axios.post(
-  //       "http://localhost:80/frontend/back_end/posts.php", formData
+  //       "http://localhost:80/WE_SHARE/back_end/posts.php", formData
   //     );
   //     console.log(response.data);
     
@@ -122,7 +122,7 @@ export default function Post(props) {
 
     try {
       const response = await axios.post(
-        "http://localhost:80/frontend/back_end/postEdit.php", formEditData
+        "http://localhost:80/WE_SHARE/back_end/postEdit.php", formEditData
       );
       props.handleSubmit(Math.random());
       getComments();
@@ -148,7 +148,7 @@ const updateState = () =>{
 
 
 const deletePost = (id) => {
-  axios.delete(`http://localhost:80/frontend/back_end/posts.php/${id}`).then(function (response) {
+  axios.delete(`http://localhost:80/WE_SHARE/back_end/posts.php/${id}`).then(function (response) {
     // window.location.assign('/');
     props.handleSubmit(Math.random());
 
@@ -190,7 +190,7 @@ const deletePost = (id) => {
 
 
   async function getComments() {
-    await axios.get(`http://localhost:80/frontend/back_end/comments.php/`)
+    await axios.get(`http://localhost:80/WE_SHARE/back_end/comments.php/`)
       .then(response => {
         console.log(response.data);
         setComments(response.data);
@@ -200,7 +200,7 @@ const deletePost = (id) => {
   const handleCreateComment = async (e) => {
     e.preventDefault();
     
-    await axios.post('http://localhost:80/frontend/back_end/comments.php/', inputs).then((res) => {
+    await axios.post('http://localhost:80/WE_SHARE/back_end/comments.php/', inputs).then((res) => {
       console.log(res);
       getComments();
       // window.location.assign('/')
@@ -210,7 +210,7 @@ const deletePost = (id) => {
 
   const deleteComment = (id) => {
     // console.log(id);
-    axios.delete(`http://localhost:80/frontend/back_end/comments.php/${id}`).then(function (response) {
+    axios.delete(`http://localhost:80/WE_SHARE/back_end/comments.php/${id}`).then(function (response) {
       console.log(response);
       getComments();
     })
@@ -231,7 +231,7 @@ const deletePost = (id) => {
   const handleEditCommentSubmit =  (e) => {
     e.preventDefault();
 
-     axios.put('http://localhost:80/frontend/back_end/comments.php/', inputs).then(()=>{
+     axios.put('http://localhost:80/WE_SHARE/back_end/comments.php/', inputs).then(()=>{
       // props.handleSubmit(Math.random());
       // setCheck(Math.random())
       getComments();
@@ -281,7 +281,7 @@ const deletePost = (id) => {
 
 
   const getLikes = () => {
-    axios.get(`http://localhost:80/frontend/back_end/likes.php/`)
+    axios.get(`http://localhost:80/WE_SHARE/back_end/likes.php/`)
     .then(response => {
       console.log(response.data);
         setLikes(response.data);
@@ -297,7 +297,7 @@ const deletePost = (id) => {
   const likePost = async (e) => {
     e.preventDefault();
     console.log(inputs)
-      await axios.post('http://localhost:80/frontend/back_end/likes.php/' , inputs).then(()=>{
+      await axios.post('http://localhost:80/WE_SHARE/back_end/likes.php/' , inputs).then(()=>{
 
         getComments();
         getLikes();
@@ -308,7 +308,7 @@ const deletePost = (id) => {
   const removeLikePost = async (e) => {
     e.preventDefault();
     console.log(inputs)
-      await axios.post('http://localhost:80/frontend/back_end/likeDelete.php/' , inputs).then(()=>{
+      await axios.post('http://localhost:80/WE_SHARE/back_end/likeDelete.php/' , inputs).then(()=>{
 
         getComments();
         getLikes();
